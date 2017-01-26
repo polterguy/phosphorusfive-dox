@@ -10,4 +10,4 @@ The book is licensed under the terms of the GPL, version 3, just like Phosphorus
 
 ## Chapters
 
-- [chapter-1.md](Chapter 1, Ajax)
+- [Chapter 1, Ajax](chapter-1.md)
