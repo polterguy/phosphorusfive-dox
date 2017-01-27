@@ -1,4 +1,4 @@
-# Phosphorus Five, the beginner's guide
+# Phosphorus Five, the guide
 
 Welcome to the book about Phosphorus Five. Phosphorus Five, also referred to as P5 in this guide, is a lot of different things. It is a simple design pattern, it is an Ajax library, it is a programming language, and it is a framework. Some would also argue that it is a web operating system. What you choose to refer to it as, is really quite irrelevant. The point is that it solves your problems, particularly the ones you’re having, as you try to create rich and interactive web apps. P5 is explicitly created to ease your burden when you wish to create rich interactive, single page web apps. This book aims at being your _“one stop guide”_, as you start out with P5. A beginner’s introduction. Starting out at the _“for dummies level”_, and hopefully moving you on to the expert’s level.
 
@@ -19,9 +19,9 @@ howdy-world
 
 ## Advanced topics
 
-Advanced topics, which is not necessary to understand, in order to master P5, is explicitly marked as such. You will often find a link closed to where a topic has been marked as advanced, allowing you to easily skip the advanced parts. Often, the advanced topics of P5, is given inline, to preserve context. This means, that advanced topics, are equally easily found in the beginning of the book, as they are at the end of the book.
+Advanced topics, which is not necessary to understand, in order to master P5, is explicitly marked as such. You will often find a link close to where a topic has been marked as advanced, allowing you to easily skip the advanced parts. Often, the advanced topics of P5, is given inline, to preserve context. This means, that advanced topics, are equally easily found in the beginning of the book, as they are at the end of the book.
 
-You can easily skip advanced topics though, in your first read through, for later to refer to them, as the need surfaces.
+You can easily skip advanced topics though, in your first read through, for later to refer to them, as the need surfaces. This ensures that the book is not only a beginner's guide, but also of use for the *"Shaolin Ninja master developers"*.
 
 ## Downloading the book
 
@@ -34,3 +34,5 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 ## Chapters
 
 - [Chapter 1, Ajax](chapter-1.md)
+- [Chapter 2, Hello world](chapter-2.md)
+- [Chapter 2, Ajax widgets](chapter-3.md)
