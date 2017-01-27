@@ -21,7 +21,11 @@ howdy-world
 
 Advanced topics, which is not necessary to understand, in order to master P5, is explicitly marked as such. You will often find a link close to where a topic has been marked as advanced, allowing you to easily skip the advanced parts. Often, the advanced topics of P5, is given inline, to preserve context. This means, that advanced topics, are equally easily found in the beginning of the book, as they are at the end of the book.
 
-You can easily skip advanced topics though, in your first read through, for later to refer to them, as the need surfaces. This ensures that the book is not only a beginner's guide, but also of use for the *"Shaolin Ninja master developers"*.
+You can easily skip advanced topics though, in your first read through, for later to refer to them, as the need surfaces. This ensures that the book is not only a beginner's guide, but also of use for the *"Shaolin Ninja master P5 developers"*.
+
+In general, there are three different ways of reading this book. There is the *"beginner's guide"*, which assumes you do not read any of the advanced chapters. This allows you to rapidly get up to speed in your understanding of P5. This type of reading can probably be done in a day, following simple copy and paste tutorial examples, intended to demonstrate some simple ideas, allowing you to gain terrain rapidly, as you start out with P5. Then there's the *"master's read through"*, which is intended for a second reading of the book. This is a much more thoroughly explanation, intended to give you knowledge of every gory little detail of P5. This reading, assumes you read the *"advanced chapters"*. Then, finally, there's the *"reference guide"* version, allowing you to use the book as a reference guide, when you need to repeat your knowledge of some particular subject of P5.
+
+If this is your first encounter with P5, I would encourage you to skip all the *"advanced chapters"*, to get you up to speed as fast as possible. This type of reading actually expects you to start out your reading at [chapter 2](chapter-2.md).
 
 ## Downloading the book
 
@@ -33,6 +37,8 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 
 ## Chapters
 
-- [Chapter 1, Ajax](chapter-1.md)
+- [Chapter 1, Ajax - Advanced topic](chapter-1.md)
 - [Chapter 2, Hello world](chapter-2.md)
-- [Chapter 2, Ajax widgets](chapter-3.md)
+- [Chapter 3, Ajax widgets - Advanced topic](chapter-3.md)
+- [Chapter 4, Your first Ajax form](chapter-4.md)
+
