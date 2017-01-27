@@ -117,6 +117,13 @@ set:x:/@_bar?value
   src:x:/@_foo?value.int
 ```
 
-For more about expressions, and iterators, please refer to the appendix section.
+### Creating a mental mind model for expressions
+
+One way of realising what lambda expressions are, is to imagine them as the *"tree version of SQL"*. Where SQL allows you to extract two dimensional tables and data-sets, lambda expressions allows you to extract 3 dimensional relational stree structures, from another pre-existing tree structure. If you have some experience with XPath, they might come more natural to you.
+
+For more about expressions, and iterators, please refer to the appendix section. However, I encourage you to read the appendix sections at last, since the contains the by far most advanced parts of the book, and might discourage you to continue reading, if you expose yourself to them too early.
+
+- [Appendix, Expression iterators](appendix-expressions-iterators.md)
+- [Appendix, Boolean algebra on expressions](appendix-expressions-boolean-algebra.md)
 
 [Chapter 6, Changing your tree](chapter-6.md)

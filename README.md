@@ -44,3 +44,9 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 - [Chapter 5, Lambda expressions - Advanced topic](chapter-5.md)
 - [Chapter 6, Changing your tree](chapter-6.md)
 
+## Appendix
+
+These next parts, are the most advanced sections, and contains things you rarely need to worry about, but once in a blue moon.
+
+- [Appendix, Expression iterator](appendix-expressions-iterators.md)
+- [Appendix, Boolean algebra on expressions](appendix-expressions-boolean-algebra.md)
