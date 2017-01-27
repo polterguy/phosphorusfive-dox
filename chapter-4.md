@@ -94,3 +94,5 @@ These expressions are in fact so powerful, that Hyperlambda have no means of dec
 To create a useful mind model for expressions, for those acquinted with XPath and XSLT, it might be useful to perceive Hyperlambda as a combination of XML and XSLT, and lambda expressions as the equivalent of XPath.
 
 Although Hyperlambda, per se, doesn't contain any explicit variables - By convention, you will often find that nodes purely intended to contain data of some sort, are prefixed with either an underscore "_", or a period ".". The reasons for this, is because the Hyperlambda execution engine, will ignore nodes starting with an underscore, or a period, and not attempt to raise these as Active Events.
+
+[Chapter 5, Lambda expressions](chapter-5.md)
