@@ -51,6 +51,7 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 - [Chapter 4, Your first Ajax form](chapter-4.md)
 - [Chapter 5, Lambda expressions - Advanced topic](chapter-5.md)
 - [Chapter 6, Changing your tree](chapter-6.md)
+- [Chapter 7, Your first real application](chapter-7.md)
 
 ## Appendix
 

@@ -363,3 +363,15 @@ set:x:/@_foo2?name
 ## Wrapping up
 
 You should now have a basic understanding of all four CRUD operations for nodes and lambda objects, allowing you to dynamically create and change lambda objects, as you see fit. However, as we started out this chapter with, no other programming languages on this planet, contains any similar constructs to what you have been shown here. Hence, possibly the biggest problem you're now faced with, is creating a mental model for understanding, this very unique, and highly useful idea ...
+
+### Don't panic!
+
+If things are unclear after having read through this chapter, just relax; Things will become clearer as we proceed, and start using the constructs we learned in this chapter. As you gain a more thorough understanding of the art of *"molding lambda objects"*, you can come back to this chapter, and repeat the basics. This chapter have described, possibly one of the most difficult to understand concept in P5. As you get your hands on some real live examples, it will be much more easily understood.
+
+## About the Earth
+
+![alt tag](screenshots/edu_what_is_earth_0.jpg)
+
+**"Mostly harmless!"**
+
+[Chapter 7, Your first real application](chapter-7.md)
