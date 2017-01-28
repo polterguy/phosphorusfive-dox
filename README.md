@@ -1,6 +1,6 @@
 # Phosphorus Five, the guide
 
-Welcome to the book about Phosphorus Five. Phosphorus Five, also referred to as P5 in this guide, is a lot of different things. It is a simple design pattern, it is an Ajax library, it is a programming language, and it is a framework. Some would also argue that it is a web operating system. What you choose to refer to it as, is really quite irrelevant. The point is that it solves your problems, particularly the ones you’re having, as you try to create rich and interactive web apps. P5 is explicitly created to ease your burden when you wish to create rich interactive, single page web apps. This book aims at being your _“one stop guide”_, as you start out with P5. A beginner’s introduction. Starting out at the _“for dummies level”_, and hopefully moving you on to the expert’s level.
+Welcome to the book about [Phosphorus Five](https://github.com/polterguy/phosphorusfive). Phosphorus Five, also referred to as P5 in this guide, is a lot of different things. It is a simple design pattern, it is an Ajax library, it is a programming language, and it is a framework. Some would also argue that it is a web operating system. What you choose to refer to it as, is really quite irrelevant. The point is that it solves your problems, particularly the ones you’re having, as you try to create rich and interactive web apps. P5 is explicitly created to ease your burden when you wish to create rich interactive, single page web apps. This book aims at being your _“one stop guide”_, as you start out with P5. A beginner’s introduction. Starting out at the _“for dummies level”_, and hopefully moving you on to the expert’s level.
 
 ## The goal of the book
 
@@ -35,7 +35,11 @@ In general, there are 3 different ways of reading this book. There is the *"begi
 
 If this is your first encounter with P5, I would encourage you to skip all the *"advanced chapters"*, to get you up to speed as fast as possible. This type of reading actually expects you to start out your reading at [chapter 2](chapter-2.md).
 
-## Downloading the book
+### Introduction about the introduction
+
+This might sound weird, but I actually don't think you will believe some of the statements I have created in the introduction to the book, before you have some *"hands on experience"*. I have therefor chosen to wait with the introduction of the book, until chapter 8. This way, you are ready to believe in what I write about in the book's introduction.
+
+### Downloading the book
 
 Periodically, I will create a download of the book, which you can read locally. This will be in the formats offered by GitHub, such as .zip and .tar.gz. These downloads are the *"raw source"* of the book, which is in Markdown format. It could probably be beneficial for you to use a Markdown editor, or viewer, to read the book. I personally use *"MacDown"* for writing the book. Another great viewer, for Windows, would be *"Markdown Monster"*.
 
@@ -52,6 +56,7 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 - [Chapter 5, Lambda expressions - Advanced topic](chapter-5.md)
 - [Chapter 6, Changing your tree](chapter-6.md)
 - [Chapter 7, Your first real application](chapter-7.md)
+- [Chapter 8, Introduction, The pan galactical gargle blaster](chapter-8.md)
 
 ## Appendix
 
