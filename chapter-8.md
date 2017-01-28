@@ -55,3 +55,5 @@ You will notice, as you start getting used to Hyperlambda, that a single lambda 
 All things from the previously mentioned constructs, are built around a simple axiom; Active Events. This simple design pattern, is the facilitator of everything previously mentioned, and so easy to grasp, that an hour or two of reading, will easily make you understand all of its intrinsic details.
 
 You can easily create an Active Event yourselves, either in C#, or in Hyperlambda. This allows you to extend the language, with your own domain specific keywords, implemented either in C# for efficiency, or in Hyperlambda for simplicity. In the next chapter, we will have a look at how to create a custom Active Event in Hyperlambda.
+
+So if you still think you're able to recover, from the *"pan galactical gargle blaster"* I just served you, let's move on to the next chapter ;)
