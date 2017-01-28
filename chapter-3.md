@@ -41,34 +41,34 @@ In fact, in the above code, the only arguments which are handled by P5 as *"non-
 
 You can associate an Ajax event with your widget the exact same way. P5 will determine if what you're creating is an attribute, or an Ajax event, depending upon its name. If your attribute starts out with the string *"on"*, it will be assumed to be an Ajax event. When you create an Ajax event, then whatever children nodes of the event you create, will become the lambda object that is executed, when the Ajax event is raised.
 
-Notice, you're responsible for making sure your Ajax event actually is associated with a legal DOM event on the client side yourself. You could easily create an Ajax event called *"on_foo"* if you wish. However, this will result in non-conforming HTML, and serve no purpose for you, besides from creating malformed HTML.
+Notice, you're responsible for making sure your Ajax event actually is associated with a legal DOM event on the client side yourself. You could easily create an Ajax event called *"on_foo"* if you wish. However, this will result in non-conforming HTML, and serve no purpose for you, besides from creating malformed HTML. The same is true for attributes.
 
 In our previous chapter for instance, we created an `onclick` Ajax event this way. Further down in this chapter, we will add a similar Ajax event to our video element created above.
 
 ### Widget arguments
 
-There are however some few special arguments to your widgets. These are listed below;
+There are however some special arguments to your widgets. These are listed below;
 
 * **[visible]** - Controls a widget's visibility
-* **[element]** - Declares which HTML element to render widget with
-* **[widgets]** - Declares its children widget collection
+* **[element]** - Declares which HTML element to render your widget with
+* **[widgets]** - Declares its children widgets collection
 * **[innerValue]** - Declares the widget's content
 * **[events]** - Associates custom events with your widget
 * **[parent]** - Parent widget to create widget within
-* **[position]** - Positions your widgets as n'th child in parent's widgets collection
+* **[position]** - Positions your widgets as n'th child in its parent's widgets collection
 * **[before]** - Inject widget *"before"* specified widget
 * **[after]** - Inject widget *"after"* specified widget
 * **[oninit]** - An optional custom lambda object, to be executed, when widget is initially displayed
 
-The **[parent]**, **[before]** and **[after]** arguments are mutually exclusive, and you can only apply one of these arguments. If you choose to use a **[parent]** argument, then the widget will be injected into this widget's children collection. If you use a **[parent]** argument, you can optionally apply a **[position]** argument, containing an integer number, declaring at which position your widget will be injected.
+The **[parent]**, **[before]** and **[after]** arguments are mutually exclusive, and you can only apply one of these arguments. If you choose to use a **[parent]** argument, then the widget will be injected into this widget's children collection. If you use a **[parent]** argument, you can optionally apply a **[position]** argument, containing an integer number, declaring at which position you want your widget to be injected at.
 
-If you apply an **[after]** or **[before]** argument, you cannot apply a **[parent]**, or a **[position]** argument. And you can only apply one of **[before]** of **[after]**. These arguments declares an existing widget on your page, which you want to inject your widget *"before"* or *"after"*, depending upon which of them you use. These four positioning arguments, allows you to inject a widget, at any position in your HTML. Notice how we in the above Hyperlambda, actually completely omitted any positioning arguments. This results in that the default parent widget named *"cnt"* will be implicitly used as a parent to your newly created widget.
+If you apply an **[after]** or **[before]** argument, you cannot apply a **[parent]**, or a **[position]** argument, and you can only apply one of **[before]** of **[after]**. These arguments declares an existing widget on your page, which you want to inject your widget *"before"* or *"after"*, depending upon which of them you use. These four positioning arguments, allows you to inject a widget, at any position in your HTML. Notice how we in the above Hyperlambda, actually completely omitted any positioning arguments. This results in that the default parent widget named *"cnt"* will be implicitly used as a parent to your newly created widget, and that our widget will be appended into its collection of widgets.
 
-The **[element]** declares which HTML element you want to render your widget as. Notice, few checks exists in P5 in regards to HTML validity, which allows you to create a widget rendered as the HTML element of *"foo-bar"*. You are yourselves responsible for making sure your code creates valid HTML markup. This argument defaults to *"div"* for **[container]** widgets, *"p"* for **[literal]** widgets, and *"input"* for **[void]** widgets, if omitted.
+The **[element]** declares which HTML element you want to render your widget as. Notice, few checks exists in P5 in regards to HTML validity, which allows you to create a widget rendered as the HTML element of *"foo-bar"*. You are yourselves responsible for making sure your code creates valid HTML markup. This argument, if omitted, defaults to *"div"* for **[container]** widgets, *"p"* for **[literal]** widgets, and *"input"* for **[void]** widgets.
 
-The **[visible]** argument, is a boolean, and can take either *"true"* or *"false"*, and declares whether or not your widget should be created initially as visible, or if you wish to create it as invisible. If you create your widget as invisible, then an invisible *"wrapper"* element will be created for you, at the position you choose to inject your widget. This allows you to later easily make the widget become visible, automatically exchanging this invisible HTML markup, with your widget's actual content, simply by making the widget become visible. Realise that your **[oninit]** lambda callback, will only be invoked when the widget becomes visible. And it will be invoked **every time** your widget becomes visible. This argument defaults to *"true"* if omitted.
+The **[visible]** argument, is a boolean, and can take either *"true"* or *"false"*, and declares whether or not your widget should be created initially visible. If you create your widget as invisible, then an invisible *"wrapper"* element will be created for you, at the position you choose to inject your widget. This allows you to later easily make the widget become visible, automatically exchanging this invisible HTML markup, with your widget's actual content, simply by making the widget become visible. Realise that your **[oninit]** lambda callback, will only be invoked when the widget becomes visible. And it will be invoked **every time** your widget becomes visible. This argument defaults to *"true"* if omitted.
 
-The **[widgets]** and **[innerValue]** arguments, are mutually exclusive, and only one of these can be applied. If you use a **[widgets]** argument, your widget will be created as a **[container]** widget. If you use **[innerValue]**, your widget will become a **[literal]** widget. You can also explicitly declare which type of widget you wish to use, by using one of the aliases to **[create-widget]**, which takes an explicit type, as a part of its name. We will look at this later though. If you do not apply neither a **[widgets]**, nor an **[innerValue]** argument, your widget will be assumed to be of type **[void]**.
+The **[widgets]** and **[innerValue]** arguments, are mutually exclusive, and only one of these can be applied. If you use a **[widgets]** argument, your widget will be created as a **[container]** widget. If you use **[innerValue]**, your widget will become a **[literal]** widget. You can also explicitly declare which type of widget you wish to use, by using one of the aliases to **[create-widget]**, which takes an explicit type, as a part of its name. We will look at this later though, in one of our appendixes. If you do not apply neither a **[widgets]**, nor an **[innerValue]** argument, your widget will be assumed to be of type **[void]**.
 
 The **[oninit]** argument, declares a lambda block, which will be executed when the widget is displayed. Notice, this lambda will (of course) like all other lambda blocks, be executed on the server. It allows you to create initialization logic, which might for instance include some piece of JavaScript, include some CSS stylesheet file, etc, intended to be executed, when your widget is displayed. Notice, as we discussed in the **[visible]** argument, this lambda block will be executed only when the widget becomes visible, and in fact, once **every time** it becomes visible.
 
@@ -87,13 +87,13 @@ When you have saved your page, and viewed it, make sure you click the video elem
 
 #### Widget [events]
 
-The **[events]** argument, is probably the most complex argument you can apply to your widget, and allows you to associate an Active Event collection with your widget. We will go into more details of exactly what this is later, but for now, think of these as *"widget methods"*, *"functions"*, or pieces of functionality and/or logic, which you can invoke, that are associated with your widget, and only exists for the life time of your widget.
+The **[events]** argument, is probably the most complex argument you can apply to your widget, and allows you to associate an Active Event collection with your widget, or what is often referred to as *"widget lambda events"*. We will go into more details of exactly what this is later, but for now, think of these as *"widget methods"*, *"functions"*, or pieces of functionality and/or logic, which you can invoke, that are associated with your widget, and only exists for the life time of your widget.
 
 ### Invisible properties and Ajax events
 
 Sometimes, you might need to associate some piece of data with your widget, that you do not want to render as attributes to the client. This is easily done, by prepending your attribute name with either an underscore *"_"*, or a period *"."*. This makes it possible for you to associate an *"attribute value"* with your widget, that is actually never passed on to the client in any ways. This *"attribute"*, or *"property"* to be more accurate, can easily be retrieved and modified on the server side, the same way any normal attribute can be accessed.
 
-You can also create invisible Ajax events using the same technique, by for instance creating an Ajax event named *".on_foo"*, which is never rendered to the client, but can be invoked, by tapping into the JavaScript API of P5. This allows you to create what's often referred to as *"web methods"*, associate these with some widget, and invoke these web methods from JavaScript. Exactly how to do this, will be a subject of a later chapter though.
+You can also create invisible Ajax events using the same technique, by for instance creating an Ajax event named *".on_foo"*, which is never rendered to the client, but can be invoked, by tapping into the JavaScript API of P5. This allows you to create what's often referred to as *"web methods"*, associate these with some widget, and invoke these web methods from JavaScript.
 
 ### Changing attributes and properties
 

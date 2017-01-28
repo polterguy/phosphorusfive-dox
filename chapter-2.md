@@ -20,11 +20,11 @@ create-widget:foo
 
 If you try to click the button created by the Hyperlambda above, it will change its value to *"Hello World"*.
 
-## Walking through our code
+## Walking through the code
 
-Hyperlambda is a key/value/children file format. Technically, it is not in fact even a programming language, but a file format, for declaring *"graph objects"*, or *"tree structures"*. In fact, it is quite similar to JSON, for those acquinted with it.
+Hyperlambda is a key/value/children file format. Technically, it is not in fact even a programming language, but a file format, for declaring *"graph objects"*, or *"tree structures"*. In fact, it is quite similar to JSON, for those acquinted with it. With Hyperlambda, you can declare tree structures. Your tree structures, are created out of *"nodes"*. Visualize a single node as a *"leaf or a branch in a tree"*, if it helps you to understand exactly what Hyperlambda does. Everything in P5 is a *"tree"*.
 
-Above, our `create-widget:foo` parts, which is our first line of code, declares a *"node"*. The node has a name, or a key, being **[create-widget]**, and a value being *"foo"*. This creates a *"widget"* for us, which is an HTML element. Which type of element, and/or widget, this will create, depends upon which arguments you supply to it. The widget will have an ID attribute of *"foo"* though, which is later used to reference the widget, and change or retrieve its properties and/or value(s).
+Above, our `create-widget:foo` parts, which is our first line of code, declares a *"node"*. The node has a name, or a key, being **[create-widget]**, and a value being *"foo"*. This creates a *"widget"* for us, which is an HTML element. Which type of element, and/or widget, this will create, depends upon which arguments you supply to it. The widget will have an ID attribute of *"foo"*, which is later used to reference the widget, and change or retrieve its properties and/or value(s).
 
 Our above **[create-widget]** invocation, has three child nodes;
 
@@ -38,17 +38,15 @@ The **[parent]** argument, declares which parent HTML widget you wish to inject 
 
 You can use any **[parent]** you wish to use for your widget, which allows you to inject your widget, into any other pre-existing widget's collection you wish for your widget to appear within. The *"content"* parent we are using above, happens to be a generic container widget, from the main default template of the CMS of System42.
 
-The *"col-xs-12"* CSS class value of our **[class]** argument, refers to a CSS class from [Bootstrap CSS](http://getbootstrap.com/css/), which is a commonly used Open Source CSS framework, used in P5, out of the box.
+The *"col-xs-12"* CSS class value of our **[class]** argument, refers to a CSS class from [Bootstrap CSS](http://getbootstrap.com/css/), which is a commonly used Open Source CSS framework, used in P5 by default.
 
-Of all the above arguments, the **[widgets]** argument is probably the most important. The reason why, is because this argument implicitly declares which type of widget we want to create. There are three types of widgets in P5;
+Of all the above arguments, the **[widgets]** argument is probably the most important. This argument implicitly declares which type of widget we want to create. There are three types of widgets in P5;
 
-* Literal widgets, which are for text and/or HTML values
-* Container widgets, which are widgets that can contain other widgets
-* Void widgets, which are widgets that can neither have any text/HTML value, nor any children
+* **[literal]** widgets, which can have text and/or HTML content
+* **[container]** widgets, which can contain other widgets
+* **[void]** widgets, which are empty widgets with neither of the above
 
-The above **[widgets]** declaration, informs our **[create-widget]** invocation, that we want to create a *"Container"* widget. Inside of a **[widgets]** collection, we can create additional children widgets, by simply referring to them with the names of **[void]**, **[container]** or **[literal]**.
-
-Inside our above `create-widget` invocation, our **[widgets]** argument, hence implies we want to create a **[container]** type of widget. Our main container widget above, happens to have one **[literal]** widget, with the **[innerValue]** of *"Click me"*.
+The above **[widgets]** declaration, implicitly informs our **[create-widget]** invocation that we want to create a **[container]** widget. Inside of a **[widgets]** collection, we can create additional children widgets, by simply referring to them with the names of **[void]**, **[container]** or **[literal]**. Our main container widget above, happens to have one **[literal]** widget, with the **[innerValue]** of *"Click me"*.
 
 To understand the above code, it might be beneficial to see its resulting HTML;
 
@@ -58,11 +56,11 @@ To understand the above code, it might be beneficial to see its resulting HTML;
 </div>
 ```
 
-Above is the HTML that your Hyperlambda above will produce for you. Notice how our inner widget is of type *"button"*. This is because of the argument **[element]**, which declares what type of HTML widget you wish to create. You can create any HTML element you wish, adding any attributes you wish to it, by simply adding the attribute as an argument with its name becoming its attribute name, and its value becoming its attribute value. To add up an attribut with the name of *"foo"* and the value of *"bar"* for instance, is as easy as adding an argument to the widget as follows `foo:bar`.
+Above is the HTML that the Hyperlambda above will create for you. Notice how our inner widget is of type *"button"*. This is because of the argument **[element]**, which declares what type of HTML widget you wish to create. You can create any HTML element you wish, adding any attributes you wish to it, by simply adding the attribute as an argument, with its name becoming its attribute name, and its value becoming its attribute value. To add up an attribut with the name of *"foo"* and the value of *"bar"* for instance, is as easy as adding an argument to the widget as follows `foo:bar`.
 
 ## Ajax events
 
-In our example above, we have an **[onclick]** Ajax event. This will create an *"onclick"* DOM event handler for us, which once raised, will create an Ajax request, going towards our server, invoking the Hyperlambda declared as its content (children nodes).
+In our example above, we have an **[onclick]** Ajax event for our button widget. This will create an *"onclick"* DOM event handler for us, which when raised, will create an Ajax request, going towards our server, invoking the Hyperlambda declared as its content (children nodes).
 
 Such Hyperlambda collections, as the one we have declared inside of our **[onclick]** event handler, is often referred to as *"lambda objects"*, or simply *"lambda"*, and are stored Hyperlambda objects, which are executed, whenever some condition is being met, or we wish to for some reasons execute our Hyperlambda. The simplicity in declaring such *"lambda objects"*, is the reason why Hyperlambda got its name.
 

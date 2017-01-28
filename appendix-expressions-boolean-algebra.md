@@ -1,6 +1,6 @@
 # Boolean algebra on expressions
 
-To understand how boolean algebra works in regards to expressions, it might be feasable to start out with some boolean algebra theory. The easiest way to do such, is to define the 4 different boolean algebraic operators, using a simple figure. Below is an figure, we will refer to, during the rest of this chapter. Try to envision it, as you continue your reading.
+To understand how boolean algebra works in regards to expressions, it might be feasable to start out with some boolean algebra theory. The easiest way to do such, is to define the 4 different boolean algebraic operators, using a simple figure. Below is a figure, we will refer to, during the rest of this chapter. Try to envision it, as you continue your reading.
 
 ![alt tag](screenshots/boolean-algebra.png)
 
@@ -42,6 +42,8 @@ Referring back to our original figure in the beginning of this article, this mea
 
 AND is said to return only the UNION or the *"intersection"* of our two expressions.
 
+Notice, it doesn't matter which expression you start out with, and which you end with, when you AND two expressions together. Even if you flip your expressions around, the result will still be the same.
+
 ### Logical OR
 
 OR on the other hand, will yield anything found in EITHER of our two expressions. If you exchange the *"&"* in our above Hyperlambda, the results in our **[_dest]** node will include *"John Doe"*, *"John Farmer"* and *"Jane Doe"*.
@@ -51,6 +53,8 @@ Going back to our original figure, this means we will end up with our result bei
 ![alt tag](screenshots/boolean-algebra-OR.png)
 
 OR is said to return the *"product"* of our two expressions.
+
+Notice, it doesn't matter which expression you start out with, and which you end with, when you OR two expressions together. Even if you flip your expressions around, the result will still be the same.
 
 ### Logical XOR
 
@@ -62,6 +66,8 @@ Going back to our original figure, this means what we are extracting from our re
 
 XOR is said to return the *"product"* of our expressions, minus the UNION or the *"intersection"*.
 
+Notice, it doesn't matter which expression you start out with, and which you end with, when you XOR two expressions together. Even if you flip your expressions around, the result will still be the same.
+
 ### Logical NOT
 
 NOT subtracts the result of its second expression, from its first expression, and returns only the parts that can only be found in the first expression. Try exchanging the *"&"* parts of our original Hyperlambda with an exclamation mark *"!"*, and see the results. This of course, will return all people with a first name of *"John"*, **except** those also having a second name of *"Doe"*. Resulting in only *"John Farmer"* being our result.
@@ -71,3 +77,10 @@ Going back to our original figure, this results in only the *"a"* parts.
 ![alt tag](screenshots/boolean-algebra-NOT.png)
 
 NOT is said to return the first expression, minus the UNION or *"intersection"* of our second expression.
+
+Notice that when you NOT two expressions together, the order of your expressions is important, and if you flip your two expressions around, you will achieve a different result. Hence, with NOT, order counts. In all the other boolean algebraic operators, order is not important, the same way order is not important when adding or multiplying numbers together.
+
+
+## Grouping sub-expressions
+
+This is as far as I have come ...
