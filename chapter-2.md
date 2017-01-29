@@ -1,8 +1,10 @@
 # Hello World
 
-Assuming you have already downloaded P5, and managed to get it up and running, we are going to create our first *"Hyperlambda application"* called *"Hello World"*. By stepping through this application carefully, explaining you what it does, you will be armed with the knowledge required to create your own web forms, and rich GUI apps yourselves.
+Assuming you have already downloaded P5, and managed to get it up and running, we are going to create our first *"Hyperlambda application"* called *"Hello World"*. By stepping through this application, and explaining what it does, you will be armed with the knowledge required to create your own Ajax GUI.
 
-Open up your Apps/CMS editor, by choosing it in your menu at the top. Click the _“+”_ button, and choose to create a new _“lambda”_ page. Then remove the existing code, if any, and paste the following Hyperlambda into your editor, for then to click _“Save”_, and _“View page”_.
+Open up your Apps/CMS editor, by choosing it in your menu/navbar at the top of your page. Click the _“+”_ button, and choose to create a new _“lambda”_ page. Then remove the existing code, if any, and paste in the following Hyperlambda into your editor. When you have done so, make sure you click _“Save”_, and _“View page”_. Notice, you might have some sort of popup blocker enabled, preventing you from viewing the page. If you get some popup blocker notification as you click *"View page"*, make sure you enable popups on the domain from which you are developing your P5 apps. This is normally *"localhost"* or *"127.0.0.1:8080"*, if you're on a development box, creating apps locally.
+
+Hyperlambda to use can be found below.
 
 ```
 create-widget:foo
@@ -18,11 +20,23 @@ create-widget:foo
           innerValue:Hello World
 ```
 
-If you try to click the button created by the Hyperlambda above, it will change its value to *"Hello World"*.
+If you try to click the button created by the Hyperlambda above, it will change its value to *"Hello World"*. If you wish, you can refresh your page, to reset the button's text, for then to click it again.
 
 ## Walking through the code
 
-Hyperlambda is a key/value/children file format. Technically, it is not in fact even a programming language, but a file format, for declaring *"graph objects"*, or *"tree structures"*. In fact, it is quite similar to JSON, for those acquinted with it. With Hyperlambda, you can declare tree structures. Your tree structures, are created out of *"nodes"*. Visualize a single node as a *"leaf or a branch in a tree"*, if it helps you to understand exactly what Hyperlambda does. Everything in P5 is a *"tree"*.
+Hyperlambda is a name/value/children file format. Technically, it is not in fact a programming language, but a file format, for declaring *"graph objects"*, or *"tree structures"*. It is quite similar to JSON, for those acquinted with it. With Hyperlambda, you can declare tree structures, or *"lambda objects"* as we often refer to them as. Your *"lambda objects"*, are created out of *"nodes"*. Hence, Hyperlambda declares lambda. Lambda is a collection of nodes.
+
+Think of it like the relationship between JSON (Hyperlambda), and the JavaScript objects after the JSON is evaluated (lambda), and properties of your JavaScript object (nodes).
+
+### Visualizing Hyperlambda/lambda/nodes
+
+A useful analogy for understanding the structure of Hyperlambda, is to imagine a single node as a folder on disc. Each folder can have multiple folders inside of itself. These inner folders are the equivalent of a node's children nodes. Each folder can also have files within it. These files corresponds to the *"value"* of your nodes.
+
+Hence, Hyperlambda declares lambda. Lambda consists of nodes. Each node can have a name, and optionally a value, in addition to optionally also a list of children nodes itself.
+
+If you still think this is difficult to understand, you can watch [this video](https://www.youtube.com/watch?v=oML2JE8kAO0), describing the relationship between Hyperlambda, lambda and nodes.
+
+### Analyzing our code
 
 Above, our `create-widget:foo` parts, which is our first line of code, declares a *"node"*. The node has a name, or a key, being **[create-widget]**, and a value being *"foo"*. This creates a *"widget"* for us, which is an HTML element. Which type of element, and/or widget, this will create, depends upon which arguments you supply to it. The widget will have an ID attribute of *"foo"*, which is later used to reference the widget, and change or retrieve its properties and/or value(s).
 
