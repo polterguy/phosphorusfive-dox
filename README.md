@@ -53,7 +53,7 @@ This might sound weird, but I actually don't think you will believe some of my s
 
 Periodically, I will create a download of the book, which you can read locally. This will be in the formats offered by GitHub, such as .zip and .tar.gz. These downloads are the *"raw source"* of the book, which is in Markdown format. It could probably be beneficial for you to use a Markdown editor, or viewer, to read the book. I personally use *"MacDown"* for writing the book. Another great viewer for Windows is [Markdown Monster](https://markdownmonster.west-wind.com/).
 
-This way of distributing the book, allows you to create inline comments as you read it, providing answers for excersizes, and comments, etc. It also allows you to easily create patches and additions to the book. This makes it easy to document your own systems, as simple addition to this book, having a great foundation for the documentation of your own systems, created with P5.
+This way of distributing the book, allows you to create inline comments as you read it, providing answers for exersizes, and comments, etc. It also allows you to easily create patches and additions to the book. This makes it easy to document your own systems, as simple addition to this book, having a great foundation for the documentation of your own systems, created with P5.
 
 My email address is thomas@gaiasoul.com, and you can find the book's main source at [GitHub](https://github.com/polterguy/phosphorusfive-dox), which is the place where I prefer you to submit feedback about the book, if you have any.
 
