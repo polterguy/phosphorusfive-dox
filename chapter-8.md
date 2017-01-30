@@ -22,7 +22,7 @@ The above explanation is the reason why I have waited with the introduction of t
 
 At this point however, I think it is time to *"come clean with you"*, and tell you the truth! Hyperlambda is vastely different. It has no existing completition out there, that comes even close to its way of thinking - And this is its primary value! It allows you to do things differently, and almost equally important; It allows you to *think differently*!
 
-If none of the above mentioned concepts have any value for you, you might as well stop reading, and go back to your strongly typed programming languages, with multiple inheritance, and generic template classes, creating partial specializations, through so many layers of *"pure logic"*, which forces you to see the world from an absurdely logical point of view. However, as for me, I am [done with that world](http://smartwin.sourceforge.net/)!
+If none of the above mentioned concepts have any value for you, you might as well stop reading, and go back to your strongly typed programming languages, with multiple inheritance, and generic template classes, creating partial template specializations, throughout hundreds of layers of *"pure logic"* - Which of course, forces you to see the world from an absurdely logical point of view. However, as for me, I am [done with that world](http://smartwin.sourceforge.net/)!
 
 ## Am I sorry ...?
 
@@ -32,6 +32,6 @@ Or to be more honest with you; Sorry for being sorry for messing with your brain
 
 The last joke, is not funny in fact, unless you've done quite a lot of Hyperlambda development. However, if you know Hyperlambda's ins and out, you are probably laughing by now ... ;)
 
-When you have read this entire bok, and create some rich app in Hyperlambda, you might even laugh of the following; *"Hyperlambda forgives you from you wanting me to apologize to you, for messing with your brain*". But that requires a *"Shaolin Ninja Kung-Fu Master degree"* in Hyperlambda to find funny ... :D
+When you have read this entire bok, and created a couple of rich web apps in Hyperlambda - You *might* even laugh of the following; *"Hyperlambda forgives you for you wanting it to apologize to you, for messing with your brain*". But that requires a *"Shaolin Ninja Kung-Fu Master degree"* in Hyperlambda to find funny ... ;)
 
-However, facts are, after a couple of months of Hyperlambda development, everything tends to become funny ... ;)
+However, facts are, after a couple of months of Hyperlambda development, the above will make perfect sense for you ... :D
