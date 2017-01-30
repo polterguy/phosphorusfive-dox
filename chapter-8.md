@@ -16,7 +16,7 @@ This trait of Hyperlambda, makes it a perfect *"orchestration programming langua
 
 ## Should you use Hyperlambda for everything?
 
-Short answer; **NO**! There are things that C# or C++ does much better than Hyperlambda. And Hyperlambda, might never be able to solve all things, as nicely as other programming languages solves these concepts. However, Hyperlambda was built to be an *"orchestration programming language"*. This allows you to take all of your beautiful algorithms, classes, and concrete pre-existing solutions, and *"melt them together"*, making the *"collaborate"* with each other. However, for this task, Hyperlambda and P5, is vastely superior, to everything else I have seen of similar frameworks out there.
+Short answer; **NO**! There are things that C# or C++ does much better than Hyperlambda. And Hyperlambda, might never be able to solve all things, as nicely as other programming languages solves these concepts. However, Hyperlambda was built to be an *"orchestration programming language"*. This allows you to take all of your beautiful algorithms, classes, and concrete pre-existing solutions, and *"melt them together"*, making them *"collaborate"* with each other. However, for this task, Hyperlambda and P5, is vastely superior, to everything else I have seen of similar frameworks out there.
 
 The above explanation is the reason why I have waited with the introduction of this book, until chapter 8. Simply because this idea is difficult to believe in, before you've had some *"hands on experience"* with Hyperlambda.
 
