@@ -2,7 +2,7 @@
 
 **Warning**; Everything you thought you knew, is wrong!
 
-My *"theory of mind"* is based upon the assumption that the same way Newton's laws applies to physical things and energies, it also to some extent applies to cognitive energies. This implies that whenever you apply cognitive energies to create software, the thing you are trying to create, applies the same amount of cognitive energy back unon your brain. If my theory is correct, this implies, that as you create software, the software you create, modifies your brain.
+My *"theory of mind"* is based upon the assumption that the same way Newton's laws applies to physical things and energies, it also to some extent applies to cognitive energies. This implies that whenever you apply cognitive energies to creating software, the thing you are trying to create, applies the same amount of cognitive energy back unto your brain. If my theory is correct, this implies, that as you create software, the software you create, modifies your brain.
 
 Today, there are probably few objections to my assumption of that software developers are gravitating towards their *"left hemisphere"*, in regards to all cognitive types of energies. This starves the right hemisphere, which is where our creativity is seated. If you don't believe me, then please go an *"create an app"*. Nope, I will not tell you *which* app to create, just create *"whatever"*.
 
@@ -22,7 +22,9 @@ The above explanation is the reason why I have waited with the introduction of t
 
 At this point however, I think it is time to *"come clean with you"*, and tell you the truth! Hyperlambda is vastely different. It has no existing completition out there, that comes even close to its way of thinking - And this is its primary value! It allows you to do things differently, and almost equally important; It allows you to *think differently*!
 
-If none of the above mentioned concepts have any value for you, you might as well stop reading, and go back to your strongly types programming languages, with multiple inheritance, and generic template classes, creating partial specializations, through so many layers of *"pure logic"*, that your brain inevitably will finally end up rotting. However, as for me, I am [done with that world](http://smartwin.sourceforge.net/)!
+If none of the above mentioned concepts have any value for you, you might as well stop reading, and go back to your strongly typed programming languages, with multiple inheritance, and generic template classes, creating partial specializations, through so many layers of *"pure logic"*, which forces you to see the world from an absurdely logical point of view. However, as for me, I am [done with that world](http://smartwin.sourceforge.net/)!
+
+## Am I sorry ...?
 
 Sorry for messing with your brain!
 
@@ -30,4 +32,6 @@ Or to be more honest with you; Sorry for being sorry for messing with your brain
 
 The last joke, is not funny in fact, unless you've done quite a lot of Hyperlambda development. However, if you know Hyperlambda's ins and out, you are probably laughing now ... ;)
 
-Now, when you have read the entire bok, you might even laugh of the following; Hyperlambda forgives you from you wanting me to apologize to you, for messing with your brain. But that requires a *"Shaolin Ninja Kung-Fu Master degree"* in Hyperlambda to find funny ... :D
+When you have read this entire bok, and create some rich app in Hyperlambda, you might even laugh of the following; *"Hyperlambda forgives you from you wanting me to apologize to you, for messing with your brain*". But that requires a *"Shaolin Ninja Kung-Fu Master degree"* in Hyperlambda to find funny ... :D
+
+However, facts are, after a couple of months of Hyperlambda development, everything tends to become funny ... ;)
