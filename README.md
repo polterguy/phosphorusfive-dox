@@ -67,6 +67,7 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 - [Chapter 6, Changing your tree](chapter-6.md)
 - [Chapter 7, Your first real application](chapter-7.md)
 - [Chapter 8, Introduction, The pan galactical gargle blaster](chapter-8.md)
+- [Chapter 9, The bug](chapter-9.md)
 
 ## Appendix
 
