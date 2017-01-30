@@ -4,9 +4,7 @@ Whoa, finally we are going to create something useful! In this chapter, we will 
 
 ![alt tag](screenshots/chapter-7-1.png)
 
-Normally, the chapters for this book is written such that every second chapter is an *"advanced topic"*. However, since out previous chapter was in fact quite an advanced chapter, yet still not labeled as such, you can now at least to some extent pull down your guard, breathe slowly, realizing you're about to embark on something important; *The creation of a useful Ajax web application!*
-
-Before we can dive into our application though, there are some few constructs we'll need to cover first;
+Before we can dive into our application though, there are some few concepts we'll need to cover first.
 
 * Loading and saving of files
 * Parts of the folder structure of Phosphorus Five
@@ -21,16 +19,18 @@ Please open up the folder *"/phosphorusfive/core/p5.webapp/"*. This is the main 
 
 Inside of your user's folder, the *"root"* folder that is, you can find a *"documents"* folder. This is the equivalent of *"Your documents"* in windows, or *"Home"* on Linux. This is important to understand for this chapter, since we will store our *"database"* within a file in this folder. Our file will be named *"adr.hl"*. The extension *".hl"* implies *"[H]yper - [L]ambda"*.
 
-Your *"documents"* folder though, contains two other folders. One *"private"* folder, and another *"public"* folder. We will be using the *"private"* folder, to store a file, containing the data for our CRUD application. Files inside of this folder, cannot in general, be accessed by anyone, except the user whom these files belongs to. Hence, they are your user's *"private files"*.
+Your *"documents"* folder, contains two folders. One *"private"* folder, and another *"public"* folder. We will be using the *"private"* folder, to store a file, containing the data for our CRUD application. Files inside of this folder, cannot in general, be accessed by anyone, except the user whom these files belongs to. Hence, they are your user's *"private files"*.
 
-To create a file inside of this folder, can be done by prepending your path with a tilde `~`. If you start out a filename with a tilde, this will automatically save a file to your user's home folder. If you want to create a file inside of your private documents folder, you can do it with the following code;
+To create a file inside of this folder, can be done by prepending your path with a tilde `~`. If you start out a filename with a tilde, this will automatically save a file to your user's home folder. If you want to create a file inside of your private documents folder, you can use something resembling the following code.
 
 ```
 save-file:~/documents/private/foo.txt
   src:Hello filesystem!
 ```
 
-If you execute the above code in your Apps/Executor, it will create a simple text file for you, inside of your private documents folder. To understand why, realize that the tilde `~` will be substituted with *"/users/your-username"*, before the file is saved. Since the root folder for *everything* related to files in P5, is the main root web application folder, this means your file can be found within *"/phosphorusfive/core/p5.webapp/users/root/documents/private/"* - Where ever that is locally within your system.
+If you execute the above code in your Apps/Executor, it will create a simple text file for you, inside of your private documents folder. To understand why, realize that the tilde `~` will be substituted with *"/users/username"*, before the file is saved. The *"username"* parts of the path, depends upon which user is logged in, invoking the **[save-file]** event.
+
+Since the root folder for *everything* related to files in P5, is the main root web application folder, this means your file can be found within *"/phosphorusfive/core/p5.webapp/users/username/documents/private/"* - Where ever that is locally within your system.
 
 ## The [apply] event
 
@@ -38,7 +38,7 @@ The **[apply]** Active event, is kind of like the *"superman version"* of **[add
 
 We will be using this Active Event, to dynamically create an HTML table, from the content of your data file, containing the *"database"* for your contacts.
 
-I find it helps to visualize the **[apply]** event as *"braiding"* together a data source, and a template, to produce a combined results.
+It might help to visualize the **[apply]** event as *"braiding"* together a data source, and a template, to produce a combined results. If you find this concept difficult to understand, then don't despair, since there's a video at the end of this chapter, explaining it in details.
 
 ## Widget lambda events
 
@@ -48,7 +48,7 @@ We will create this event with the name of **[sys42.examples.databind-addresses]
 
 ## The code for our application
 
-With these concepts, at least partially covered, let's move on to the code, and show you the entire listing for an *"Address book"* Ajax web application. Create a new new *"lambda"* page, and make sure you replace the existing code, with the code listed below.
+With these concepts, at least partially covered, let's move on to the code, and show you the entire listing for an *"Address book"* web app. Create a new new *"lambda"* page, and make sure you replace the existing code, with the code listed below.
 
 ```
 /*
@@ -225,7 +225,7 @@ Although most of the above concepts are things we have already covered, there ar
 
 ### [apply] in details
 
-As previously mentioned, the **[apply]** Active Event, allows you to *"braid"* together a data **[src]**, with a **[template]**, and put the results into some destination. The destination is expected to be the value of the main **[apply]** node, and must be an expression being type declared as `?node`.
+As previously mentioned, the **[apply]** Active Event, allows you to *"braid"* together a data **[src]**, with a **[template]**, and put the results into some destination. The destination is expected to be the value of the main **[apply]** node, and must be an expression leading to one or more nodes.
 
 Its **[src]** argument, is expected to be an expression, leading to a node-set. The way to envision the **[src]** argument, is that **[apply]** iterates over its **[src]** result set, and uses the currently iterated node, as the *"idenity"* node, for creating a lambda object, based upon the **[template]**.
 
@@ -233,7 +233,7 @@ The **[template]** hence, is being created once for each result from the **[src]
 
 #### Databound expressions in [apply]
 
-Such a databound expression, is defined as having a name starting with a `{`and ending with a `}`. These two parts of your node's name, are removed though, before the node is created, and appended into its destination. They are simply there to inform **[apply]** about that this is a *"databound node"*.
+Such a databound expression, is declared by making sure its name starts with a `{`and ending with a `}`. These two parts of your node's name, are removed though, before the node is created, and appended into its destination. They are simply there to inform **[apply]** about that this is a *"databound node"*. Hence, to declare a databound node, simply wrap its name inside of curly braces.
 
 The expression in the value of a data bound node, is local for the currently iterated **[src]** result. This means that the *"idenity"* node for the first iteration, is in fact not the **[{innerValue}]** node itself, but rather the first item from our **[load-file]** invocation.
 
@@ -258,7 +258,7 @@ load-file
 /* ... rest of code ... */
 ```
 
-So what our **[src]** argument to **[apply]** is actually pointing to, are the **[item]** nodes above.
+So what our **[src]** argument to **[apply]** is actually pointing to, are the **[item]** nodes returned from **[load-file]**.
 
 It probably helps to *"lock"* this into your mind, and realize that the **[src]** expression to **[apply]** hence, is actually iterating over every single **[item]** from your *"database file"*.
 
@@ -324,21 +324,23 @@ create-widget:contacts_table
 
 Above you can see, how our **[apply]** invocation, results in braiding together, its **[src]** being the results of our **[load-file]** invocation, with its **[template]**.
 
+If you find the **[apply]** event to be confusing, you can watch [this video](https://www.youtube.com/watch?v=KcaRyjj2w58), where I explain it in more details. If you are reading this book in some sort of paper format, you can find this video here; https://www.youtube.com/watch?v=KcaRyjj2w58
+
 ### [lambda2hyper], converting lambda to Hyperlambda
 
-This Active Event, which we use at line 88 in our code, simply converts a piece of lambda to a string, resembling its Hyperlambda version. There also exists a **[hyper2lambda]** event, which does the opposite. Sometimes these events are useful for transforming lambda to string, and vice versa, such as when we want to save a lambda to disc, or use it as a piece of string, for other reasons.
+The above Active Event, which we use at line 88 in our code, simply converts a piece of lambda to a string, resembling its Hyperlambda version. There also exists a **[hyper2lambda]** event, which does the opposite. Sometimes these events are useful for transforming lambda objects to strings, and vice versa - Such as when we want to save a lambda object to disc, or use it as a string.
 
-Both of these two events should be relatively easy to understand.
+Both of these two events should be relatively self explaining.
 
 ### Our "wizard" window
 
-At line 42, we use an Active Event we haven't used before. Its name is **[sys42.windows.wizard]**, and its purpose is simply to provide an easy wrapper for asking the user for some input. It is similar to the **[sys42.windows.confirm]** window, and beneath its hood, uses the same logic, but instead of simply supplying a piece of text, we can instead ask the user for supplying input, according to which nodes we supply to its **[data]** argument.
+At line 42, we use an Active Event we haven't used before. Its name is **[sys42.windows.wizard]**, and its purpose is simply to provide an easy wrapper for asking the user for some new input, or edit some existing data. It is similar to the **[sys42.windows.confirm]** window, and beneath its hood, uses the same logic - But instead of simply supplying a piece of text, we can instead ask the user for supplying input, according to which nodes we supply to its **[data]** argument.
 
-If you click the *"+"* button in your application, you can clearly see the relationship between the **[data]** node's children, and the three input textboxes, asking the user for a *"name"*, *"email"* and *"phone"*.
+If you click the *"+"* button in your application, you can clearly see the relationship between the **[data]** node's children, and the 3 input textboxes, asking the user for a *"name"*, *"email"* and *"phone"*.
 
-When we invoke this event, we normally would want to supply an **[.onok]** lambda callback to it, which is a piece of lambda, that is executed when the user clicks *"OK"*. Inside of our **[.onok]** lambda callback, is actually where most of the magic in our little application happens, since this is where we load our database file, and concatenate a new value into it.
+When we invoke this event, we normally would want to supply an **[.onok]** lambda callback to it, which is a piece of lambda, that is executed when the user clicks *"OK"*. Inside of our **[.onok]** lambda callback, is actually where most of the magic in our little application happens, since this is where we load our database file, and concatenate a new value into it, before we save it back to disc again.
 
-The **[sys42.windows.wizard.get-values]** event, does exactly what you think it does. After invocation, it will look something like the following;
+The **[sys42.windows.wizard.get-values]** event, does exactly what you think it does. After invocation, it will look something like the following.
 
 ```
 sys42.windows.wizard.get-values
@@ -347,26 +349,30 @@ sys42.windows.wizard.get-values
   phone:98765432
 ```
 
-After we've retrieved the values from our wizard window, we first check if there already exists a *"database file"*. This is necessary, in order to make it possible to actually add records into this file. If it does, we load this file, and adds the content of it into a temporary **[_content]** node. Notice, we do this before we add the values from our newly created record into this file, to ensure the last record supplied, physically becomes the last record in our file. This preserves the order of our records, according to the order they were given by the user.
+After we've retrieved the values from our wizard window, we first check if there already exists a *"database file"*. This is necessary, in order to make sure we actually *add* records to our data. If it does, we load this file, and adds the contents of it into a temporary **[_content]** node. Notice, we do this before we add the values from our newly created record into this file, to ensure the last record supplied, physically becomes the last record in our file. This preserves the order of our records, according to the order they were supplied by the user.
 
-Then finally, before we convert this **[_content]** node to Hyperlambda, and save it to disc, we add the values from our *"wizard"* window. At this point we use a little trick, which is that we add the entire **[sys42.windows.wizard.get-values]** node. For then to change its name, after we have added it, such that it becomes an **[item]** node. This is necessary, because we need an **[item]** node, and this node perfectly serves that purpose for us, after having been properly *"renamed"*.
+Then finally, before we convert this **[_content]** node to Hyperlambda, and save it to disc, we add the values from our *"wizard"* window. At this point we use a little trick, which is that we add the entire **[sys42.windows.wizard.get-values]** node. For then to change its name, after we have added it, such that it becomes an **[item]** node. This is necessary, because we need an **[item]** node, and this node perfectly serves that purpose for us, after having been properly *"renamed"*. Technically, we wouldn't actually need to do this last step, but it makes sure our database file becomes more *"semantic"* in its structure. Try to remove that last **[set]** invocation, and see how this affects the structure of your *"database file"*, after having added a record into it.
 
 The last thing we do in our **[.onok]** lambda callback, is to make sure we invoke **[sys42.examples.databind-addresses]**, which is our widget lambda event, that is responsible for databinding our HTML table all over again.
 
 ## Homework
 
-Discuss this application, its pros and its cons. Some question I want you to answer, is among other these;
+Discuss this application, its pros and its cons. Some questions I want you to answer, are as follows.
 
 * Is it a complete CRUD application?
 * Would it be thread safe, as multiple users are accessing it?
 * How could the application be improved?
 
-If you wish to, feel free to improve it, to create a complete CRUD app out of it, and expand upon it, by adding additional items to your *"database"*, such as for instance address and Twitter handle.
+### Advanced homework, optionally
 
-When you are done with modifying the application, you can actually download it, and distribute it to your friends, by clicking *"Download"*, and send it on email to others whom for some reasons might be interested in seeing it.
+If you wish to, feel free to improve it, to create a complete CRUD app out of it, and expand upon it, by adding additional items to your *"database"*, such as for instance address and Twitter handle. Hint, use **[p5.types.guid.new]** to create a unique ID for your records, which you will need, in order to be able to reference them while editing and deleting records.
+
+## The P5 distribution model
+
+When you are done with modifying the application, you can actually download it, and distribute it to your friends, by clicking *"Download"*, and send it in an email to your friends - Whom for whatever reasons might be interested in such a thing. Your friends on the other hand, can then simply *"drag and drop"* the resulting Hyperlambda file into their CMS, and reproduce the exact same application on their server systems.
 
 This is a very nice distribution model in fact, implemented as an integral part of P5, which allows you to *"Download"* apps you've created, and have other users simply *"Drag and drop"* these apps into their own CMS.
 
-After you have downloaded your app in fact, delete the page, for then to *"drag and drop"* your app download file, into your CMS, to *"reinstall"* your app, to see this in action.
+After you have downloaded your app in fact, delete the page, for then to *"drag and drop"* your app's Hyperlambda file, into your CMS, to *"reinstall"* your app, to see this in action.
 
 [Chapter 8, Having a pan galactical gargle blaster](chapter-8.md)
