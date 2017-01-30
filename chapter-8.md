@@ -34,4 +34,4 @@ The last joke, is not funny in fact, unless you've done quite a lot of Hyperlamb
 
 When you have read this entire bok, and created a couple of rich web apps in Hyperlambda - You *might* even laugh of the following; *"Hyperlambda forgives you for you wanting it to apologize to you, for messing with your brain*". But that requires a *"Shaolin Ninja Kung-Fu Master degree"* in Hyperlambda to find funny ... ;)
 
-However, facts are, after a couple of months of Hyperlambda development, the above will make perfect sense for you ... :D
+However, facts are, after a couple of months of Hyperlambda development, the above will make perfectly sense to you ... :D
