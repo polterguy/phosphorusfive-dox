@@ -2,16 +2,18 @@
 
 Hyperlambda and Phosphorus Five is a unique programming platform, since it among other things, doesn't contain the concept of a *"variable"*. This is because everything can be modified, as you execute your lambda objects. Hence, arguably, everything becomes a potential variable in P5.
 
-However, often you need to store some kind of temporary variable, which you change throughout the execution of your code. For such scenarios, you have 4 basic Active Events you can use;
+However, often you need to store some kind of temporary variable, which you change during the execution of your lambda. For such scenarios, you have 4 basic Active Events you can use.
 
-- **[set]**, changes a single node, value or name
-- **[add]**, appends a new child node to an existing node
-- **[insert-before]**, inserts a node, in your tree, before a specified node
-- **[insert-after]**, the opposite of the above
+- **[set]**, changes nodes, its values, or its names
+- **[add]**, appends children nodes to existing nodes
+- **[insert-before]**, inserts nodes, before some specified nodes
+- **[insert-after]**, inserts nodes, after some specified nodes
 
 These four Active Events, allows you to modify your lambda objects, during the execution of your lambda. Notice, the **[set]** event, can in addition to changing a node, also completely remove it. Hence, with these four events, you have all *"CRUD"* operations available for your lambda objects.
 
 **Definition**; *"CRUD"* is an acronym, and means *"Create, Remove, Update and Delete"*, and is a reference to all the 4 basic operations necessary to be able to dynamically *"mold"* an object, in any of the necessary axis, to be able to *"create anything you wish, starting from any given starting point"*.
+
+All of these Active Events, can be given multiple destinations. This means that a single invocation, might change multiple things.
 
 ## The [set] event
 
@@ -69,7 +71,7 @@ create-widget
 ```
 
 
-The first obvious thing you might see in the above **[onclick]** event handler, is that the **[body]** argument to our **[sys42.windows.confirm]** invocation is actually initially empty. Still, when our confirmation window is shown, it is perfectly able to show something resembling the following.
+The first obvious thing you might see in the above **[onclick]** event handler, is that the **[body]** argument to our **[sys42.windows.confirm]** invocation, is actually initially empty. Still, when our confirmation window is shown, it is perfectly able to show something resembling the following.
 
 ![alt tag](screenshots/chapter-6-1.png)
 
@@ -122,9 +124,11 @@ As you execute the above code, you will see the returned result, from your invoc
 
 With this in mind, realise that the expression we're using as child formatting expressions to our **[src]** node, are first retrieving the **[p5.web.widgets.property.get]**. Then it is retrieving its zeroth child, which is the node named **[first_name]** from our image above. Then it retrieves this node's children. Since there only happens to be one child beneath this node, it will return this node's value, which happens to be *"Thomas"* for our example.
 
+If you still haven't watched the video from chapter 4, I encourage you to [watch this video](https://www.youtube.com/watch?v=VjG2hGeMnbU), if the above doesn't make much sense to you.
+
 Now it will substitute the `{0}` parts of its **[src]** node's value, with the string *"Thomas"*. Then it does the same thing in the next expression, except it will retrieve the first child node of **[p5.web.widgets.property.get]**, which of course is the **[last_name]** node.
 
-After it has created its **[src]** node's value, by concatenating our strings, it will move the results of this operation into the *"root nodes child, named 'sys42.windows.confirm', and its children node, named 'body'"*.
+After it has created its **[src]** node's value, by concatenating our strings, it will move the results of this operation into the **[body]** node.
 
 Using this type of logic, we can change parts of our lambda object, that we still haven't execute yet, resulting in that once we execute this lambda, it will have a value, that we dynamically created, up front, before we executed it.
 
@@ -132,7 +136,7 @@ You can of course also create execution instructions too, with a similar techniq
 
 ## [add]ing things to your tree
 
-The **[add]** event, allows you to append new children into another node. However, let's start out with an example.
+The **[add]** event, allows you to append new children into other nodes. However, let's start out with an example.
 
 ```
 create-widget
@@ -195,7 +199,7 @@ create-widget
         eval:x:/@.exe
 ```
 
-The above example, will actually dynamically build your code, according to what you type into the textbox. If you type in *"Thomas"*, it will show a modal confirmation window. If you type anything else, it will show a simple *"info-tip"* tooltip window.
+The above example, will actually dynamically build our code, according to what you type into the textbox. If you type in *"Thomas"*, it will show a modal confirmation window. If you type in anything else, it will show a simple *"info-tip"* window.
 
 Try typing in *"Thomas"*, and verify your result resembles something like the following.
 
@@ -209,7 +213,7 @@ To understand what's happening in this code, realise we're doing *"branching"* o
 
 Finally, it will invoke this **[.exe]** node, and execute it as a lambda object. Hence, what we have actually done, is to dynamically create a piece of lambda, depending upon the input of a textbox, for then to execute our dynamically created lambda.
 
-Notice, the above code is also heavily commented. You can create comments in Hyperlambda, either by starting out your comments with `/*` and ending then with `*/`, resulting in that the Hyperlambd will ignore everything inbetween. Alternatively, you can create comments by starting your lines with `//`.
+Notice, the above code is also heavily commented. You can create comments in Hyperlambda, either by starting out your comments with `/*` and ending them with `*/` - Resulting in that the Hyperlambda parser will ignore everything inbetween. Alternatively, you can create comments by starting your lines with `//`, which makes the parser ignore the rest of the line.
 
 The above code might be challenging to visualize in the beginning. In fact, especially for experienced developers, since there are no similar concepts in main stream use, as far as I know, in any other programming languages on this planet. However, a simple **[sys42.windows.show-lambda]** invocation, just before our **[eval]** invocation, will do the trick for us. Change your code to resemble the following, and try typing in both *"Thomas"* and *"John"* into your textbox, and compare the results.
 
@@ -280,15 +284,13 @@ create-widget
         eval:x:/@.exe
 ```
 
-As you can see, as you try the above code, it clearly creates two distinctly different pieces of code as its result. Hence, the code has *"changed"*, according to its environment, and *"morphed"* into becoming something else, than what it originally was.
+As you can see, as you try the above code, it clearly creates two distinctly different pieces of code as its result. Hence, the code has *"changed"*, according to its environment, and *"morphed"* into becoming something else, than what it originally was. This particular example, is a fairly naive and simple one, but this feature is a highly useful feature of Hyperlambda. It might however be difficult to grasp in the beginning, since there doesn't really exist any similar concepts in other programming languages.
 
-This feature is a highly useful feature of Hyperlambda, but intuitively difficult to grasp in the beginning, since there doesn't really exist any similar concepts, in other programming languages.
-
-In Hyperlambda, you can dynamically create and *"decorate"* your code, by applying execution instructions to a lambda object, almost the same way you'd decorate any object in a classic programming language.
+In Hyperlambda, you can dynamically create and *"decorate"* your lambda objects, by inserting execution instructions into your lambda object, almost the same way you'd decorate any object in a classic programming language. You can also remove instructions from existing lambda objects. A lambda object in P5, is a dynamic thing, and not a static thing, as it usually is in other programming languages - Including the so-called *"dynamic"* languages.
 
 ## [insert-before] and [insert-after]
 
-These two Active Events works identically to **[add]**, except they don't append nodes to its destination node, but rather *"injects"* a node, either *"before"* or *"after"* its destination node, depending upon which version you use.
+These two Active Events works identically to **[add]**, except they don't append nodes to its destination(s), but rather *"injects"* its **[src]**, either *"before"* or *"after"* its destination nodes.
 
 Execute the following code in your Apps/Executor, and watch its result.
 
@@ -340,6 +342,19 @@ Of course, the above could also be accomplished by using a boolean algebraic exp
 
 Notice though that **[set]** can only handle one **[src]** argument.
 
+## Multiples destinations
+
+All of the above Active Events can be given multiple destinations. This is a general pattern in P5, which allows you to do multiple things, with one invocation. We saw this in a previous chapter, where we retrieved the values of two widgets, with a single invocation. Both **[set]**, **[add]** and **[insert-xxx]** have similar semantics. Try to run the following Hyperlambda in your Executor to see this for yourselves.
+
+```
+_data
+_data
+set:x:/../*/_data?value
+  src:SUCCESS!
+```
+
+This feature means that you must be careful, to make sure you are only referencing one node, unless you want to risk having unintentional side-effects of your lambda. On the positive side, it is also a feature that allows you to *"do a lot, with a little"*.
+
 ## Deleting stuff
 
 This leaves us with only one remaining concept we'll need to understand, before we can wrap up this chapter, having all four CRUD operations within our toolbelt - Which is deletion of stuff.
@@ -362,16 +377,14 @@ set:x:/@_foo2?name
 
 ## Wrapping up
 
-You should now have a basic understanding of all four CRUD operations for nodes and lambda objects, allowing you to dynamically create and change lambda objects, as you see fit. However, as we started out this chapter with, no other programming languages on this planet, contains any similar constructs to what you have been shown here. Hence, possibly the biggest problem you're now faced with, is creating a mental model for understanding, this very unique, and highly useful idea ...
+You should now have a basic understanding of all four CRUD operations for nodes and lambda objects, allowing you to dynamically create and change lambda objects as you see fit. However, as we started out this chapter with, no other programming languages on this planet, contains any similar constructs to what you have been shown here. Hence, possibly the biggest problem you're now faced with, is creating a mental model for understanding, this very unique and highly useful idea ...
 
 ### Don't panic!
 
-If things are unclear after having read through this chapter, just relax; Things will become clearer as we proceed, and start using the constructs we learned in this chapter. As you gain a more thorough understanding of the art of *"molding lambda objects"*, you can come back to this chapter, and repeat the basics. This chapter have described, possibly one of the most difficult to understand concept in P5. As you get your hands on some real live examples, it will be much more easily understood.
+If things are unclear after having read through this chapter, just relax; Things will become more understandable as we proceed, and start using the constructs we learned in this chapter. As you gain a more thorough understanding of the art of *"molding lambda objects"*, you can come back to this chapter, and repeat the basics. This chapter have described, possibly one of the most difficult to understand concept in P5. As you get your hands on some real live examples, it will be much more easily understood.
 
-## About the Earth
+### Video for this chapter
 
-![alt tag](screenshots/edu_what_is_earth_0.jpg)
-
-**"Mostly harmless!"**
+Feel free to watch [this video](https://www.youtube.com/watch?v=w7A4TcWHolk), which repeat some of the concepts we have gone through in this chapter. If you are reading this book in some sort of paper format, you can find the video here; https://www.youtube.com/watch?v=w7A4TcWHolk
 
 [Chapter 7, Your first real application](chapter-7.md)
