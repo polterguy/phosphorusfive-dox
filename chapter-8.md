@@ -30,7 +30,7 @@ Sorry for messing with your brain!
 
 Or to be more honest with you; Sorry for being sorry for messing with your brain!
 
-The last joke, is not funny in fact, unless you've done quite a lot of Hyperlambda development. However, if you know Hyperlambda's ins and out, you are probably laughing now ... ;)
+The last joke, is not funny in fact, unless you've done quite a lot of Hyperlambda development. However, if you know Hyperlambda's ins and out, you are probably laughing by now ... ;)
 
 When you have read this entire bok, and create some rich app in Hyperlambda, you might even laugh of the following; *"Hyperlambda forgives you from you wanting me to apologize to you, for messing with your brain*". But that requires a *"Shaolin Ninja Kung-Fu Master degree"* in Hyperlambda to find funny ... :D
 
