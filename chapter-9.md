@@ -9,3 +9,5 @@ Here is the bug; Hyprlambda
 Kind regards,
 
 Thomas Hansen
+
+[Chapter 10, Active Events preludium](chapter-10.md)
