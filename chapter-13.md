@@ -40,10 +40,10 @@ Bruce Lee
 
 If you wish to see the video, where he is giving this interview, you can see it [here](https://www.youtube.com/watch?v=cJMwBwFj5nQ).
 
-For the record, I am perfectly fine with whatever classification you'd like to put me into, as long as you make sure you put me into *every single classification that has ever existed!* Hence, I admit it, I am a racist! Let's not forget though; gay, satanist, transexual, woman, fascist, kommunist, evil, stupid, ignorant, terrorist, insane, violent, psychotic, fruitcake, retard, selfish egotistical man chauvinistic bastard, etc, etc, etc ... ;)
+For the record, I am perfectly fine with whatever classification you'd like to put me into, as long as you make sure you put me into *every single classification that has ever existed!* Hence, I admit it, I am a racist! Let's not forget though; gay, satanist, transexual, coward, fascist, kommunist, evil, stupid, ignorant, terrorist, insane, violent, psychotic, fruitcake, retard, selfish egotistical man chauvinistic bastard ... ;)
 
-If I forgot something, please [let me know](https://github.com/polterguy/phosphorusfive-dox/issues).
+Must important of them all of course; **Liar**. If I forgot something, please [let me know](https://github.com/polterguy/phosphorusfive-dox/issues).
 
-And if you prefer referring to Hyperlambda as Hyperbullshit, I am perfectly fine with that. I am done fighting your preconcieved notions about me, and my work anyways, simply because; *"I am water!"*
+And if you prefer referring to Hyperlambda as Hyperbullshit, I am perfectly fine with that. I am done fighting your preconcieved notions about me, and my work anyways, simply because; *"I am water!"* :)
 
 [Chapter 14, foo bar](chapter-14.md)
