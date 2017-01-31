@@ -214,4 +214,4 @@ I also highly encourage you to *not* create Active Events that have no namespace
 
 I often encourage people to pass in lambda objects, intended for execution, by starting their names with a ".". First of all, this will make the intellisense parser of the Hyperlambda code editor mark your lambda object as an *"execution object"*. Secondly, it makes such *"execution objects"* more easily tracked, and increases the readability of your code. So even though this is not technically a prerequisite, I find this myself, to be a useful convention.
 
-
+[Chapter 12, Eval is not (necessarily) evil](chapter-12.md)

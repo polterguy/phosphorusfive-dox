@@ -45,5 +45,3 @@ Since no lambda objects contains any public methods, properties or fields, beyon
 With that in mind, let's move on to the next chapter, where we will look at the internals of Active Events, and start creating some for ourselves.
 
 [Chapter 11, Active Events](chapter-11.md)
-
-

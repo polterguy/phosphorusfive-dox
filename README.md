@@ -70,6 +70,8 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 - [Chapter 9, The bug](chapter-9.md)
 - [Chapter 10, Active Events preludium](chapter-10.md)
 - [Chapter 11, Active Events](chapter-11.md)
+- [Chapter 12, Eval is not (necessarily) evil](chapter-12.md)
+- [Chapter 13, Hyperlambda leads to Hyperhumble](chapter-13.md)
 
 ## Appendix
 
