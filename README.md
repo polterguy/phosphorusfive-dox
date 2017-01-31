@@ -69,6 +69,7 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 - [Chapter 8, Introduction, The pan galactical gargle blaster](chapter-8.md)
 - [Chapter 9, The bug](chapter-9.md)
 - [Chapter 10, Active Events preludium](chapter-10.md)
+- [Chapter 11, Active Events](chapter-11.md)
 
 ## Appendix
 

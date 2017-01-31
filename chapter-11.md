@@ -2,11 +2,11 @@
 
 Active Events, as previously discussed, is a replacement to *"functions"* or *"methods*".
 
-So what is an Active Event? Short answer; Everything you have done so far, is invoking Active Events. The **[sys42.windows.confirm]** parts from one of our previous chapters, is an Active Event. The **[set]** parts we've used several times during the course of this book, also happens to be an Active Event. I could go on, and list absolutely everything you've done so far. Active Events is the axiom, at which P5, and Hyperlambda, evolves around.
+So what is an Active Event? Short answer; Everything! The 42 of P5! In fact, the only thing you have done so far, is invoking Active Events. The **[sys42.windows.confirm]** parts from one of our previous chapters, is an Active Event. The **[set]** parts we've used several times during the course of this book, also happens to be an Active Event. Active Events is the axiom, at which P5, and Hyperlambda, evolves around.
 
 ## Your first Active Event
 
-You can easily create your own Active Events. In fact, let's do so. Execute the following code in your Apps/Executor.
+You can easily create your own Active Events. Execute the following code in your Apps/Executor.
 
 ```
 create-event:sys42.examples.foo
@@ -15,7 +15,7 @@ create-event:sys42.examples.foo
     body:But bar was not invited ...
 ```
 
-Then refresh your Executor web page, such that you reload your autocompleter for Active Events, remove all old code from the executor input, and type in `.foo`. When you have done, hold down CTRL as you click space bar. Execute the code, that should now hopefully look like the following, thanx to the wonders of autocompletion.
+Then refresh your Executor web page, such that you reload your autocompleter. Then remove all old code from the executor input, and type in `.foo`. When you have done, hold down CTRL as you click the space bar. Execute the code, that should now hopefully look like the following, thanx to the wonders of autocompletion.
 
 ```
 sys42.examples.foo
@@ -23,11 +23,11 @@ sys42.examples.foo
 
 Probably few surprises here. Congratulations for the record, you have created your first reusable Active Event. Already at this point, you can consume this Active Event, in your own applications, as you see fit.
 
-**Warning**; Before you go berserk creating your own Active Events, please realize, that if your server is rebooted, or your web server process for some reasons recycles, etc - Your Active Event will *vanish*! If you wish to create *"persistent Active Events"*, you'll need to declare them in e.g. a Hyperlambda file, and make sure this file somehow is executed, every time your web server process starts. This is easily done, by putting a Hyperlambda file, creating your Active Events, into the *"/system42/startup/"* folder inside of your *"/phosphorusfive/core/p5.webapp/"* folder. All files in this folder, are automatically executed, every time your web server process starts.
+**Warning**; Before you go berserk creating your own Active Events, please realize, that if your web server process for some reasons recycles - Your Active Event will vanish! If you want to create persistent Active Events, you'll need to declare them in e.g. a Hyperlambda file, and make sure this file somehow is executed, every time your web server process starts. This is easily done, by putting a Hyperlambda file, creating your Active Events, into the *"/system42/startup/"* folder inside of your *"/phosphorusfive/core/p5.webapp/"* folder. All files in this folder, are automatically executed, every time your web server process starts.
 
 ## Parametrizing your Active Events
 
-To pass in arguments to an Active Event, is as easy as creating a child node. Let's first create an Active Event that can somehow handle our arguments first though. Notice, we will be using the same name for our Active Event as our first example. This will ensure that our original Active Event becomes overwritten, and replaced with our new implementation, without any extra effort necessary from our side.
+To pass in arguments to an Active Event, is as easy as creating a child node in your lambda. Let's first create an Active Event, that can somehow handle our argument. Notice, we will be using the same name for our Active Event as our first example. This will ensure that our original Active Event becomes overwritten, and replaced with our new implementation, without any extra effort necessary from our side.
 
 ```
 create-event:sys42.examples.foo
@@ -65,7 +65,7 @@ sys42.examples.foo
 sys42.windows.show-lambda:x:/..
 ```
 
-As you can see below, clearly our Active Event has returned two nodes to us, after its invocation.
+As you can see below, clearly our Active Event has returned two nodes for us, after its invocation.
 
 ![alt tag](screenshots/chapter-11-2.png)
 
@@ -84,4 +84,134 @@ sys42.windows.show-lambda:x:/..
 ```
 
 At this point, the value **[return]**'ed from your Active Event, can be found as the value of your Active Event invocation node, like the following illustrates; `sys42.examples.foo:Hello World`.
+
+### Referencing the "main" argument
+
+If you pass in a value to your Active Events, you can reference this value as an **[_arg]** node, inside of your Active Events. Execute this code, to see its effect.
+
+```
+create-event:sys42.examples.main-arg
+  sys42.windows.info-tip:x:/../*/_arg?value
+sys42.examples.main-arg:Hell world!
+```
+
+The **[_arg]** argument(s), are handled in a special manner though. If you pass in an expression for instance, as your main argument - Then this expression will be evaluated *before* your event is invoked. Hence, inside of your event, you will have access to the result of your expression. Consider this code.
+
+```
+_name:Jo dude!
+sys42.examples.main-arg:x:/@_name?value
+```
+
+Inside of your **[sys42.examples.main-arg]** event, the **[_name]** node is no longer accessible, since it's outside of the scope of the event itself. However, since the main argument to our invocation is an expression, this expression is evaluated *before* the event is invoked. This means that the **[_arg]**'s value, inside of our **[sys42.examples.main-arg]** event, is a simple constant value.
+
+If you pass in an expression leading to multiple results, you will have multiple **[_arg]**s inside of your event.
+
+## Hyping Hyperlambda
+
+It may be easy to believe that the name *"Hyperlambda"* is simply a marketing trick, in an attempt at trying to *"hype"* the language. However, as we will see in our next example, the word *"hyper"* is well deserved.
+
+```
+create-event:sys42.examples.two-times
+  eval:x:/../*/.exe
+  eval:x:/../*/.exe
+```
+
+After having executed the above code, you can execute this code in your Executor.
+
+```
+sys42.examples.two-times
+  .exe
+    create-widget
+      parent:content
+      position:0
+      element:button
+      class:btn btn-default
+      innerValue:Echo
+      onclick
+        sys42.windows.info-tip:Echo was here!
+```
+
+What happens in our above example, is that we pass in a lambda object, intended to be executed. The **[eval]** invocations, inside of our **[sys42.examples.two-times]** event, executes the specified lambda twice.
+
+The simplicity of passing around such *"execution objects"* to other parts of your code, providing callbacks to other lambda objects, is the reason why Hyperlambda got its name. You can easily pass in such lambda objects, to web service endpoints, completely reversing the responsibility of the client and the server. For the record, you can also do this *securely*.
+
+## Ignoring arguments
+
+**Warning**; As you may have intuitively understood by now, you can supply whatever arguments you wish, to any Active Event in your system - And the Active Event will simply *ignore* your arguments, unless it was explicitly iplemented to handle your arguments.
+
+Doing such a thing, is probably not wise though - Since ignored arguments, must still be passed into your Active Events, rendering your system's state, such that it contains *dead code*. In addition, of course, this makes your system more difficult to understand, since others will have difficulties in understanding your code, by looking at it, believing arguments that are *"dead"*, carries semantic meaning. In comparison to a strongly typed programming language, such as C#, which gives you compiler errors if you did the same - This might sometimes be a challenge for you, as you modify existing Active Events, removing old arguments, not in use anymore.
+
+However, this is also the strength of Hyperlambda, since it allows you to modify existing events, taking additional arguments, without breaking existing code.
+
+## Non-existent Active Events
+
+Another peculiarity of Hyperlambda and Active Events, is that you can easily invoke an Active Event which doesn't exist. Your invocation, will however not find any existing events with the specified name, and simply do *"nothing"*.
+
+This is a really nifty pattern in Hyperlambda in fact, which allows you to anticipate the existence of some *"future event"*, without having to implement it yourself. This allows you to use non-existent *"hooks"* in your code, which you document, and which the consumers of your events later can *"hook into"*. This is implemented a lot of different places in P5 in fact, and allows you to *"inject"* your own Hyperlambda logic, into the *"core kernel parts"* of P5, completely modifying its behavior.
+
+## Naming conventions
+
+There is nothing preventing you from creating the following Active Event.
+
+```
+create-event:57
+  return:42
+```
+
+Whether or not this is a smart thing to do though, is probably *"debatable"*, to use gentle words. I often find myself encouraging others to use some sort of intelligent namespacing convention. Often this should be as unique as possible, to make sure your Active Events does not clash with Active Events created by others.
+
+By carefully choosing a unique namespace for your Active Events, you make sure your code works, an often times even collaborates, side by side other people's code. My convention here is to encourage others to using their company name, or some other *very unique piece of string*, as the first parts of your Active Events, for then to add the application name as the second - Then at the end, provide the actual name for your Active Event, providing some meaningful clue about what your Active Event actually does.
+
+If we were to rewrite the above Active Event, with this in mind, creating a more *"intelligent"* naming convention, we could create something that resembles the following instead.
+
+```
+create-event:gaiasoul.the-answer.what-is-57
+  return:42
+```
+
+Notice the "." separating the different components of our *"namespace"*. This *"namespace"* is only a *"convention"* though, and carries no actual semantics.
+
+You could also name your Active Events **[What is the number of $ I would get, for 57€ ...?]**, but I wouldn't recommend it. First of all, if the consumer of your Active Event forgets to add as much as the space " " between the last EURO sign, and the "..." parts, his invocation would not invoke your event.
+
+You could also supply special characters in your event names, making it extremely difficult for others to invoke them. Examples includes carriage returns,"", Japanese characters, Greek letters, TAB, ASCII+7, etc. I wouldn't claim doing such a thing would never be wise - For instance, using Japanese characters as event names, or Greek letters for that matter, could probably sometimes provide good contextual meaning. I am simply saying; *be careful!*
+
+Active Events are carefully created to facilitate for *more* contextual meaning, and *improved* understanding of your systems. Not to set a new world record in *"obfuscated coding olympics"* - Although, you'd probably easily win such a contest, if you tried attending it with Hyperlambda. For instance, this is perfectly valid Hyperlambda, and creates an Active Event named **[]**, taking a **[∂]** argument - Which of course makes no sense at all.
+
+```
+create-event:
+  return:{0} is the new ≈
+    :x:/../*/∂?value
+```
+
+Why the above becomes almost absurd, can be seen by trying to consume the above Active Event.
+
+```
+
+  ∂:¸
+```
+
+### Restrictions to Active Event names
+
+There are only 3 restrictions to what you can name your Active Events.
+
+* You cannot start your event name with an underscore "_"
+* You cannot start your event name with a period "."
+* You cannot create an even who's name is "" (empty string)
+
+These restrictions applies only to Hyperlambda though. The reasons are that the Active Events starting with either a ".", or a "\_", are considered *"private core Active Events"*. You can create such events, but only from C#. In addition, you cannot invoke such Active Events from Hyperlambda, since the **[eval]** Active Event ignores all nodes starting with either "." or "\_", rendering your events useless, if you could create them. The Hyperlambda **[eval]** event, will neither attempt to raise any events having an empty name.
+
+The "" Active Event, is a special event name, that can also exclusively be created from C#. This event will handle *all* Active Events, and allows you to tap into the core Active Event *"kernel"*, and modify its behavior.
+
+In addition, I highly discourage you from creating Active Events that already exists, such as creating an event who's name is **[create-event]**. Which would render your system close to useless in its entirety, if you did.
+
+#### Stay away from my stuff!
+
+You should also have an extremely good argument for creating Active Events starting with the name of *"p5."* or *"sys42."*, since these are intentionally restricted namespaces (by convention), intended for the system itself.
+
+I also highly encourage you to *not* create Active Events that have no namespace, such as for instance `create-event:foo-event`. The risk of having your event name clash with other people's event names, is simply too great - Rendering your system's ability to collaborate with other people's code impossible.
+
+### Argument conventions
+
+I often encourage people to pass in lambda objects, intended for execution, by starting their names with a ".". First of all, this will make the intellisense parser of the Hyperlambda code editor mark your lambda object as an *"execution object"*. Secondly, it makes such *"execution objects"* more easily tracked, and increases the readability of your code. So even though this is not technically a prerequisite, I find this myself, to be a useful convention.
+
 
