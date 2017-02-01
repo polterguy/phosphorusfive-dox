@@ -72,6 +72,7 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 - [Chapter 11, Active Events](chapter-11.md)
 - [Chapter 12, Eval is not (necessarily) evil](chapter-12.md)
 - [Chapter 13, Hyperlambda leads to Hyperhumble](chapter-13.md)
+- [Chapter 14, Your second real application](chapter-14.md)
 
 ## Appendix
 

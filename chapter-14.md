@@ -1,0 +1,472 @@
+# Your second real application
+
+In this chapter, we will improve our application from chapter 7. This time, we will first of all, use the database in P5 to store our records. In addition, we will make sure it becomes a real CRUD app. It will also become a multi user app, where all users saves their data to the same database. In this chapter, we will build upon what we have learned so far. Technologies used here, will include.
+
+* Creating Hyperlambda files
+* Creating rich Ajax forms, to have our users edit and add records
+* Using widget lambda events
+* Using the p5.data database to store our data
+* In addition to most concepts we have looked at so far in this book
+
+## Architecture
+
+We will cretate 4 Hyperlambda files, encapsulating all of our 4 CRUD operations; Create, read, update and delete. This is not a technical prerequiste, but makes it easier for us to apply changes to our app in the future. An example might include changing from the p5.data database, to a more scalable database.
+
+By *"hiding"* internals of our app, inside our our CRUD database layer, we accommodate for future change, and our application achieves a higher degree of *"encapsulation"*.
+
+We will also create the app as a *"CMS app"*, which means that it will be declared as a folder inside of our *"/phosphorusfive/core/p5.webapp/system42/apps/"* folder. This is the preferred way to create more complex apps, consisting of multiple files, since it allows for what is often referred to as *"XCopy deployment"*. The latter simply means, you can copy the folder where our app is declared, and distribute it to others, having them paste the folder into their *"/apps/"* folder, to use your app on their servers.
+
+## End result
+
+Our end result will resemble the following screenshots.
+
+![alt tag](screenshots/chapter-14-1.png)
+
+Above you can see that we have pager buttons, which allows the user to move back and forward in his list of contacts. In addition, we have a *"Create"* button, that allows him to create a new contact. When he creates, or edits an existing contact, his form will look like the following.
+
+![alt tag](screenshots/chapter-14-2.png)
+
+When he tries to delete a user, he will get a modal warning, asking him to confirm deletion.
+
+![alt tag](screenshots/chapter-14-3.png)
+
+Basically, the app contains most things you'd expect from a CRUD app. The app will also be designed, such that it is easily extendible, and can be easily modified, to hold other types of data. The user will also be able to *"page"* back and forth. Byt default, our app will show only 5 contacts at the time, but this can be changed, by modifying a single integer value in our app.
+
+## Let's begin
+
+First create a folder named *"contacts"* inside of your *"/core/p5.webapp/system42/apps"* folder. We will put our entire application into this folder.
+
+Create a file called *"launch.hl"* inside of your *"/contacts/"* folder. The name of this file is important, since the CMS in System42, will look for a file with that exact name, inside of your folder. And if it finds it, it will create a menu item, automatically for us, inside of our *"Apps"* menu dropdown, which once clicked, will execute this file. Arguably, this file's path, becomes our *"desktop icon"* to launch our app. Our *"launch.hl"* file, will however contain most of our application's code.
+
+**system42/apps/contacts/launch.hl**
+
+```
+/*
+ * Our CRUD app's main launcher.
+ * Loads the default CMS template.
+ * This ensures our menu/navbar is loaded, among other things.
+ */
+sys42.cms.load-template
+
+
+/*
+ * Creating main UI.
+ */
+create-widget
+  parent:content
+  class:col-xs-12
+  widgets
+
+    /*
+     * Main "datagrid" for app.
+     */
+    table:contacts-table
+      class:table table-striped
+      widgets
+        thead
+          innerValue:<tr><th>Name</th><th>Email</th><th>Phone</th><th>Edit</th><th>Delete</th></tr>
+        container:contacts-items
+          element:tbody
+
+    /*
+     * Add button for our app, that allows user to create new contacts.
+     * When clicked, this buttons invokes the widget lambda event, responsible
+     * for creating a new contact.
+     */
+    container
+      class:text-right
+      widgets
+        button
+          class:btn btn-primary
+          innerValue:Create
+          onclick
+            sys42.examples.contacts.create
+
+  /*
+   * Widget lambda events.
+   */
+  events
+
+    /*
+     * UI wrapper for creating a new contact.
+     * Using our "wizard window" to ask user for contact's details.
+     */
+    sys42.examples.contacts.create
+
+      /*
+       * Showing a wizard window, asking user to provide contact details.
+       */
+      sys42.windows.wizard
+        header:Supply contact's details
+        body
+        data
+          name
+          email
+          phone
+        .onok
+
+          /*
+           * Passing in the data given by user to our "create" wrapper.
+           */
+          sys42.windows.wizard.get-values
+          add:x:/../*/sys42.utilities.execute-lambda-file
+            src:x:/@sys42.windows.wizard.get-values/*
+          sys42.utilities.execute-lambda-file:/system42/apps/contacts/crud/create.hl
+
+          /*
+           * Databinding our table, since our database has now changed.
+           */
+          sys42.examples.contacts.databind
+
+    /*
+     * "Databinds" our app.
+     * Fetches items from our "read" file, and creates table "tr" 
+     * items for each item returned from "data layer".
+     */
+    sys42.examples.contacts.databind
+
+      /*
+       * This is a little "lambda expression" trick, to provide default 
+       * values for [start] and [end], such that if the caller of this event 
+       * doesn't provide these arguments, it will use the values found below.
+       */
+      start:0
+      end:5
+
+      /*
+       * Invoking file responsible for retrieving items from our database,
+       * making sure we forward evaluate arguments first.
+       */
+      eval-x:x:/+/*
+      sys42.utilities.execute-lambda-file:/system42/apps/contacts/crud/read.hl
+        start:x:/../*/start/[0,1]?value
+        end:x:/../*/end/[0,1]?value
+
+      /*
+       * Checking if above invocation returned zero items, 
+       * and if so, returning early.
+       */
+      if:x:/@sys42.utilities.execute-lambda-file/*?count
+        =:int:0
+        sys42.windows.info-tip:No more items in database
+        return
+
+      /*
+       * Making sure we delete tbody HTML widget.
+       */
+      delete-widget:contacts-items
+
+      /*
+       * Creating our table rows, one for each item returned from above 
+       * Hyperlambda file invocation.
+       */
+      apply:x:/../*/create-widget/*/widgets
+        src:x:/@sys42.utilities.execute-lambda-file/*
+        template
+          tr
+            widgets
+              td
+                {innerValue}:x:/*/name?value
+              td
+                {innerValue}:x:/*/email?value
+              td
+                {innerValue}:x:/*/phone?value
+              td
+                widgets
+                  button
+                    class:btn btn-default btn-xs
+                    innerValue:Delete
+                    onclick
+
+                      /*
+                       * Asking user to confirm action, before we delete item.
+                       */
+                      sys42.windows.confirm
+                        header:Please confirm
+                        body:<p>Are you sure you wish to delete this contact?</p>
+                        .onok
+
+                          /*
+                           * Invoking file responsible for deleting item.
+                           * Notice, the argument to this invocation, is 
+                           * actually databound in the above [apply].
+                           */
+                          sys42.utilities.execute-lambda-file:/system42/apps/contacts/crud/delete.hl
+                            {id}:x:?value
+
+                          /*
+                           * Databinding our table all over again.
+                           */
+                          sys42.examples.contacts.databind
+              td
+                widgets
+                  button
+                    class:btn btn-default btn-xs
+                    innerValue:Edit
+                    onclick
+
+                      /*
+                       * Using a wizard window, passing in existing details for 
+                       * contact, asking user to provide his changes.
+                       * Notice, the [data] arguments to this invocation, is 
+                       * actually databound in the above [apply].
+                       */
+                      sys42.windows.wizard
+                        header:Provide new data
+                        body
+                        data
+                          {name}:x:/*/name?value
+                          {email}:x:/*/email?value
+                          {phone}:x:/*/phone?value
+                        .onok
+
+                          /*
+                           * Passing in the data given by user to 
+                           * our "edit" wrapper.
+                           */
+                          sys42.windows.wizard.get-values
+                          add:x:/../*/sys42.utilities.execute-lambda-file
+                            src:x:/@sys42.windows.wizard.get-values/*
+                          sys42.utilities.execute-lambda-file:/system42/apps/contacts/crud/edit.hl
+                            {id}:x:?value
+
+                          /*
+                           * Databinding our table, since our 
+                           * database has now changed.
+                           */
+                          sys42.examples.contacts.databind
+
+      /*
+       * Creating our "pager" button (previous, next).
+       */
+      add:x:/../*/create-widget/*/widgets
+        src
+          tr
+            widgets
+              td
+                colspan:5
+                class:text-right
+                widgets
+                  button
+                    class:btn btn-default
+                    innerValue:&lt;
+                    _start:x:/../*/start/[0,1]?value
+                    _end:x:/../*/end/[0,1]?value
+                    onclick
+
+                      /*
+                       * Databinding table over again, making sure we 
+                       * fetch the "previous page".
+                       */
+                      p5.web.widgets.property.get:x:/../*/_event?value
+                        _start
+                        _end
+                      -:x:/@p5.web.widgets.property.get/*/*/_end?value.int
+                        _:x:/@p5.web.widgets.property.get/*/*/_start?value.int
+                      -:x:/@p5.web.widgets.property.get/*/*/_start?value.int
+                        _:x:/./@-?value
+                      -:x:/@p5.web.widgets.property.get/*/*/_end?value.int
+                        _:x:/./-/@-?value
+                      eval-x:x:/+/*
+                      sys42.examples.contacts.databind
+                        start:x:/./-3?value
+                        end:x:/./-2?value
+
+                  button
+                    class:btn btn-default
+                    innerValue:&gt;
+                    _start:x:/../*/start/[0,1]?value
+                    _end:x:/../*/end/[0,1]?value
+                    onclick
+
+                      /*
+                       * Databinding table over again, making 
+                       * sure we fetch the "next page".
+                       */
+                      p5.web.widgets.property.get:x:/../*/_event?value
+                        _start
+                        _end
+                      -:x:/@p5.web.widgets.property.get/*/*/_end?value.int
+                        _:x:/@p5.web.widgets.property.get/*/*/_start?value.int
+                      +:x:/@p5.web.widgets.property.get/*/*/_start?value.int
+                        _:x:/@-?value
+                      +:x:/@p5.web.widgets.property.get/*/*/_end?value.int
+                        _:x:/@-?value
+                      eval-x:x:/+/*
+                      sys42.examples.contacts.databind
+                        start:x:/./-3?value
+                        end:x:/./-2?value
+
+      /*
+       * Creating actual tbody HTML table, wrapping our items.
+       */
+      create-widget:contacts-items
+        parent:contacts-table
+        element:tbody
+        widgets
+
+/*
+ * Initially databinding our table widget above.
+ */
+sys42.examples.contacts.databind
+```
+
+### Our CRUD database layer
+
+You can not run your application just yet though, since it relies upon 4 more files. These files must be created inside a *"crud"* folder, inside of your main app's folder. Hence, first create a folder named *"crud"* inside of *"/system42/apps/contacts/"*, and make sure you create the 4 following files in this folder.
+
+**system42/apps/contacts/crud/create.hl**
+
+```
+
+/*
+ * Our "create" wrapper for our CRUD operations.
+ * Expects [name], [email] and [phone] arguments.
+ */
+
+
+/*
+ * The [src] expression, uses a trick, for adding all arguments supplied to file invocation.
+ */
+add:x:/../*/insert-data/*
+  src:x:/./--
+insert-data
+  sys42.examples.contact
+```
+
+**system42/apps/contacts/crud/delete.hl**
+
+```
+
+/*
+ * Our "delete" wrapper for our CRUD operations.
+ * Expects [id] argument.
+ */
+
+
+
+/*
+ * Deleting the item with the specified [id] value.
+ */
+delete-data:x:@"/*/*/sys42.examples.contact/""=:guid:{0}"""
+  :x:/../*/id?value
+```
+
+**system42/apps/contacts/crud/edit.hl**
+
+```
+
+/*
+ * Our "edit" wrapper for our CRUD operations.
+ * Expects [id], [name], [email] and [phone] arguments.
+ */
+
+
+
+/*
+ * The [src] expression, uses a trick, for adding all arguments supplied to file invocation,
+ * except the [id] argument.
+ */
+add:x:/../*/update-data/*/*
+  src:x:/./--!/../*/id
+update-data:x:@"/*/*/sys42.examples.contact/""=:guid:{0}"""
+  :x:/../*/id?value
+  src
+    sys42.examples.contact
+```
+
+**system42/apps/contacts/crud/read.hl**
+
+```
+
+/*
+ * Our "read" wrapper for our CRUD operations.
+ * Expects [start] and [end] arguments.
+ */
+
+/*
+ * Checking if [start] is more than the number of items in database,
+ * or less than 0, and if so, we return early.
+ */
+select-data:x:/*/*/sys42.examples.contact?count
+if:x:/../*/start?value.int
+  >=:x:/@select-data?value.int
+  or:x:/../*/start?value.int
+    <:int:0
+  return
+
+select-data:x:/*/*/sys42.examples.contact/[{0},{1}]
+  :x:/../*/start?value
+  :x:/../*/end?value
+return:x:/@select-data/*
+```
+
+## Analyzing our code
+
+Arguably, the above application, is our first real application, providing actual value for our users. It allows a user to create, read, update and delete contacts. Each contact, consists of a name, an email, and a phone number. The app is relatively easy to modify, to hold other types of data, and although intentionally *not* created with every single best practice from P5 in mind, it isn't too far away either.
+
+### Can you improve it?
+
+First things first. As previously said, although the app is not too far away from following most *"best practices"*, some things in it, could easily be improved. Hint; Discuss with yourselves, whether or not there should exist more widget lambda events.
+
+
+### CRUD database layer
+
+Our database layer, consists of four files.
+
+* create.hl
+* read.hl
+* update.hl
+* delete.hl
+
+All of these files can be found in our *"crud"* folder. This ensures that we can easily later, exchange the underlaying database, to something more scalable. For instance, the p5.data database, stores its items in memory, making it perform extremely fast, but also scale badly if you add thousands of records to it.
+
+There are no places in our GUI where we access the database directly in any ways. Hence, our GUI and our *"model"* are not dependent upon each other in any ways. This is a *good* thing.
+
+### Structure of GUI
+
+Our GUI is relatively nicely created. It could easily be improved though, since among other things, it *"mixes"* logic and declaration of GUI elements. One improvement that could be applied for instance, would be to instead of having our logic inside of our **[onclick]** Ajax event handlers for our buttons, at line 137, 164, 213 and 238 - We could probably benefit from creating these parts of our app, encapsulated in some widget lambda events, to make sure we have more flexibility in regards to future change of our GUI. This makes it easier for us to change the GUI, without being forced to moving around tons of Ajax event handler code.
+
+**Homework assignment**; Do the above!
+
+### Interesting features
+
+Interestingly though, our app doesn't contain a single loop. We can get away with this, due to the magic of **[apply]**, which allows us to more easily create a bunch of HTML "tr" widgets, than any looping mechanisms would allow us to.
+
+Another interesting detail, is that our database layer, is in no ways dependent upon the structure of our items. If you want to extend the app, to hold an additional piece of information, such as an address field for instance - Then this does no in any ways require you to change your database layer.
+
+We can come away with this, thanks to some *"lambda expression magic"* within our database CRUD files. For instance, the code below, which is taken from our *"create.hl"* file ...
+
+```
+add:x:/../*/insert-data/*
+  src:x:/./--
+insert-data
+  sys42.examples.contact
+```
+
+... allows us to add all arguments given to the file, into the **[sys42.examples.contact]** argument to **[insert-data]**.
+
+The reasons for this, is because the `/--` expression iterator, retrieves *all* elder sibling nodes from its previous result set. Since all arguments, to all lambda invocations, including **[eval]**, our own Active Events, and Hyperlambda file invocations, are passed in to our lambda, at the *top* of our lambda object - This means this simple **[add]** trick will actually add all arguments, regardless of how many, or what their names are.
+
+You can find a similar construct in our *"edit.hl"* file, except here we *exclude* one of the specified arguments, using boolean algeraic lambda expressions. This has to be done, to make sure we exclude the **[id]**, which is actually not a property of our data record, but becomes the value of our main data node, due to the internals of the p5.data database.
+
+To understand this, you can insert a couple of items into your contacts application, and then execute the following code in the Apps/Executor.
+
+```
+select-data:x:/*/*/~contact
+```
+
+This will show you the structure of your items, as they are stored in your database. Notice here the `:guid:` parts, in the value of your nodes. These are automatically created unique IDs, making it easy for you to reference a single item from your database. This is crucial to make it possible to update and delete items from our database.
+
+### Unknowns not covered (yet)
+
+In our **[onclick]** Ajax event handler, at line 238, we have a couple of invocations to **[+]** and **[-]**. The same is true for our **[onclick]** at line 213. These are math Active Events, allowing us to add and subtract, either some constants, or the results of an expression.
+
+We will carefully cover these in a later chapter, however, if you twist your brain hard, you can probably figure out what they do. Hint; Use **[sys42.windows.show-lambda]** to see the results of these invocations, if you are curious.
+
+We have also just vaguely covered the p5.data internals. In addition we haven't really dissected branching (or **[if]** within our *"read.hl"* file) for instance. These topics will also be covered in later chapters.
+
+In [this video](https://youtube.com/todo), I walk you through the main parts of the application. Don't worry if there are things you do not yet fully understand in the above code. The things we haven't gone through yet, which we're using above, will be thoroughly handled in later chapters.
+
+If you're reading this book in some sort of paper format, you can find the above video at; https://youtube.com/todo
+
