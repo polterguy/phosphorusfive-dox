@@ -40,7 +40,7 @@ Bruce Lee
 
 If you wish to see the video, where he is giving this interview, you can see it [here](https://www.youtube.com/watch?v=cJMwBwFj5nQ).
 
-For the record, I am perfectly fine with whatever classification you put me into, as long as you make sure you put me into *every single classification that has ever existed!* :D
+For the record, I am perfectly fine with whatever classification you put me into, as long as you make sure you put me into *every single classification that has ever existed*. And the same is true for Hyperlambda. Simply because, a lambda object from Hyperlambda, is the last type you'll ever need.
 
 I am water, and I change in accordance to my environment. How do you do Sir ...?
 
