@@ -74,6 +74,7 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 - [Chapter 13, Hyperlambda leads to Hyperhumble](chapter-13.md)
 - [Chapter 14, Your second real application](chapter-14.md)
 - [Chapter 15, FYI, P5 is fork friendly and free-fusable](chapter-15.md)
+- [Chapter 16, Reusable GUI components](chapter-16.md)
 
 ## Appendix
 
