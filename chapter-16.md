@@ -225,6 +225,10 @@ create-event:sys42.examples.widgets.datagrid
                           class:btn btn-xs btn-default
                           innerValue:Edit
                           onclick
+
+                            /*
+                             * Using a wizard window, to edit record.
+                             */
                             sys42.windows.wizard
                               header:Edit item
                               body:<p>Supply new values</p>
