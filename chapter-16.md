@@ -1,6 +1,6 @@
 # Reusable GUI components
 
-In this chapter, we will take the component approach from our previous even further, and create reusable GUI components. In our previous chapter, we created a completely generic CRUD database layer, with support for all four CRUD operations. In this chapter, we will take a look at reusable custom widgets.
+In this chapter, we will bring the component approach from our previous chapter even further, and create reusable GUI components. In our previous chapter, we created a completely generic CRUD database layer, with support for all four CRUD operations. In this chapter, we will take a look at reusable custom widgets.
 
 So far, we have only used the core widgets. However, to create a custom and more complex widget in Hyperlambda, is actually surprisingly easy. As always, the answer is to create an Active Event. Execute the following code in your Executer.
 
@@ -102,13 +102,13 @@ In the diagram above, the green part is our component, or widget. The orange par
 
 ## Everything "adapts"
 
-The beauty of this design, is that *any single box in our above diagram, can easily be replaced with another implementation*. For instance, the **[sys42.settings.get/set]** Active Events are using the p5.data component. If we wanted to, we could replace the usage of p5.data, with another component - Storing settings in for instance MySQL.
+The beauty of this design, is that *any single box in our above diagram, can easily be exchanged with any other implementation*. For instance, the **[sys42.settings.get/set]** Active Events are using the p5.data component. If we wanted to, we could replace the usage of p5.data, with another component - Storing settings in for instance MySQL.
 
 Another example is p5.auth, which authenticates and authorize users in P5. Although relatively safe and secure, this component is still a little bit *"naive"* in its implementation - Particularly in regards to how it handles roles. If you wanted to, you could easily replace the entirety of p5.auth, with your own *"auth component"*. As long as you created your new *"auth"* component, with Active Events having the same names, taking the same set of arguments, and returning (at least) the same set of values - Nothing would break. You basically always have an *"adapter pattern"* at your disposal, implicitly implemented, on everything you create.
 
 ### The adapter pattern
 
-The adapter pattern, is a beautiful design pattern, that allows you to replace parts of your internals, without affecting the outer layers of your system. In P5, this pattern is implicitly given, in everything you do. Hence, in our above solution, we have a total of 8 components, where any single one of these components, can easily be replaced, with any other component - *Without* breaking anything. Arguably hence, the adpater pattern has been rendered *obsolete*.
+The adapter pattern, is a beautiful design pattern, that allows you to replace parts of your internals, without affecting the outer layers of your system. In P5, this pattern is implicitly given, in everything you do. Hence, in our above solution, we have a total of 8 components, where any single one of these components, can easily be replaced, with any other component - *Without* breaking anything. Arguably hence, the adapter pattern has been rendered *obsolete*, by implicitly making sure it's always supported.
 
 This allows you to easily create *"something"*, and use it initially, to rapidly getting something together for your app - While later, as you become more certain of that you actually need this *"something"*, and you want to create it more scalable, secure, feature rich, *"whatever"* - You can refactor this *"something"*, and make it better. This makes sure you'll not have to spend energy on the things that you are not 100% certain of that you'll actually need, as the requirements for your app changes.
 
@@ -413,7 +413,7 @@ Congratulations, you have now created a *"datagrid"*, which allows you to displa
 
 Notice though, as we discussed in the previous chapter; This Active Event (extension widget) will actually disappear if you recycle your web server process. If you wish to make sure it stays around *"forever"*, you'll need to stuff it in a Hyperlambda file, within e.g. your *"/system42/startup/"* folder.
 
-To consume your extension widget, is really easyt. Simply create a new lambda CMS page, and paste in the following code.
+To consume your extension widget, is really easy. Simply create a new lambda CMS page, and paste in the following code.
 
 ```
 /*
@@ -486,7 +486,9 @@ create-widget
                 sys42.windows.info-tip:Record successfully created
 ```
 
-The end results, becoming roughly the same app we created in one of our previous chapters. With one *crucial difference though* - Which is that we now have a reusable *"datagrid"* component, that we can use, every time we want to let the user edit some tabular type of data. Hence, arguably, we have permanently solved all problems related to editing of tabularly based information, with rows and columns. The components we have built, can also be reused, with ~10-30 lines of code, to create any types of tables, and edit the data within these tables. Your page should resemble something like the following.
+The end results, becoming roughly the same app we created in one of our previous chapters. With one *crucial difference though* - Which is that we now have a reusable *"datagrid"* component, that we can use, every time we want to let the user edit some tabular type of data. Hence, arguably, we have permanently solved all problems related to editing of tabularly based information, with rows and columns. The components we have built, can also be reused, with ~10-30 lines of code, to create any types of tables, and edit the data within these tables.
+
+Your page should resemble something like the following.
 
 ![alt tag](screenshots/chapter-16-4.png)
 
@@ -530,4 +532,6 @@ When you have removed all dependencies upon the **[sys42.examples.data.xxx]** ev
 
 **Definition**; *"DRY"* means *"Don't Repeat Yourself"*. As you remove dependencies between our previously created CRUD database layer, and the above datagrid - You will realize that as you start using this generic datagrid, you'll often find yourselves repeating the same code, to feed your datagrid with data, allow editing and deletion of items, etc. To prevent repeating yourself, you can encapsulate this code into another component, which internally uses the above datagrid, in *addition* to automatically tapping into our previously created CRUD database layer. Resulting in ending up with *two* datagrids. One completely independent datagrid, and another one which automatically ties into your CRUD database layer, that is built on top of your first datagrid.
 
+If you wanted to, you could also at this point create an Active Event, taking some *"columns"* argument, that automatically creates a DataGrid on your page, allowing you to easily create a page, with a DataGrid, allowing for editing of CRUD records, of some specific type. This would result in that you could with a single Active Event invocation, and a handful of Hyperlambda lines of arguments, easily create a DataGrid page, allowing for editing of tabular data, storing the data in the P5 database automatically.
 
+[Chapter 17, Loops](chapter-17.md)
