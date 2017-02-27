@@ -1,6 +1,6 @@
 # Your first real application
 
-Whoa, finally we are going to create something useful! In this chapter, we will create a contacts application, allowing us to keep track of our friends, their emails, and phone numbers. Below is a screenshot of our final result.
+In this chapter, we will create a contacts application, allowing us to keep track of our friends, their emails, and phone numbers. Below is a screenshot of our final result.
 
 ![alt tag](screenshots/chapter-7-1.png)
 

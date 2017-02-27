@@ -1,10 +1,10 @@
 # Hello World
 
-Assuming you have already downloaded P5, and managed to get it up and running, we are going to create our first *"Hyperlambda application"* called *"Hello World"*. By stepping through this application, and explaining what it does, you will be armed with the knowledge required to create your own Ajax web apps.
+Assuming you have already downloaded P5, and managed to get it up and running, we are going to create our first Hyperlambda application called *"Hello World"*. By walking through this application, and explaining what it does, you will be armed with the knowledge required to create your own Ajax web apps.
 
-Open up your Apps/CMS editor, by choosing it in your menu/navbar at the top of your page. Click the _“+”_ button, and choose to create a new _“lambda”_ page. Then remove the existing code, if any, and paste in the following Hyperlambda into your editor. When you have done so, make sure you click _“Save”_, and _“View page”_. Notice, you might have some sort of popup blocker enabled, preventing you from viewing the page. If you get some popup blocker notification as you click *"View page"*, make sure you enable popups on the domain from which you are developing your P5 apps. This is normally *"localhost"* or *"127.0.0.1"*, if you're on a development box, creating apps locally.
+Open the Apps/CMS editor, by choosing it in your menu/navbar at the top of your page. Click the _“+”_ button, and choose to create a new _“lambda”_ page. Then remove the existing code, and paste in the Hyperlambda code below into your editor. When you have done this, make sure you click _“Save”_, and _“View page”_. Notice, you might have some sort of popup blocker enabled, preventing you from viewing the page. If you get some popup blocker notification as you click *"View page"*, make sure you enable popups on the domain from which you are developing your P5 apps. This is normally localhost or 127.0.0.1.
 
-The Hyperlambda we will use can be found below.
+The Hyperlambda for our Hello World application.
 
 ```
 create-widget:foo
@@ -19,6 +19,10 @@ create-widget:foo
         p5.web.widgets.property.set:bar
           innerValue:Hello World
 ```
+
+Your page should look like this.
+
+![alt tag](screenshots/chapter-1-1.png)
 
 If you try to click the button created by the Hyperlambda above, it will change its value to *"Hello World"*. If you wish, you can refresh your page, to reset the button's text, for then to click it again.
 
@@ -38,21 +42,21 @@ If you still think this is difficult to understand, you can watch [this video](h
 
 ### Analyzing our code
 
-Above, in our `create-widget:foo` parts, which is our first line of code, we first declare a *"node"*. The node has a name, being **[create-widget]**, and a value being *"foo"*. This creates a *"widget"* for us, which is an HTML element. Which type of widget this will create, depends upon which arguments you supply to it. The widget will have an ID attribute of *"foo"*, which is later used to reference the widget, and change or retrieve its properties and/or value(s).
+Above, in our `create-widget:foo` parts, which is our first line of code, we first declare a *"node"*. The node has a name, being **[create-widget]**, and a value being *"foo"*. This creates a *"widget"* for us, which is an interactive HTML element. Which type of widget this will create, depends upon which arguments you supply to it. The widget will have an ID attribute of *"foo"*, which can later be used to reference the widget, and change or retrieve its properties and/or attributes.
 
 Our **[create-widget]** invocation above has three children nodes;
 
-- **[parent]**
-- **[class]**
-- **[widgets]**
+- **[parent]** - Parent widget to append widget into
+- **[class]** - CSS class to use for HTML element
+- **[widgets]** - Children widgets
 
-To declare a child of another node in Hyperlambda is very easy. All you have to do, is to indent your node with two spaces, relative to the indentation of the node you wish to declare these children within. This makes sure that your node becomes a children of the node above it, or an *"argument"*.
+To declare a child of another node in Hyperlambda is very easy, all you have to do, is to indent your node with two spaces, relative to the indentation of the node you wish to declare these children inside of. This makes sure that your node becomes a child of the node above it, or an *"argument"* if you wish.
 
-The **[parent]** argument, declares which parent HTML widget you wish to inject your widget into. The **[class]** argument, declares the CSS class you wish to use. And the **[widgets]** argument, becomes a collection of children widgets.
+The **[parent]** argument, declares which parent HTML widget you wish to append your widget into. The **[class]** argument, declares the CSS class you wish to use for your HTML element. And the **[widgets]** argument, becomes a collection of children widgets.
 
-You can use any **[parent]** you wish for your widget, which allows you to inject your widget, into any pre-existing widget's collection. The *"content"* **[parent]** we are using above, happens to be a generic container widget, from the main default template of System42's CMS.
+You can use any **[parent]** you wish for your widget, which allows you to inject your widget, into any pre-existing widget's collection. The *"content"* **[parent]** we are using above, happens to be a generic **[container]** widget, from the main default template of System42's CMS.
 
-The *"col-xs-12"* value of our **[class]** argument, refers to a CSS class from [Bootstrap CSS](http://getbootstrap.com/css/), which is a commonly used Open Source CSS framework. Bootstrap CSS is the default CSS framework in P5.
+The *"col-xs-12"* value of our **[class]** argument, refers to a CSS class from [Bootstrap CSS](http://getbootstrap.com/css/), which is a commonly used Open Source CSS framework. Bootstrap CSS is the default CSS framework in P5, but can easily be replaced if you wish.
 
 Of all the above arguments, the **[widgets]** argument is probably the most important. This argument implicitly declares which type of widget we want to create. There are three types of widgets in P5.
 
@@ -70,7 +74,7 @@ To understand the above code, it might be useful to see its resulting HTML. Belo
 </div>
 ```
 
-Notice how our inner widget is of type *"button"*. This is because of the argument **[element]**, which declares what type of HTML widget you wish to create. You can create any HTML element you wish, by changing this argument to the name of the HTML element you wish to create.
+Notice how our inner widget is of type *"button"*. This is because of the argument **[element]**, which declares what type of HTML widget you wish to create. You can create any HTML element you wish, by changing the **[element]** argument's value to the *"tagName"* of the HTML element you wish to create.
 
 You can also add any attributes you wish to your widget, by simply adding the attribute as an argument. To add an attribute with the name of *"foo"* and the value of *"bar"* for instance, is as easy as adding `foo:bar` as an argument to our **[create-widget]** invocation.
 
@@ -78,13 +82,13 @@ You can also add any attributes you wish to your widget, by simply adding the at
 
 In our example above, we have an **[onclick]** Ajax event for our button. This will create an *"onclick"* DOM event handler for us, which when raised, will create an Ajax request, going towards our server, invoking its lambda.
 
-Such lambda collections, as the one we have declared inside of our **[onclick]** event handler, is often referred to as *"lambda objects"*, or simply *"lambda"*. Lambda objects are stored logic, which are executed, whenever some condition is being met - Or we wish to for some reasons execute our lambda. The simplicity in declaring such *"lambda objects"*, is the reason why Hyperlambda got its name.
+Such lambda collections, as the one we have declared inside of our **[onclick]** event handler, is often referred to as *"lambda objects"*, or simply *"lambda"*. Lambda objects are stored functionality, which are executed, whenever some condition is being met - Or we wish to for some reasons execute our lambda. The simplicity in declaring such *"lambda objects"*, is the reason why Hyperlambda got its name.
 
 The *"lambda"* above, simply invokes **[p5.web.widgets.property.set]**, with the ID of *"bar"*, and an **[innerValue]** argument of *"Hello World"*. This simply changes the **[innerValue]** property of our *"bar"* widget, to whatever HTML we pass in as the value of our **[innerValue]** argument.
 
 ## Additional studying, video tutorial
 
-If you still struggle with some of the parts we walked through in this chapter, you might benefit from watching [this video](https://www.youtube.com/watch?v=O9ek7JH7Ptw), where we play around with the **[create-widget]** Active Event. In this video we demonstrate how to parametrize our **[create-widget]** invocation, to create whatever HTML we need to create. In addition, we will associate our widget with Ajax events on the server, and do some basic changes to the state of our page, from within our Ajax event handlers.
+If you still struggle with some of the parts we walked through in this chapter, you might benefit from watching [this video](https://www.youtube.com/watch?v=O9ek7JH7Ptw), where we play around with the **[create-widget]** Active Event. In this video we demonstrate how to parametrize our **[create-widget]** invocation, to create whatever HTML we want to create. In addition, we will associate Ajax events with our widget, and do some basic changes to the state of our page, from within our Ajax event handlers. These Ajax events, creates an Ajax request, going to our server, where it evaluates our lambda object associated with our Ajax event.
 
 In case you are reading this book in paper format, you can find links to the videos referred to in this chapter below.
 
