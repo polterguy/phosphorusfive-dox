@@ -4,7 +4,7 @@ Welcome to the book about [Phosphorus Five](https://github.com/polterguy/phospho
 
 ## The objectives of the book
 
-During this book, you will learn everything you need to know, to create your own contact database, to keep track of your friends' emails, phone numbers, etc. My aim is to bring you up to this knowledge in P5, in less than a day. That way, the book becomes very practical, and hands on, progressing rapidly, and you can feel that you have done something constructive fast. Then as we proceed, we will revisit this application, slowly making it better, until it becomes a generalized app, and solves all of your CRUD needs.
+During this book, you will learn everything you need to know, to in its entirety _"clone GMail"_, creating a complete web mail system, from scratch. My aim is to bring you up to this knowledge in P5, in roughly 2 days. That way, the book becomes very practical, and hands on, progressing rapidly, and you can feel that you have done something constructive fast. We will start out with creating smaller systems, such as simple CRUD apps, and finish up with creating a complete GMail alternative, with PGP cryptography, and a much slicker UX.
 
 Every construct we go through, will have a practical application for you. The book is a hands on guide, intended to ignite your own creative processes. As we create these practical solutions, we will also discuss the software architecture theory behind our choices. After reading this book, you can consider yourself a senior software architect, easily capable of discussing software architecture, with some of the best architects on the planet.
 
@@ -76,6 +76,8 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 - [Chapter 15, FYI, P5 is fork friendly and free-fusable](chapter-15.md)
 - [Chapter 16, Reusable GUI components](chapter-16.md)
 - [Chapter 17, Loops](chapter-17.md)
+- [Chapter 18, Branching, if, else-if and else](chapter-18.md)
+- [Chapter 19, Creating a PGP GMail clone](chapter-19.md)
 
 ## Appendix
 

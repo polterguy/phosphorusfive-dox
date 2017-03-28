@@ -1,6 +1,6 @@
 # Loops
 
-Looping, or iteration, is the ability to perform the same task, multiple times, optionally with some iterative piece of information, associated with each run. An example could be to create a widget, for each name in some list. Below is an example of such a loop.
+Looping, iteration, or enumeration, is the ability to perform the same task, multiple times, optionally with some iterative piece of information, associated with each run. An example could be to create a widget, for each name in some list. Below is an example of such a loop.
 
 ```
 _people
@@ -36,7 +36,7 @@ This syntax allows us to access any node, from the currently iterated node, incl
 
 ## The [while] loop
 
-The while loop allows you to iterate for as long as some specific condition is true. Its syntax for its condition(s), is identical to the syntax used in branching (**[if]** invocations), which we will have a look at in our next chapter. However, below is an example of a while loop, that iterates while the **[_people]** data segment has children. Then inside the loop itself, it removes the first child, before continuing iterating. Logically, it does the exact same thing, as our above **[for-each]** example, except using the **[while]** loop, instead of a for-each.
+The while loop allows you to iterate for as long as some specific condition is true. Its syntax for its condition(s), is identical to the syntax used in branching (**[if]** invocations), which we will have a look at in a later chapter. However, below is an example of a while loop, that iterates while the **[_people]** data segment has children. Then inside the loop itself, at the end of its lambda object, it removes the first child, before continuing iterating. Logically, it does the exact same thing, as our above **[for-each]** example, except using the **[while]** loop, instead of a for-each.
 
 ```
 _people
@@ -49,7 +49,7 @@ while:x:/@_people/*
   set:x:/@_people/0
 ```
 
-To understand the details of how to create more complex conditions for your while invocations, please refer to the next chapter. However, below is an example creating a widget with each number ranging from zero to five.
+To understand the details of how to create more complex conditions for your while invocations, please refer to the chapter covering **[if]** or branching conditions. However, below is an example creating a widget with each number ranging from zero to five.
 
 ```
 _no:int:0
@@ -62,6 +62,6 @@ while:x:/@_no?value
       _:1
 ```
 
-You can combine any conditions, by using boolean operators, combining conditions, to create any amount of complexity in your conditions, as you see fit. Please refer to the next chapter to understand this process, since it is identical to creating conditions for **[if]** invocations.
+You can combine any conditions, by using boolean operators, combining conditions, to create any amount of complexity in your conditions, as you see fit. Please refer to the chapter about branching to understand this process, since it is identical to creating conditions for **[if]** invocations.
 
-
+[Chapter 18, Branching, if, else-if and else](chapter-18.md)
