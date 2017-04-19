@@ -417,7 +417,7 @@ Our database layer, consists of four files.
 
 * create.hl - Creates new contact items
 * read.hl - Reads and returns a list of contact items
-* update.hl - Updates an existing item
+* edit.hl - Updates an existing item
 * delete.hl - Deletes an existing item.
 
 All of these files can be found in our *"crud"* folder. This design allows us to easily exchange the underlaying database later, to something more scalable for instance. The p5.data database, stores its items in memory, making it perform extremely fast, but also scale badly if you add thousands of records to it.
@@ -459,7 +459,7 @@ create-widget
       innerValue:Foo bar
 ```
 
-However, the first syntax is more condense, since it allows us to get rid of one node in our lambda object. It is also semantically more close to the end result HTML. Which sometimes makes it more readable, and easy on the eye.
+However, the first syntax is more condense, since it allows us to get rid of one node in our lambda object. It is also semantically more close to the end result HTML, which sometimes makes it more readable and easy on the eye.
 
 ### Interesting facts
 
@@ -517,7 +517,7 @@ As previously mentioned, the P5 database stores its items in memory. This makes 
 * [delete-data] - Deletes items
 * [update-data] - Updates items
 
-In additionk, it contains an additional Active Event called **[append-data]**, that works similarly to **[insert-data]** - Except it forces the item(s) to be inserted at the *end* of our database.
+It also contains an additional Active Event called **[append-data]**, that works similarly to **[insert-data]** - Except it forces the item(s) to be inserted at the *end* of our database.
 
 Although the database is memory based, it still persists its items to disc. This means that if you reboot your server, or your web server process is recycled, your items are still there.
 

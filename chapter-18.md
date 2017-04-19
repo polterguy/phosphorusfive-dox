@@ -8,10 +8,10 @@ if:x:/@_data?value
   =:foo
   sys42.windows.info-tip:Foo was here
 else
-  sys42.windows.info-tip:Sorry, foo has left the building!
+  sys42.windows.info-tip:Foo has left the building!
 ```
 
-If you execute the above code in System42's executor, you will see its result. Try changing the value of the **[foo]** node, to e.g. _"bar"_, and execute the code again, and notice how the result changes.
+If you execute the above code in System42's executor, you will see its result. Try changing the value of the **[_data]** node, to e.g. _"bar"_, and execute the code again, and notice how the result changes.
 
 ## Comparison operators
 
@@ -21,12 +21,12 @@ All branching Active Events in Phosphorus Five obeys by the same logic. Basicall
 * [!=] checks for ineauality
 * [>] checks for more than
 * [<] checks for less than
-* [>=] checks for more than equals
-* [<=] checks for less than equals
-* [~] checks for "contains" (only viable when comparing strings)
-* [!~] checks for "not contains" (only viable when comparing strings)
+* [>=] checks for more than or equals
+* [<=] checks for less than or equals
+* [~] checks for "contains" (only useful when comparing strings)
+* [!~] checks for "not contains" (only useful when comparing strings)
 
-All the above _"operators"_ are actually Active Events themselves, and these operators can be extended with your own events.
+All the above _"operators"_ are actually Active Events themselves, and these operators can easily be extended with your own comparison events.
 
 ## Boolean algebraic compound conditions
 
@@ -41,7 +41,7 @@ if:x:/@_data1?value
     =:bar
   sys42.windows.info-tip:Foo and bar where happily drinking beer!
 else
-  sys42.windows.info-tip:Sorry, today is hangover day!
+  sys42.windows.info-tip:Either foo or bar had a hangover today!
 ```
 
 In order for the above **[if]** Active Event to evaluate its lambda object, both **[if]** and **[and]** needs to evaluate to true. Notice, when creating more complex conditions, such as the above is an example of, it is often useful to create some comments, to explain to the reader of our code, where the actual lambda object starts. Below is an example of the exact same code as above, only slightly more readable.
@@ -138,11 +138,11 @@ _data
 while:x:/@_data/0
   create-widget
     innerValue:x:/@_data/0?name
-  // COMMENTED OUT, enter "infinite loop"
+  // COMMENTED OUT, enters an "infinite loop"
   // set:x:/@_data/0
 ```
 
-As you can see, after 5.000 iterations, tour above **[while]** loop will throw an exception, and stop executing. If you have a loop, where you actually need more than 5.000 iterations, you can add up a **[_unchecked]** argument to your **[while]** loop, and set its value to boolean true. Don't do it with the above code though, unless you want to crash your web server process!
+As you can see, after 5.000 iterations, our above **[while]** loop will throw an exception, and stop executing. If you have a loop, where you actually need more than 5.000 iterations, you can add up a **[_unchecked]** argument to your **[while]** loop, and set its value to boolean true. Don't do it with the above code though, unless you want to crash your web server process!
 
 ## The "contains" operators
 
@@ -163,14 +163,23 @@ Basically, as long as the above **[_data]** node's value contains the string *"H
 
 ### Regular expression matching with the "contains" operators
 
-The _"contains"_ operators can also be given regular expressions, instead of simple string. Among other things, this allows you to do a case-insensitite search. Below is an example looking for any _"sen"_ name.
+The _"contains"_ operators can also be given regular expressions, instead of simple string. Below is an example looking for any _"sen"_ name.
 
 ```
 _data:Thomas Hansen was here
 if:x:/@_data?value
-  ~:regex:/[A-Z]{1,}[a-z]*sen/
+  ~:regex:/[A-Z]{1,1}[a-z]*sen/
+  
+  /*
+   * Xxxsen name found.
+   */
   sys42.windows.info-tip:Yo boss!
+
 else
+
+  /*
+   * No "Xxxsen" name found.
+   */
   sys42.windows.info-tip:Yo stranger!
 ```
 

@@ -328,13 +328,13 @@ If you find the **[apply]** event to be confusing, you can watch [this video](ht
 
 ### [lambda2hyper], converting lambda to Hyperlambda
 
-The above Active Event, which we use at line 88 in our code, simply converts a piece of lambda to a string, resembling its Hyperlambda version. There also exists a **[hyper2lambda]** event, which does the opposite. Sometimes these events are useful for transforming lambda objects to strings, and vice versa - Such as when we want to save a lambda object to disc, or use it as a string.
+The above **[lambda2hyper]** Active Event, which we use at line 87 in our code, simply converts a piece of lambda to a string, resembling its Hyperlambda version. There also exists a **[hyper2lambda]** event, which does the opposite. These events are useful for transforming lambda objects to strings, and vice versa - Such as when we want to save a lambda object to disc, or use it as a string for some reasons.
 
 Both of these two events should be relatively self explaining.
 
 ### Our "wizard" window
 
-At line 42, we use an Active Event we haven't used before. Its name is **[sys42.windows.wizard]**, and its purpose is simply to provide an easy wrapper for asking the user for some new input, or edit some existing data. It is similar to the **[sys42.windows.confirm]** window, and beneath its hood, uses the same logic - But instead of simply supplying a piece of text, we can instead ask the user for supplying input, according to which nodes we supply to its **[data]** argument.
+At line 42, we use an Active Event we haven't used before. Its name is **[sys42.windows.wizard]**, and its purpose is simply to provide an easy wrapper for asking the user for some new input, or edit some existing data. It is similar to the **[sys42.windows.confirm]** window, and beneath its hood, uses the same logic - But instead of simply showing a static piece of text/HTML, we can ask the user to supply input, according to which nodes we supply to its **[data]** argument.
 
 If you click the *"+"* button in your application, you can clearly see the relationship between the **[data]** node's children, and the 3 input textboxes, asking the user for a *"name"*, *"email"* and *"phone"*.
 
@@ -349,9 +349,9 @@ sys42.windows.wizard.get-values
   phone:98765432
 ```
 
-After we've retrieved the values from our wizard window, we first check if there already exists a *"database file"*. This is necessary, in order to make sure we actually *add* records to our data. If it does, we load this file, and adds the contents of it into a temporary **[_content]** node. Notice, we do this before we add the values from our newly created record into this file, to ensure the last record supplied, physically becomes the last record in our file. This preserves the order of our records, according to the order they were supplied by the user.
+After we have retrieved the values from our wizard window, we first check if there already exists a *"database file"*. This is necessary, in order to make sure we actually *add* records to our data. If it does, we load this file, and adds the contents of it into a temporary **[_content]** node. Notice, we do this before we add the values from our newly created record into this file, to ensure the last record supplied, physically becomes the last record in our file. This preserves the order of our records, according to the order they were supplied by the user.
 
-Then finally, before we convert this **[_content]** node to Hyperlambda, and save it to disc, we add the values from our *"wizard"* window. At this point we use a little trick, which is that we add the entire **[sys42.windows.wizard.get-values]** node. For then to change its name, after we have added it, such that it becomes an **[item]** node. This is necessary, because we need an **[item]** node, and this node perfectly serves that purpose for us, after having been properly *"renamed"*. Technically, we wouldn't actually need to do this last step, but it makes sure our database file becomes more *"semantic"* in its structure. Try to remove that last **[set]** invocation, and see how this affects the structure of your *"database file"*, after having added a record into it.
+Then finally, before we convert this **[_content]** node to Hyperlambda, and save it to disc, we add the values from our *"wizard"* window. At this point we use a little trick, which is that we add the entire **[sys42.windows.wizard.get-values]** node. For then to change its name, after we have added it, such that it becomes an **[item]** node. This is necessary, because we need an **[item]** node, and this node perfectly serves that purpose for us, after having been properly *"renamed"*. Technically, we wouldn't actually need to do this last step, but it makes sure our database file becomes more *"semantically correct"* in its structure. Try to remove that last **[set]** invocation, and see how this affects the structure of your *"database file"*, after having added a record into it.
 
 The last thing we do in our **[.onok]** lambda callback, is to make sure we invoke **[sys42.examples.databind-addresses]**, which is our widget lambda event, that is responsible for databinding our HTML table all over again.
 
@@ -365,14 +365,16 @@ Discuss this application, its pros and its cons. Some questions I want you to an
 
 ### Advanced homework, optionally
 
-If you wish to, feel free to improve it, to create a complete CRUD app out of it, and expand upon it, by adding additional items to your *"database"*, such as for instance address and Twitter handle. Hint, use **[p5.types.guid.new]** to create a unique ID for your records, which you will need, in order to be able to reference them while editing and deleting records.
+If you wish, feel free to improve it, to create a complete CRUD app out of it, and expand upon it, by adding additional items to your *"database"*, such as for instance address and Twitter handle. Hint, use **[p5.types.guid.new]** to create a unique ID for your records, which you will need, in order to be able to reference unique nodes in your database file, while editing and deleting items.
 
 ## The P5 distribution model
 
-When you are done with modifying the application, you can actually download it, and distribute it to your friends, by clicking *"Download"*, and send it in an email to your friends - Whom for whatever reasons might be interested in such a thing. Your friends on the other hand, can then simply *"drag and drop"* the resulting Hyperlambda file into their CMS, and reproduce the exact same application on their server systems.
+When you are done creating your applications, you can actually download them, and distribute them to your friends, by clicking *"Download"*, and send it for instance in an email to your friends - Whom for whatever reasons might be interested in your app. Your friends on the other hand, can then simply *"drag and drop"* the resulting Hyperlambda file into their CMS, and reproduce the exact same application on their server systems.
 
 This is a very nice distribution model in fact, implemented as an integral part of P5, which allows you to *"Download"* apps you've created, and have other users simply *"Drag and drop"* these apps into their own CMS.
 
 After you have downloaded your app in fact, delete the page, for then to *"drag and drop"* your app's Hyperlambda file, into your CMS, to *"reinstall"* your app, to see this in action.
+
+I have created a YouTube video, which you can find [here](https://www.youtube.com/watch?v=EBOYr4PGT7o), where I demonstrate this feature of System42. If you are reading this book in a paper format, you can find the video here; https://www.youtube.com/watch?v=EBOYr4PGT7o
 
 [Chapter 8, Having a pan galactical gargle blaster](chapter-8.md)

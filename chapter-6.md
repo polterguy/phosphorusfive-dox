@@ -81,9 +81,9 @@ This is because of that our **[set]** invocation concatenates the results from o
 
 To understand how this happens, realise that the `{0}` and the `{1}` parts of our **[src]** node's value, are substituted with the result of the zeroth and first nodes' values. Since these nodes are expressions pointing to the returned value from our **[p5.web.widgets.property.get]** invocation, we end up with an initial greeting, followed by the user's first name and second name.
 
-The second thing you may already have noticed, is that instead of supplying a *"static ID"* to which widgets we wish to retrieve the **[value]**s of, we supply an expression, leading to two value; *"first_name"* and *"last_name"*. These happens to be the IDs of our two input elements in our form.
+The second thing you may already have noticed, is that instead of supplying a *"static ID"* to which widgets we wish to retrieve the **[value]** of, we supply an expression, leading to two values; *"first_name"* and *"last_name"*. These happens to be the IDs of our two input elements in our form.
 
-Hence, with one invocation to **[p5.web.widgets.property.get]**, we are able to retrieve the **[value]**s of multiple widgets. Almost all Active Events in P5 can take expressions, and hence do *"multiple things in one go"*.
+Hence, with one invocation to **[p5.web.widgets.property.get]**, we are able to retrieve the **[value]** of multiple widgets. Almost all Active Events in P5 can take expressions, and hence do *"multiple things in one go"*.
 
 To understand these expressions, let us make sure we show a *"debugging window*". This is easily done, by changing your **[onclick]** event handler, adding an invocation to **[sys42.windows.show-lambda]**, just before our **[set]** invocation. Modify your code, to resemble the following;
 
@@ -138,7 +138,7 @@ You can of course also create execution instructions too, with a similar techniq
 
 ## [add]ing things to your tree
 
-The **[add]** event, allows you to append new children into other nodes. However, let's start out with an example.
+The **[add]** event, allows you to append new children into other nodes. However, let's start out with an example. Notice, in this example we are using multiline comments, which we wrap inside of `/* some comment */`. This allows us to comment our code, making it more easily understood by other humans, as they are reading it.
 
 ```
 create-widget
@@ -172,7 +172,7 @@ create-widget
          * Only if the result of the expression in our "if" node matches
          * the string "Thomas", the lambda object inside of our "if"
          * will be executed.
-         * If not matching, our "else" lambda object will execute.
+         * Otherwise our "else" lambda object will execute.
          */
         if:x:/@p5.web.widgets.property.get/*/*?value
           =:Thomas
@@ -185,6 +185,7 @@ create-widget
               sys42.windows.confirm
                 header:Yo boss!
                 body:Pleased to see you again
+
         else
 
           /*
@@ -214,6 +215,8 @@ Then close your modal conformation window, and type in e.g. *"John"*, and click 
 To understand what's happening in this code, realise we're *"branching"* our lambda object, according to the return value of our **[p5.web.widgets.property.get]** invocation. We will take a deeper look at the concept of *"branching"* later, but basically if the value of our textbox is *"Thomas"*, it will **[add]** a confirmation window into our **[.exe]** node. Otherwise, it will add a tooltip info-tip window into our **[.exe]** node.
 
 Finally, it will invoke this **[.exe]** node, and execute it as a lambda object. Hence, what we have actually done, is to dynamically create a piece of lambda, depending upon the input of a textbox, for then to execute our dynamically created lambda.
+
+The above code is a naive example, but the concept is extremely powerful, since it allows you to dynamically create your lambda objects, according to some criteria. This again, allows you to dynamically create logic, during runtime, directly modifying the execution tree itself.
 
 ### Commenting Hyperlambda
 
@@ -292,9 +295,13 @@ As you can see after having typed in *"Thomas"* and *"John"* again, it clearly r
 
 In Hyperlambda, you can dynamically create and *"decorate"* your lambda objects, by inserting execution instructions into your lambda object, almost the same way you'd decorate any object in a classic programming language. You can also remove instructions from existing lambda objects. A lambda object in P5, is a dynamic living thing.
 
+If you imagine Hyperlambda as HTML, and lambda as the DOM your HTML creates. Then imagining how JavaScript can change your DOM dynamically, and how this becomes the equivalent of dynamically *"molding"* your lambda objects during runtime, creates a mental model you can use to visualise this more easily.
+
+In P5, a lambda object can mold any lambda objects, the same way JavaScript can dynamically modify the DOM.
+
 ## [insert-before] and [insert-after]
 
-These two Active Events works identically to **[add]**, except they don't append nodes to its destination(s), but rather *"injects"* its **[src]** argument's value, either *"before"* or *"after"* its destination nodes.
+These two Active Events works identically to **[add]**, except they don't append nodes to its destination(s), but rather *"injects"* its **[src]** argument's, either *"before"* or *"after"* its destination nodes.
 
 Execute the following code in your Apps/Executor, and watch its result.
 
@@ -357,7 +364,7 @@ set:x:/../*/_data?value
   src:SUCCESS!
 ```
 
-This feature means that you must be careful, to make sure you are only referencing nodes you really want to reference - Unless you want to end up having unintentional side-effects. On the positive side, it is also a feature that allows you to *"do a lot, with a little"*.
+This feature, although powerful, also implies that you must be careful, to make sure you are only referencing nodes you actually want to reference - Unless you want to end up having unintentional side-effects. On the positive side, it is also a feature that allows you to *"do a lot, with a little"*.
 
 ## Deleting stuff
 
@@ -379,6 +386,8 @@ _foo2:bar
 set:x:/@_foo2?name
 ```
 
+Notice the tiny semantic difference between *"nullifying a name and a value"*, which is there since as a part of the node object's specification, a node cannot have a *"null name"*. It can however have an *"empty name"*.
+
 ## Wrapping up
 
 You should now have a basic understanding of all four *"CRUD operations"* for lambda objects. You can now dynamically create and change lambda objects as you see fit. However, as we started out this chapter with, no other programming languages contains any similar constructs as to what we have done in this chapter. Hence arguably, the largest problem you're now faced with, is creating a mental model for understanding, this very unique and highly useful idea ...
@@ -386,6 +395,8 @@ You should now have a basic understanding of all four *"CRUD operations"* for la
 ### Don't panic!
 
 If things are unclear after having read through this chapter, just relax; Things will become clear as we proceed, and start using the constructs we've learned in this chapter. As you gain a more thorough understanding of the art of *"molding lambda objects"*, you can come back to this chapter, and repeat the basics. As you get your hands on some real live examples, it will be much more easily grasped.
+
+Realise also that as you get your hands on more and more examples, and create more and more code utilising these ideas - Then your ability to visualise your code, will come more natural to you, and you will develop better visualisation skills as you proceed - Making the process of understanding Hyperlambda much easier for you. Hyperlambda arguably develops your mind's ability to visualise logic much better.
 
 ### Video for this chapter
 

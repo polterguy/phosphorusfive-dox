@@ -118,6 +118,8 @@ With this in mind, we will create a *"datagrid widget"*, capable of showing any 
 
 ## Creating a reusable "datagrid"
 
+**Notice**; The rest of this chapter, contains some relatively advanced pieces of code, and is to be considered *"advanced study topics"*. If this is your first read through of the book, feel free to move on to the [next chapter](chapter-17.md).
+
 Paste in the code below into your Executor.
 
 ```

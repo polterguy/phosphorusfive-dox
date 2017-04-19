@@ -4,7 +4,7 @@ Douglas Crockford, the inventor of JSON, once famously said *"eval is evil"*. Wh
 
 The **[eval]** Active Event is arguably the *"definition of Hyperlambda"*. In fact, when you execute a lambda object, what you're doing, is passing in a lambda object to **[eval]**. So **[eval]** is probably the most important Active Event in Hyperlambda.
 
-In our previous chapter, we looked at Active Events. To understand **[eval]**, is to realize that an Active Event, such as the ones we created in our previous chapter - Is really nothing but a lambda object, stored in memory, easily **[eval]**'ed, through its name. This implies, that to **[eval]** a lambda object, is identical to invoking an Active Event.
+In our previous chapter, we looked at Active Events. To understand **[eval]**, is to realize that an Active Event, such as the ones we created in our previous chapter - Is really nothing but a lambda object, stored in memory, easily **[eval]**'ed, through its name. This implies, that to **[eval]** a lambda object, is (almost) identical to invoking an Active Event.
 
 ## Eval defined
 
@@ -24,11 +24,12 @@ Combined with the ease of transforming between *"plain text"* and lambda objects
 If you have a Hyperlambda file somewhere for instance, you can easily execute it, and even pass in arguments into it, by doing something similar to the following.
 
 ```
-// WARNING; This code will not execute correctly.
-// Since the file "/foo.hl" does probably not exist on your system.
-// It is simply an example of what you COULD do, to "execute" a file, 
-// as if it was a "function".
-
+/*
+ * WARNING; This code will not execute correctly.
+ * Since the file "/foo.hl" does probably not exist on your system.
+ * It is simply an example of what you COULD do, to "execute" a file, 
+ * as if it was a "function".
+ */
 load-file:/foo.hl
 eval:x:/@load-file/*
   some-argument:Foo bar
@@ -44,7 +45,7 @@ There actually exists three different versions of **[eval]**.
 
 * [eval] - Plain old eval
 * [eval-whitelist] - "Sandboxed" version of **[eval]**
-* [eval-mutable] - Allows access to entire root lambda object
+* [eval-mutable] - Allows you to access the entire root lambda object
 
 The first one, which is probably your most important version, actually creates a *copy* of the object(s) you wish to execute, and executes these copies. This is crucial to its implementation, considering how the invocation of a lambda object, potentially changes the state of that object.
 
@@ -90,7 +91,7 @@ The **[eval-whitelist]** version, works similarly to the plain **[eval]** - Exce
   return:Safely executed by [eval-whitelist]
 eval-whitelist:x:/@.exe
   events
-    return:Jo world
+    return
 ```
 
 If you tried to add any Active Event into the above **[.exe]** lambda object, that does not exist in the **[events]** argument, an exception would be raised, and the code would be aborted. This allows you to provide an *explicit* set of legal *"whitelisted"* Active Events to some lambda object, enforcing it to obey by a subset of your server's vocabulary of Active Events. The code below for instance, will abort the execution, once it reaches the **[foo]** node, since **[foo]** is not in the list of legal **[events]**.
@@ -101,7 +102,7 @@ If you tried to add any Active Event into the above **[.exe]** lambda object, th
   return:Safely executed by [eval-whitelist]
 eval-whitelist:x:/@.exe
   events
-    return:Jo world
+    return
 ```
 
 This construct, is the reasons why we say that *"In Hyperlambda, eval is not necessarily evil"*.

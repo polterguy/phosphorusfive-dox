@@ -70,7 +70,7 @@ Notice how we in the above Hyperlambda, actually completely omitted any position
 
 #### Which HTML element to render
 
-The **[element]** declares which HTML element or *"tagName"* you want to use. There are no checks in P5 in regards to HTML validity. This allows you to create a an HTML element with the name of *"foo-bar"*. Such an element, would probably not conform to any HTML standards, and would be considered *"illegal"* HTML. You are yourselves responsible for making sure your code creates valid HTML markup. The **[element]** argument, if omitted, defaults to *"div"* for **[container]** widgets, *"p"* for **[literal]** widgets, and *"input"* for **[void]** widgets.
+The **[element]** declares which HTML element or *"tagName"* you want to use. There are no checks in P5 in regards to HTML validity. This allows you to create an HTML element with the name of *"foo-bar"*. Such an element, would probably not conform to any HTML standards, and would be considered *"illegal"* HTML. You are yourselves responsible for making sure your code creates valid HTML markup. The **[element]** argument, if omitted, defaults to *"div"* for **[container]** widgets, *"p"* for **[literal]** widgets, and *"input"* for **[void]** widgets.
 
 #### Controlling the visibility of your widget
 
@@ -132,9 +132,9 @@ You can also create invisible Ajax events using the same technique, by for insta
 
 ### Changing attributes and properties
 
-To change an attribute, you can use **[p5.web.widgets.property.set]**. To retrieve the value of an attribute, you can use **[p5.web.widgets.property.get]**. The naming of these Active Events, is a common convention in P5, where the collection type you wish to access is given as a major part of the event - While the operation you wish to perform is supplied as the latter parts of its name. Normally these Active Events have a namespace before their collection name, associating them with a particular parts of P5. Think of *"p5.web.widgets"* as the namespace, *"property"* as the collection type, and *"get"* and *"set"* as the operations you want to perform.
+To change an attribute, you can use **[p5.web.widgets.property.set]**. To retrieve the value of an attribute, you can use **[p5.web.widgets.property.get]**. The naming of these Active Events, is a common convention in P5, where the collection type you wish to access is given as a major part of the event - While the operation you wish to perform is supplied as the latter parts of its name. Normally these Active Events have a namespace before their collection name, associating them with a particular parts of P5. Think of *"p5.web.widgets"* as the namespace, *"property"* as the collection type, and *"get"* or *"set"* as the operation you want to perform.
 
-Both of the above mentioned Active Events, takes one or more IDs, and reacts upon the specified widget(s) accordingly. Below is a piece of Hyperlambda that creates a widget, which once the mouse is hovered over it, changes a couple of attributes. When the mouse leaves the widget, it retreieves a couple of attributes, and shows a debug window.
+Both of the above mentioned Active Events, takes one or more IDs, and reacts upon the specified widget(s) accordingly. Below is a piece of Hyperlambda that creates a widget, which once the mouse is hovered over it, changes a couple of attributes. When the mouse leaves the widget, it retrieves a couple of attributes, and shows a debug window.
 
 ```
 create-widget:my_video

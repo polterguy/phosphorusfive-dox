@@ -1,6 +1,6 @@
 # Creating a PGP GMail clone
 
-In this chapter, which is our last chapter, we will leverage everything we've learned, in order to create a complete web mail, or _"GMail clone"_, with support for PGP cryptography, eliminating spreading of viruses, and making it 100% perfectly safe to read your emails, without having to fear malware in any forms.
+In this chapter, which is our last chapter, we will leverage everything we've learned, in order to create a complete web mail, or _"GMail clone"_, with support for PGP cryptography, eliminating spreading of viruses, and making it 100% perfectly safe to read your emails, without having to fear malware in any ways.
 
 The system we will create, will resemble the following.
 
@@ -8,11 +8,12 @@ The system we will create, will resemble the following.
 
 It will have the following features.
 
-* PGP cryptography, both signing and encryption of emails
+* PGP cryptography, both signing and encrypting/decrypting emails
 * Send, reply and forwarding of emails through SMTP
 * Fetching emails from a POP3 server
 * Creating new emails
 * A contact database, automatically populated by all incoming/outgoing emails
+* Allow for adding/downloading attachments to/from your emails, but only safe file types, not capable of spreading any types of virus or malware
 * It will be a multi user system
 
 In addition, it will be configurable, and allow for its user(s) to configure his or her inbox. Technologies visited will be, among other things.
@@ -49,13 +50,37 @@ Here is how you'd configure the system, supplying POP3, SMTP and PGP settings, i
 
 First of all, you'll need to [download Sephia Mail](https://github.com/polterguy/sephia-five/releases/tag/v0.5), which is its name. If you're reading this book in a paper format, you can find Sephia Mail here; https://github.com/polterguy/sephia-five/releases/tag/v0.5
 
-**Notice**; We will be using the 0.5 version in this book. Sephia Mail is actually a fully fledged real project, and will probably be worked on, and added to later. However, to make sure you are seeing the same code, as I created when I wrote this book, we will have to use the first initial release, during the dissecting of the system.
+**Notice**; We will be using the 0.5 version in this book. Sephia Mail is actually a fully fledged real project, and will probably be worked on, and extended in the future. However, to make sure you are seeing the same code, as I created when I wrote this book, we will have to use the first initial release, during the dissecting of the system. This will make it easier for me to reference files, line numbers, and so on in the system, as we dissect it - Without having these line numbers and file names disappear, as I refactor and further maintain the system in the future.
+
+We will therefor be assuming that what you are actually using during the dissecting of the system in this chapter, is the **0.5 version of Sephia Five**, and not necessarily its latest release, which might look completely different in regards to its code structure.
 
 If you wish to actually use Sephia Mail in production, in your own company for instance, you'd probably want to make sure you download the latest **stable** release, which you can find [here](https://github.com/polterguy/sephia-five/releases). If you're reading this in paper format, you can go here; https://github.com/polterguy/sephia-five/releases
+
+In [this video](https://www.youtube.com/watch?v=NEaIuv6HTjk), I am analysing the system, as it was in version 0.5. If you don't want to read everything below here, but rather have an easy to view YouTube video, analysing the system's structure instead - Feel free to view the video, instead of reading this chapter in its entirety, or in combination with reading the chapter - For then to download the system, and going through its code yourself. If you are reading this book in some sort of paper format, the video can be found here; https://www.youtube.com/watch?v=NEaIuv6HTjk 
+
+### Pre-requisites
+
+The first thing you will need to do, is to create a database for Sephia Five. You do not need to create is schema, but you will need an empty database. I would suggest calling your database *"sephia"*, and use MySQL Workbench to create it.
+
+When you have done, you will need a connection string, in your web.config file, beneath your *"p5.webapp"* project. Below is an example of how you could create such a connection string.
+
+```xml
+<connectionStrings>
+  <clear />
+  <add
+    name="sephia" 
+    connectionString="server=localhost;User Id=root;password=YOUR_PWD;database=sephia;CharSet=utf8mb4;"
+    providerName="MySql.Data.MySqlClient" />
+</connectionStrings>
+```
 
 ### Folder structure
 
 When you have downloaded the system, it is crucial that you put the unzipped folder into the following folder; _"/phosphorusfive/p5.webapp/system42/apps/"_ - This is a special folder in System42, and kind of like your _"Program files"_ folder, if you are used to windows. Everything you drop into this folder, will become a _"System42 application"_, and automatically have its own navbar item link, do initialization during startup, etc.
+
+When you have done, it is important that you rename the folder, from its original name which probably is *"sephia-five-0.5"* to become *"sephia-mail"*. If you get *"funny bugs"* when you restart your web server process, and or start Sephia Five, this might be due to having not correctly changed the name of your folder.
+
+Then you must either evaluate the *"startup.hl"* file yourself, or re-cycle your web server's process, such that this file becomes evaluated.
 
 #### The "startup.hl" file
 
@@ -68,7 +93,9 @@ Typically, you'll add all your custom Active Events inside of this file, either 
 The first Active Event creation, will make it more easy for us to access the main root folder for Sephia Mail, by doing stuff such as for instance the following.
 
 ```
-// This will list all files in "/system42/apps/sephia-mail"
+/*
+ * This will list all files in your "/system42/apps/sephia-mail/" folder.
+ */
 list-files:@SEPHIA/
 ```
 
@@ -80,7 +107,7 @@ You can find the launch file [here](https://github.com/polterguy/sephia-five/blo
 
 When you load the navbar/menu in System42, it will traverse all _"application folders"_ inside of the _"/apps/"_ folder, and check to see if the app contains a _"startup.hl"_ file. If it does, it will create a manu item for System42, beneath the _"Apps"_ folder, that once clicked, evaluates this Hyperlambda file.
 
-Arguably, this becomes the equivalent of an application's main EXE file on Windows.
+Arguably, this becomes the equivalent of an application's main EXE file on Windows. Or its *"desktop icon"* if you like such analogies.
 
 In our _"launch.hl"_ file, we will first of all verify that we have an authenticated user, by invoking **[whoami]**, and verify the user is actually logged in. We don't care about what role our user is, simply that it is an existing user, who have logged in with his username and password. This is done with the following code.
 
@@ -96,7 +123,7 @@ Then it creates the user's _"attachments"_ folder, for downloading email attachm
 
 Then it sets the CSS class for the main _"cnt"_ widget on our page. This occurs on line 66 in the launch.hl file.
 
-After that, it checks to see if the user has configured his _"sephia settings"_, and if not, it starts the configuration process, denying the user to proceed, before he has configured his SMTP/POP3/PGP account/keypair. This is ensured by having a **[return]** invocation, returning _"early"_, unless the user has created his configuration settings for the system.
+After that, it checks to see if the user has configured his _"sephia settings"_, and if not, it starts the configuration process, denying the user to proceed, before he has configured his SMTP/POP3/PGP account/keypair settings. This is ensured by having a **[return]** invocation, returning _"early"_, unless the user has created his configuration settings for the system.
 
 Then finally, unless it returns early in the above step, it evaluates our _"@SEPHIA/create-display.hl"_ file.
 
@@ -104,7 +131,7 @@ Then finally, unless it returns early in the above step, it evaluates our _"@SEP
 
 The create-display file can be found [here](https://github.com/polterguy/sephia-five/blob/v0.5/create-display.hl) - https://github.com/polterguy/sephia-five/blob/v0.5/create-display.hl
 
-This is our last file in the main root folder, and has one single responsibility; Create the main widgets on our page. It has little logic in fact, besides declaring our main wireframe HTML/widget structure, and have _"outsourced"_ most of its logic, to other helper files. This allows us to create a clean separation of logic and UI, creating a cleaner and more reciliant architecture, arguably resembling that you're used to have from MVC frameworks, and similar types of architectures. Notice, this approach, could probably have been taken much further, but it's still very strong in the architecture of the system, as it is in its 0.5 version.
+This is our last file in the main root folder, and has one single responsibility; Create the main widgets on our page. It has little logic in fact, besides declaring our main wireframe HTML/widget structure, and have _"outsourced"_ most of its logic, to other helper files. This allows us to create a clean separation of logic and UI, creating a cleaner and more reciliant architecture, arguably resembling that you're used to have from MVC frameworks, and similar types of architectures. Notice, this approach, could probably have been taken much further, but it's still quite strong already in the architecture of the system, as it is in its 0.5 version.
 
 Besides from an initial invocation at the bottom to evaluate our _"@SEPHIA/inbox/show.hl"_ file, there are few things in this file, which you shouldn't already know well by now. One interesting thing though, can be found at line 130, where we create a _"hidden"_ Ajax event, which we will consume from JavaScript, on the client side, to periodically poll the server, to fetch new emails from our POP3 server. At line 143, we inject the JavaScript during initial creation, to immediately invoke this Ajax event, which is why once the system loads, it immediately creates a poll towards the server, to fetch new items from your POP3 account.
 
@@ -139,7 +166,7 @@ First it invokes **[whoami]**, which returns the logged in user, and uses this a
 
 At line 79, it loops through all records returned from the above SQL command, and creates the _"tr"_ HTML necessary, to wrap a single _"row"_ in our _"DataGrid"_.
 
-Between line 84 and line 168, it dynamically creates the row's CSS class, according to whether or not the email is encrypted, signed, contains attachments, etc. Before it finally, at line 179 actually create the widget, now parametrized according to the records properties.
+Between line 84 and line 168, it dynamically creates the row's CSS class, according to whether or not the email is encrypted, signed, contains attachments, etc. Before it finally, at line 179 actually create the widget, now parametrized according to the records' properties.
 
 Notice, at line 183, we use a _"server side hidden property"_, to help us later recognize this widget's email id, from our database. This will never leave the server, and end up being a server-side _"hidden"_ property, exclusively used on the server-side of things, for later retrieving the actual email content, when a table row is clicked, etc ...
 
@@ -165,7 +192,7 @@ This file has one very interesting trait, which is that it actually dynamically 
 
 You can find this _"plugins folder"_ [here](https://github.com/polterguy/sephia-five/tree/v0.5/inbox/reader-action-buttons) - https://github.com/polterguy/sephia-five/tree/v0.5/inbox/reader-action-buttons
 
-This _"plugin folder"_ thing, is a common pattern in Phosphorus Five, which you will often see, allowing to create dynamic plugins, and extendible systems. This allows us to easily create new plugins to our email system, without modifying the code in any ways. In fact, even though Sephia Five is surprisingly small, compared to its feature set, it still is surprisingly extendible and flexible, allowing for other to create plugins for it, to accommodate whatever need they may have for their email systems.
+This _"plugin folder"_ thing, is a common pattern in Phosphorus Five, which you will often see, allowing to create dynamic plugins, and extendible systems. This allows us to easily create new plugins to our email system, without modifying the code in any ways. In fact, even though Sephia Five is surprisingly small, compared to its feature set, it still is surprisingly extendible and flexible, allowing for others to create plugins for it, to accommodate whatever need they may have for their email systems.
 
 Notice how this is actually done with no more than 5 lines of Hyperlambda code, which you can see listed below.
 
@@ -195,7 +222,7 @@ If you wish to experiment with improving Sephia Five, this should probably be th
 
 Its current code however, uses the **[apply]** Active Event, to dyanmically _"databind"_ the _"sephia-attachments"_ widget's widgets collection, that can be found at line 378.
 
-It basically creates one button HTML element, for each attachment in our email, allowing the user to download the attachment. Notice though, that in the oninit of this button, it might theoretically change this button's **[onclick]** Ajax event, and modify its CSS class, if the attachment's file extension is considered an illegal type to download. This logic happens in the **[default]** at line 117.
+It basically creates one button HTML element, for each attachment in our email, allowing the user to download the attachment. Notice though, that in the **[oninit]** of this button, it might theoretically change this button's **[onclick]** Ajax event, and modify its CSS class, if the attachment's file extension is considered an illegal type to download. This logic happens in the **[default]** at line 117.
 
 **Notice**; Also these parts are ripe for refactoring and improvements!
 
@@ -205,7 +232,7 @@ Then at line 196, it retreieves tha actual email from our database, and makes su
 
 The lines between 204 and 338 is fairly well documented in the code, and should be possible to be easily understood, according to their comments.
 
-At line 338, it is entirely done retrieving and massging the values returned from our database, and can create our widget, before it updates the title, since our _"read emails count"_ has now (obviously) changed.
+At line 338, it is entirely done retrieving and massaging the values returned from our database, and can create our widget, before it updates the title, since our _"read emails count"_ has now (obviously) changed.
 
 ## Deleting an email
 
@@ -219,9 +246,9 @@ This file is invoked by the _"reader-action-buttons"_ file called _"1-delete.hl"
 
 ## Action plugins for the read email widget
 
-These four files should be fairly self-explaining, but basically allows the user to delete, reply, forward and close an email.
+These four files should be fairly self-explaining, but basically allows the user to delete, reply, forward, and close an email.
 
-**Disclaimer**; In general, I have tried to separate GUI as much as possible from logic, and in such a way, arguably create a _"View Controller"_ type of logic. I must confess though, that this important design principle, could arguably have been further empasized in Sephia, and that some areas could probably benefit from being further separated. However, if you wish, feel free to perceive this as _"homework"_. Still, already, this design principle is fairly well implemented in Sephia.
+**Disclaimer**; In general, I have tried to separate GUI as much as possible from logic, and in such a way, arguably create a _"View/Controller"_ type of logic. I must confess though, that this important design principle, could arguably have been further empasized in Sephia version 0.5 - And that some areas could probably benefit from being further separated. However, if you wish, feel free to perceive this as _"homework"_. Still, already, this design principle is fairly well implemented in Sephia.
 
 All the _"action plugins"_ for reading emails, which are basically the four buttons in each email, can be found [her](https://github.com/polterguy/sephia-five/tree/v0.5/inbox/reader-action-buttons) - https://github.com/polterguy/sephia-five/tree/v0.5/inbox/reader-action-buttons
 
@@ -235,11 +262,13 @@ The _"create.hl"_ file, also has an _"send-action-plugins"_ folder, which dynami
 
 In addition, it adds up the signature for the user, in the body, before going directly to its **[create-widget]** invocation. Depending upon whether or not a **[after]** argument was supplied, it will either append the widget into the main reader, or inject it after some other specified widget.
 
-The widget creates one _"lambda event"_ called **[sephia.get-email]**, which is arguably its most important function, returning the email data to its caller when invoked. Notice, this event must be invoked with the ID of the main wrapper widget for the _"send widget"_, otherwise it will be ignored. This is because you might have multiple _"send email widgets"_ open at the same time, and this event needs to know which widget triggered the event. The event basically returns the email data to its caller.
+The widget creates one _"lambda event"_ called **[sephia.get-email]**, which is arguably its most important function, returning the email data to its caller when invoked. Notice, this event must be invoked with the ID of the main wrapper widget for the _"send widget"_, otherwise it will not be evaluated. This is because you might have multiple _"send email widgets"_ open at the same time, and this event needs to know which widget triggered the event. The event basically returns the email data to its caller.
+
+To pass in the ID of the widget to a widget lambda event, is a common *"design pattern"* to make sure the widget lambda event is only evaluated, if it is supposed to. You can think of this pattern as the equivalent of passing in the *"this pointer"* in traditional OOP languages. Remember that all Active Events, including widget lambda events, are *"global beasts"*, and they will by default, all be evaluated, once you raise an event. Hence, to make sure only the *"correct"* lambda event is evaluated, in scenarios where we might have multiple instances of the same event - We must pass in the ID of the widget who's lambda event is supposed to be evaluated.
 
 At line 157, we create an _"Ajax Drag and Drop Uploader widget"_, which is an extension widget in P5, called **[sys42.widgets.uploader]**. No surprises here, and it simply forwards the responsibility of actually saving the file uploaded, and creating an _"attachment widget"_ to the file called _"upload.hl"_.
 
-Notice, we had to create our own custom CSS class for this widget to function in _"fullscreen mode"_. Feel free to check this out in the _"main.css"_ file for Sephia.
+Notice, we had to create our own custom CSS class for this widget, to function in _"fullscreen mode"_. Feel free to check this out in the _"main.css"_ file for Sephia.
 
 Below there, you can find some form elements, allowing you to construct a subject, body, and recipients. Possibly improvements here, implies creating an extension widget for our _"recipients"_ widgets, since these parts are repeating themselves quite a lot. Consider this homework ...
 
@@ -253,7 +282,7 @@ This file can be found [her](https://github.com/polterguy/sephia-five/blob/v0.5/
 
 It is evaluated both when we reply to an email, and when we forward an email.
 
-It reads the email we're 'responding' to from the database, and then forwardthese value to our _"create.hl"_ file, discussed further up. Everything up to line 205 is simply retrieving the email's content. At line 213 we invoke our _"create.hl"_ file, before finally at line 224, we delete the _"reader widget"_, if one was given, and found on page.
+It reads the email we're 'responding' to from the database, and then forward its properties to our _"create.hl"_ file, discussed further up. Everything up to line 205 is simply retrieving the email's content. At line 213 we invoke our _"create.hl"_ file, before finally at line 224, we delete the _"reader widget"_, if one was given, and found on page.
 
 This logic ensure that our _"reply widget"_ is injected at the same position that our _"reader widget"_ was in the DOM on the client side, ensuring a better workflow for inline responding to emails.
 
@@ -268,7 +297,7 @@ There are 4 additional files important when creating, forwarding and replying to
 
 #### The "add-recipient.hl" file
 
-This file simply creates a modal Ajax window, allowing the user to select a contact from the database, adding the contact's email address,into on of our three recipient's textboxes; To, Cc and Bcc.
+This file simply creates a modal Ajax window, allowing the user to select a contact from the database, adding the contact's email address, into one of our three recipient's textboxes; To, Cc and Bcc.
 
 The file is fairly self explaining, and could possibly benefit from some refactoring.
 
@@ -286,7 +315,7 @@ At line 126, it inserts our attachments into our MIME envelope. Notice, this log
 
 Then at line 239, it creates a little _"trickery"_, to warn the user if he tries to send am unencrypted email. It basically works, by checking a ViewState value for its existance, and if it doesn't exist, it will check if all recipients have public keys, and if not, warn the user, and return early, aborting the rest of the execution of our file. It warns the user using a modal confirmation window at line 266 in the file.
 
-When it has warned the user, it will insert the above mentioned ViewState value if the user clicks _"OK"_, and *"recursively"* invoke itself. Now with the above mentioned ViewState value set, which means it will not warn the user again, and simply force a send operation, even if the email will be sent unencrypted.
+When it has warned the user, it will insert the above mentioned ViewState value if the user clicks _"OK"_, and *"recursively"* invoke itself. Now with the above mentioned ViewState value set, which means it will not warn the user again, and simply *"force"* a send operation, even if the email will have to be sent without encryption.
 
 At line 302, it cleans up this ViewState value, entirely removing it again, to make sure consecutive invocations of this file, tries to warn the user again.
 
@@ -294,7 +323,7 @@ Then at line 311, it checks to see if it should encrypt the email or not, at whi
 
 Then, finally, at line 351,is is ready to send the email, after having first saved the entire MIME **[envelope]** into our MySQL database, by invoking our _"save-envelope.hl"_ file.
 
-Notice, our _"send-email.hl"_ file, returns either boolean true or false,depending upon whether or not the email was in fact sent or not. If it needs to display a warning to the user, about that email couldn't be encrypted, it will return false, otherwise it will return true.
+Notice, our _"send-email.hl"_ file, returns either boolean true or false, depending upon whether or not the email was in fact sent or not. If it needs to display a warning to the user, about that email couldn't be encrypted, it will return false, otherwise it will return true.
 
 This return value, is referenced at line 68, in the file _"send.hl"_.
 
@@ -310,9 +339,9 @@ First of all, the types of legal attachments the user is allowed to download is 
 
 This would result in that we could remove at least two or three duplicate pieces of logic, that largely resembles each other, with a single invocation, to a single file, which allows the system to be much more easily configured, to allow for other types of attachments, in user's personal configurations of the system.
 
-There are other places where we could also become more _"DRY"_. For instance, where we create our _"add recipients"_ widgets, for our send/reply widgets, we could probably have reduced repetition significantly by creating a single extension widget, and consuming this three times.
+There are other places where we could also become more _"DRY"_. For instance, where we create our _"add recipients"_ widgets, for our send/reply widgets, we could probably have reduced repetition significantly, by creating a single extension widget, and consuming this three times.
 
-In general, an estimates guess, is that if we walked through the entire system, to extract commonalities, we could reduce it from ~3.700 lines of code, to roughly 2.500-3.000 lines of code.
+In general, an estimates guess, is that if we walked through the entire system, to extract commonalities, we could reduce it from ~3700 lines of code, to roughly 2-3000 lines of code.
 
 ## Exponential productivity growth
 
@@ -320,7 +349,7 @@ Another thing, which once you get a more thorough understanding for P5, is that 
 
 The same is true for the widgets we are using, such as for instance the _"page/filter toolbar"_, which we consume at least twice in our application.
 
-If we did, we could probably remove about half of the remaining code in our system, resulting in that the Sephia codebase itself, would end up at about roughly 1.000 - 1.500 lines of code, and that it instead would use a lot of reusable components, we could put into some common library.
+If we did, we could probably remove about half of the remaining code in our system, resulting in that the Sephia codebase itself, would end up at about roughly 1000 - 1500 lines of code, and that it instead would use a lot of reusable components, we could put into some common library.
 
 This would effectively result in that our next _"app"_, of the same complexity, would basically be 50% done, before we've even created a single line of code in it, resulting in that we could easily have created an application, of the same complexity, in about half the time we spent creating Sephia.
 
@@ -338,19 +367,21 @@ If you use for instance the _"inspect"_ features of Google Chrome, or FireFox, t
 
 **Disclaimer**; GMail was testet on an external connection, while Sephia Five was tested on localhost. Still, even if you cut the initial page load time in 2, the average improvement from GMail to Sephia in regards to neutral parameters is more than 15x as good.
 
-Now GMail of course, has lots of other features, that Sephia doesn't have. However, GMail does not feature encryption, and arguably, implementing cryptography in GMail, is impossible according to best practices, unless GMail lets you host their application at your own server. Which is highly unlikely going to happen in the near future, if I have understood Google's business plan correctly.
+Now GMail of course, has a lot of features, that Sephia doesn't have. However, GMail does not feature encryption, and arguably, implementing cryptography in GMail, is impossible according to best practices, unless GMail lets you host their application at your own server. Which is highly unlikely going to happen in the near future, if I have understood Google's business plan correctly.
 
 Besides, how much more do you really need from your email program than being able to read, reply, forward and create emails - In addition to being able to quickly search your emails. Sephia does all of these things, for 1/15th of the _"cost"_ of GMail. Sephia is also Free Software and 100% free of ads.
 
-Notice, we could also have significantly improved Sephia, by stripping out Bootstrap for instance, which would have further reduced our HTTP requests and initial bandwidth consumption significantly. My guess is, that if we really tried hard, we'd get the number of requests down to 4, without compromising any features, or any of its _"design beauty"_. In addition, we could probably have reduced the initial page load size to somewhere around 25-50KB.
+Notice, we could also have significantly improved Sephia, by stripping out Bootstrap for instance, which would have further reduced our HTTP requests and initial bandwidth consumption significantly. My guess is, that if we really tried hard, we'd get the number of requests down to 4, without compromising any features, or any of its _"design beauty"_. In addition, we could probably have reduced the initial page load size, to somewhere around 25-50KB.
 
-Sephia was built in 5 days, by one man, from scratch, to what we have looked at in this chapter. I don't know how many developers GMail have, but I guess it's at least 10-100 somewhere. GMail has been maintained for more than 10 years, and still with P5, we were able to significantly outperform GMail in 5 days, with one man, working 8 hours every day.
+Sephia was built in 5 days, by one man, from scratch, to what we have looked at in this chapter. I don't know how many developers GMail have, but I guess it's at least 10-100 somewhere. GMail has been maintained for more than 10 years, and still with P5, we were able to arguably outperform GMail in 5 days, with one man, working 8 hours every day.
 
-That's really the value proposition of P5. Sorry if this sounds like _"bragging"_, but these were neutral parameters, which you can easily verify for yourselves. The test was conducted on Tuesday, the 28th of March, 2017. GMail might improve its codebase in the future, creating a more _"slick"_ experience, for all I know - However at the time of this writing, we basically _"slaughtered"_ GMail, in 5 days. GMail is as far as I know, the largest online email provider system on the planet. And we outperformed it in 5 days, on neutral metrics. Let that sink in for a while please ...
+That's really the value proposition of P5. Sorry if this sounds like _"bragging"_, but these were neutral parameters, which you can easily verify for yourselves. The test was conducted on Tuesday, the 28th of March, 2017. GMail might improve its codebase in the future, creating a more _"slick"_ experience, for all I know - However, at the time of this writing, we basically _"slaughtered"_ GMail, in 5 days. GMail is as far as I know, the largest online email provider system on the planet. And we outperformed it in 5 days, on neutral metrics.
+
+Let that sink in for a while please ...
 
 ### A UX comparison between GMail and Sephia Five
 
-These kind of things tends to be _"in the eye of the beholder"_. However, there are some things we happen to know, through research being conducted in this area. One of those things is, that the less buttons and choices we present our users with, the less confused, and more easily charmed our users tends to become by our systems. An old saying claims that an image says more than a thousand words, I will therefor finish up this book, with exactly 2.000 words, to let you decide for yourselves, which system is actually the best system, in regards to UX.
+These kind of things tends to be _"in the eye of the beholder"_. However, there are some things we happen to know, through research being conducted in this area, by among others industry titans such as Jesse James Garrett. One of these things is, that the less buttons and choices we present our users with, the less confused, and more easily charmed our users tends to become by our systems. An old saying claims that an image says more than a thousand words, I will therefor finish up this book, with exactly 2.000 words, to let you decide for yourselves, which system is actually the best system, in regards to UX.
 
 GMail screenshot.
 
@@ -360,14 +391,10 @@ Sephia Five screenshot. Notice that Sephia gives you a significant smaller and s
 
 ![alt tag](screenshots/chapter-19-8.png)
 
-Notice, this is before I even start rolling down GMail's rolldown menus, at which point the number of choices would have lietrally exploded. Besides, please notice that as you actually initially load GMail, you're actually given the choice of, quote; _"Click here to load a minimized version, that loads faster on slow devices"_. I am not even sure if I should comment on this to be honest with you. I think GMail themselves pretty much wrapped up our conclusion for us here ...
+Notice, this is before I even start rolling down GMail's rolldown menus, at which point the number of choices would have literally exploded. Besides, please notice that as you actually initially load GMail, you're actually given the choice of, quote; _"Click here to load a minimized version, that loads faster on slow devices"_. I am not even sure if I should comment on this to be honest with you, since I think GMail themselves pretty much wrapped up our conclusion for us here ...
 
-## Wrapping up
+Thank you for reading, and thank you for all the fish.
 
-This was the last formal chapter of our _"guide to Phosphorus Five"_. If you didn't read all the chapters, you are welcome to do so, by going back to the beginning.
-
-And as always; _"Thx for all the fish!"_ :D
-
-Thank you for reading,
+Have a nice day :)
 
 Thomas Hansen

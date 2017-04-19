@@ -30,13 +30,41 @@ for-each:x:/@_people/*
     innerValue:x:/@_dp/#?value
 ```
 
-Notice, our last code example above, is identical to our first example, except it iterates the node itself, and hence is dependent upon using the reference iterator (`/#`), to de-reference the node currently being iterated.
+### The reference iterator explained
 
-This syntax allows us to access any node, from the currently iterated node, including ancestor nodes, relative to the currently iterated node itself.
+Notice, our last code example above, is identical to our first example, except it iterates the node itself, and hence is dependent upon using the reference iterator (`/#`), to de-reference the node currently being iterated. The reference iterator will either cast or convert the *value* of the previous result set into a node itself. To visualize what it actually does, it helps to throw up a debug window at the end of your lambda object above, and execute it in the *Apps/Executor"* of System42. This will result in something resembling the following code in your *"output window"*.
+
+```
+_people
+  name:Thomas
+  name:John
+  name:Jane
+for-each:x:/@_people/*
+  _dp:node:"name:Jane"
+  create-widget:x6872a19
+    innerValue:x:/@_dp/#?value
+sys42.windows.show-lambda
+```
+
+As you can clearly see above, the **[_dp]** node, actually has a value, which is a node in itself. This allows us to pass around *"pointers"* to nodes, as values of other nodes, allowing for us to both access the node in its entirety, including its children - In addition to changing the original node's values.
+
+Consider the following code for instance, which changes the value of all nodes to the static value of *"John Doe"*.
+
+```
+_people
+  name:Thomas
+  name:John
+  name:Jane
+for-each:x:/@_people/*
+  set:x:/@_dp/#?value
+    src:John Doe
+```
+
+Execute the above code in the Executor, and see for yourself how every single node beneath **[_people]** had their values changed after execution.
 
 ## The [while] loop
 
-The while loop allows you to iterate for as long as some specific condition is true. Its syntax for its condition(s), is identical to the syntax used in branching (**[if]** invocations), which we will have a look at in a later chapter. However, below is an example of a while loop, that iterates while the **[_people]** data segment has children. Then inside the loop itself, at the end of its lambda object, it removes the first child, before continuing iterating. Logically, it does the exact same thing, as our above **[for-each]** example, except using the **[while]** loop, instead of a for-each.
+The while loop allows you to iterate for as long as some specific condition is true. Its syntax for its condition(s), is identical to the syntax used in branching (**[if]** invocations), which we will have a look at in a later chapter. However, below is an example of a while loop, that iterates while the **[_people]** data segment has children. Then inside the loop itself, at the end of its lambda object, it removes the first child, before continuing iterating. Logically, it does the exact same thing, as our above **[for-each]** example, except using the **[while]** loop, instead of a **[for-each]** loop.
 
 ```
 _people

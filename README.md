@@ -43,7 +43,7 @@ Then, finally, there's the *"reference"* version, allowing you to use the book a
 
 If this is your first encounter with P5, I would encourage you to skip all the *"advanced chapters"*, to get you up to speed as fast as possible. This type of reading actually expects you to start out your reading at [chapter 2](chapter-2.md). This *"track"*, is created to rapidly make you gain ground, while staying in the flow, with highly applicable and useful examples, intended to leave you with something real and tangible - In addition to teaching you some very specific and useful concepts.
 
-Sometimes, the book will also include links to YouTube videos, which you can watch, to further increase your understanding of some concept. This are created as additions to the chapters, and often we analyze the code we looked at in the chapters where these videos are included.
+Sometimes, the book will also include links to YouTube videos, which you can watch, to further increase your understanding of some concept. These are created as additions to the chapters, and often we analyze the code we looked at in the chapters where these videos are included.
 
 ### Introduction to the introduction
 

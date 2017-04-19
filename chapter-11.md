@@ -104,7 +104,7 @@ sys42.examples.main-arg:x:/@_name?value
 
 Inside of your **[sys42.examples.main-arg]** event, the **[_name]** node is no longer accessible, since it's outside of the scope of the event itself. However, since the main argument to our invocation is an expression, this expression is evaluated *before* the event is invoked. This means that the **[_arg]**'s value, inside of our **[sys42.examples.main-arg]** event, is a simple constant value.
 
-If you pass in an expression leading to multiple results, you will have multiple **[_arg]**s inside of your event.
+If you pass in an expression leading to multiple results, you will have multiple **[_arg]** items inside of your event.
 
 ## Hyping Hyperlambda
 
@@ -135,6 +135,8 @@ What happens in our above example, is that we pass in a lambda object, intended 
 
 The simplicity of passing around such *"execution objects"* to other parts of your code, providing callbacks to other lambda objects, is the reason why Hyperlambda got its name. You can easily pass in such lambda objects, to web service endpoints, completely reversing the responsibility of the client and the server. For the record, you can also do this *securely*.
 
+Notice, the **[eval]** Active Event, can also pass in arguments to your evaluated lambda objects, the exact same way you can pass in arguments to an Active Event. An evaluated lambda object, can also return values, the same way an Active Event can. Arguably hence, a lambda object evaluated using **[eval]**, becomes the equivalent of an *"anonymous function object"* that is capable of being (almost) perfectly interchanged with an Active Event invocation.
+
 ## Ignoring arguments
 
 **Warning**; As you may have intuitively understood by now, you can supply whatever arguments you wish, to any Active Event in your system - And the Active Event will simply *ignore* your arguments, unless it was explicitly iplemented to handle your arguments.
@@ -158,7 +160,7 @@ create-event:57
   return:42
 ```
 
-Whether or not this is a smart thing to do though, is probably *"debatable"*, to use gentle words. I often find myself encouraging others to use some sort of intelligent namespacing convention. Often this should be as unique as possible, to make sure your Active Events does not clash with Active Events created by others.
+Whether or not this is a smart thing to do though, is probably *"debatable"*, to say the least. I often find myself encouraging others to use some sort of intelligent namespacing convention. Often this should be as unique as possible, to make sure your Active Events does not clash with Active Events created by others.
 
 By carefully choosing a unique namespace for your Active Events, you make sure your code works, an often times even collaborates, side by side other people's code. My convention here is to encourage others to using their company name, or some other *very unique piece of string*, as the first parts of your Active Events, for then to add the application name as the second - Then at the end, provide the actual name for your Active Event, providing some meaningful clue about what your Active Event actually does.
 
@@ -198,9 +200,11 @@ There are only 3 restrictions to what you can name your Active Events.
 * You cannot start your event name with a period "."
 * You cannot create an even who's name is "" (empty string)
 
-These restrictions applies only to Hyperlambda though. The reasons are that the Active Events starting with either a ".", or a "\_", are considered *"private core Active Events"*. You can create such events, but only from C#. In addition, you cannot invoke such Active Events from Hyperlambda, since the **[eval]** Active Event ignores all nodes starting with either "." or "\_", rendering your events useless, if you could create them. The Hyperlambda **[eval]** event, will neither attempt to raise any events having an empty name.
+These restrictions applies only to Hyperlambda though. The reasons are that the Active Events starting with either a ".", or a "\_", are considered *"private core Active Events"*. You can create such events, but only from C#. In addition, you cannot invoke such Active Events from Hyperlambda, since the **[eval]** Active Event ignores all nodes starting with either "." or "\_", rendering your events useless, if you could create them. The Hyperlambda **[eval]** event, will neither attempt to raise any events having an empty name. Notice, you can however create Active Events in C# starting with ".", "_", or having an empty name "". This is often useful in fact too.
 
-The "" Active Event, is a special event name, that can also exclusively be created from C#. This event will handle *all* Active Events, and allows you to tap into the core Active Event *"kernel"*, and modify its behavior.
+The "" for Active Event for instance, is a special event name, that can also exclusively be created from C#. This event will handle *all* Active Events, and allows you to tap into the core Active Event *"kernel"*, and modify its behavior.
+
+Active Events starting with "." or "_", can only be created in C#, and only consumed from C#. This allows you to create events, that can only be consumed from C#, which allows you to create *"internal C# code"*, which is not intended to be consumed by Hyperlambda directly. Sometimes this is useful for security reasons for instance. Phosphorus Five contains many such *"internal C# Active Events"*, in its C# core, which have been hidden, to make it more difficult to *"crack"* the system, using Hyperlambda.
 
 In addition, I highly discourage you from creating Active Events that already exists, such as creating an event who's name is **[create-event]**. Which would render your system close to useless in its entirety, if you did.
 
@@ -210,8 +214,18 @@ You should also have an extremely good argument for creating Active Events start
 
 I also highly encourage you to *not* create Active Events that have no namespace, such as for instance `create-event:foo-event`. The risk of having your event name clash with other people's event names, is simply too great - Rendering your system's ability to collaborate with other people's code impossible.
 
+The convention I recommend, is to use something like the following.
+
+```
+create-event:company-name.system-name.event-name
+```
+
+There are some extremely unlikely exceptions to the above rules though, such as if you create a specialized widget type in C# - At which point you'll need to break the above rules.
+
 ### Argument conventions
 
 I often encourage people to pass in lambda objects, intended for execution, by starting their names with a ".". First of all, this will make the intellisense parser of the Hyperlambda code editor mark your lambda object as an *"execution object"*. Secondly, it makes such *"execution objects"* more easily tracked, and increases the readability of your code. So even though this is not technically a prerequisite, I find this myself, to be a useful convention.
+
+Other types of arguments, I encourage people to simply pass in with an intelligent name, not pre-prending anything in front of the argument. In a previous version of the **[eval]** event, the expectation was to prepend arguments to lamdba objects with an underscore "_". This i **no longer the case** - And the only reason why there are still any events that even uses this convention, is for historical reasons, to be backwards compatible. I don't encourage people to use this syntax anymore, since a lambda object will not execute any of its arguments any ways, but *"offset"* the execution pointer, to the first *"non-argument part"* of your lambda object.
 
 [Chapter 12, Eval is not (necessarily) evil](chapter-12.md)

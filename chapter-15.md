@@ -79,6 +79,13 @@ create-event:sys42.examples.data.read
     :x:/../*/_arg?value
     :x:/../*/start?value
     :x:/../*/end?value
+
+  /*
+   * Deleting [start] and [end] arguments, 
+   * to prevent them from being returned from event, since they
+   * might have been injected as defaults, making our event return
+   * them as a part of its "result".
+   */
   set:x:/../*(/start|/end)
   return:x:/@select-data/*
 ```
@@ -116,6 +123,9 @@ create-event:sys42.examples.data.update
 /*
  * Our "delete" wrapper for our CRUD operations.
  * Expects main argument [_arg] being ID of what object to delete.
+ *
+ * Doesn't care about the "type" of object, but will simply delete
+ * the object with the given [_arg] ID, regardless of its type.
  */
 create-event:sys42.examples.data.delete
   delete-data:x:@"/*/*/sys42.examples.contact/""=:guid:{0}"""
@@ -172,7 +182,7 @@ sys42.examples.data.read:sys42.examples.my-data
 
 The observant reader, might at this point argue that what we did in our above database layer, is nothing new, and that it can easily be done with traditional OOP. Implementing something like the above, by wrapping these four operations into some class, creating four public methods, would be trivial. However, this would highly likely result in a lot more code. Our above datalayer consists of 34 lines of code, plus some comments. A traditional OOP solution, would highly likely result in much more code.
 
-Besides, what you might forget by repeating the claims of the above header, is that we actually *changed* our lambda object's *structure*, during our update. Resulting in, that if you wish, you can have a heterogeneous *"table"* structure, allowing for you to easily extend your types in the future - *Without* breaking neither your code, nor your database structure. In C# for instance, such a change, would often require a recompilation of your *"model"*, breaking any existing clients consuming your model out there. For the record, I realise that there are ways to circumvent this in C#, at which point we're back to the delicate problem of trying to balance YAGNI with *"future change requirements"*. Meaning, to apply such a *"model"* in for instance C#, often would result in huge amounts of additional boiler plate code, which you might never need, such that you could accommodate for a future change, that might *never happen*. Besides, creating such a design in C#, tends to end up with having to re-create the Node structure, effectively ending up with an *"incomplete implementation of Hyperlambda"*.
+Besides, what you might forget by repeating the claims of the above header, is that we actually *changed* our lambda object's *structure*, during our update. Resulting in, that if you wish, you can have a heterogeneous *"table"* structure, allowing for you to easily extend your types in the future - *Without* breaking neither your code, nor your database structure. In C# for instance, such a change, would often require a recompilation of your *"model"*, breaking any existing clients consuming your model out there. For the record, I realise that there are ways to circumvent this in C#, at which point we're back to the delicate problem of trying to balance YAGNI with *"future change requirements"*. Meaning, to apply such a *"model"* in for instance C#, often would result in huge amounts of additional boiler plate code, which you might never need, such that you could accommodate for a future change, that *might never happen*. Besides, creating such a design in C#, tends to end up with having to re-create the Node structure, effectively ending up with an *"incomplete implementation of Hyperlambda"*.
 
 In addition, if you'd like to create support for multiple different database implementations, you'd need to create an abstract base class, or an interface. If you'd like to use your database layer in multiple different components, you'd also have to create some sort of *"abstract factory method"*, to create your object implementing this interface. Which would result in that the number of lines of code, would literally explode - And the complexity of the code, and its API, would significantly increase. Besides, the knowledge required for creating such an architecture, would be far more demanding, than what we did above.
 
@@ -182,7 +192,7 @@ Imagine for instance, that you'd like to start storing *some* of your CRUD objec
 
 Another example includes the use-case of instead of storing your objects directly into the P5 database, rather transmit them as an HTTP web service request, to another server, or for that matter, storing your objects in your own file system locally. Since lambda objects are implicitly serializable, and easily converted into Hyperlambda - This would require no more than a handful of changes to your original code.
 
-As always, the gift of Hyperlambda, isn't necessarily in *"what you see"*, it's rather in *"what you cannot see"*. Our above CRUD database layer, is much more *generic* and *agile*, than whatever you could build in traditional OOP, without violating the laws of *YAGNI*, ending up with what's often referred to as *"astronaut architecture"*, or *"monster architecture"*. Simply because the above solution is built, accommodating for change, without having to pay the price of added complexity, violating YAGNI.
+As always, the gift of Hyperlambda, isn't necessarily in *"what you see"*, it's rather in *"what you cannot see"*. Our above CRUD database layer, is much more *generic* and *agile*, than whatever you could build in traditional OOP, without violating the laws of *YAGNI*, ending up with what's often referred to as *"astronaut architecture"*, or *"monster architecture"*. Simply because the above solution is built, accommodating for change, without having to pay the price of added complexity, resulting in violating the rules of YAGNI.
 
 In fact, let's illustrate this fact, with a simple change to our read Active Event. Change your **sys42.examples.data.read.hl** file to contain the following code. Don't worry if you don't understand everything in this file, it'll be thoroughly explained in later chapters.
 
