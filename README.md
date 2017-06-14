@@ -2,6 +2,33 @@
 
 Welcome to the _"book"_ about [Phosphorus Five](https://github.com/polterguy/phosphorusfive). Phosphorus Five, also referred to as P5 in this guide, is a lot of different things. It is a simple design pattern, it is an Ajax library, it is a programming language, and it is a framework. Some would also argue that it is a web operating system. What you choose to refer to it as, is really quite irrelevant. The point is that it solves your problems, particularly the ones you’re having, as you try to create rich and interactive web apps. This book aims at being your _“one stop guide”_, as you start out with P5. A beginner’s introduction. Starting out at the _“for dummies level”_, and hopefully moving you onwards to the expert level.
 
+## Chapters
+
+- [Chapter 1, Ajax - Advanced topic](chapter-1.md)
+- [Chapter 2, Hello world](chapter-2.md)
+- [Chapter 3, Ajax widgets - Advanced topic](chapter-3.md)
+- [Chapter 4, Your first Ajax form](chapter-4.md)
+- [Chapter 5, Lambda expressions - Advanced topic](chapter-5.md)
+- [Chapter 6, Changing your tree](chapter-6.md)
+- [Chapter 7, Your first real application](chapter-7.md)
+- [Chapter 8, Introduction, The pan galactical gargle blaster](chapter-8.md)
+- [Chapter 9, The bug](chapter-9.md)
+- [Chapter 10, Active Events preludium](chapter-10.md)
+- [Chapter 11, Active Events](chapter-11.md)
+- [Chapter 12, Eval is not (necessarily) evil](chapter-12.md)
+- [Chapter 13, Hyperlambda leads to Hyperhumble](chapter-13.md)
+- [Chapter 14, Your second real application](chapter-14.md)
+- [Chapter 15, FYI, P5 is fork friendly and free-fusable](chapter-15.md)
+- [Chapter 16, Reusable GUI components](chapter-16.md)
+- [Chapter 17, Loops](chapter-17.md)
+- [Chapter 18, Branching, if, else-if and else](chapter-18.md)
+- [Chapter 19, Creating a PGP GMail clone](chapter-19.md)
+
+## Appendix
+
+- [Appendix, Expression iterator](appendix-expressions-iterators.md)
+- [Appendix, Boolean algebra on expressions](appendix-expressions-boolean-algebra.md)
+
 ## The objectives of the book
 
 During this book, you will learn everything you need to know, to in its entirety _"clone GMail"_, creating a complete web mail system, from scratch. My aim is to bring you up to this knowledge in P5, in roughly 2 days. That way, the book becomes very practical, and hands on, progressing rapidly, and you can feel that you have done something constructive fast. We will start out with creating smaller systems, such as simple CRUD apps, and finish up with creating a complete GMail alternative, with PGP cryptography, and a much slicker UX.
@@ -86,36 +113,9 @@ This way of distributing the book, allows you to create inline comments as you r
 
 My email address is thomas@gaiasoul.com, and you can find the book's main source at [GitHub](https://github.com/polterguy/phosphorusfive-dox), which is the place where I prefer you to submit feedback about the book, if you have any.
 
-## Chapters
-
-- [Chapter 1, Ajax - Advanced topic](chapter-1.md)
-- [Chapter 2, Hello world](chapter-2.md)
-- [Chapter 3, Ajax widgets - Advanced topic](chapter-3.md)
-- [Chapter 4, Your first Ajax form](chapter-4.md)
-- [Chapter 5, Lambda expressions - Advanced topic](chapter-5.md)
-- [Chapter 6, Changing your tree](chapter-6.md)
-- [Chapter 7, Your first real application](chapter-7.md)
-- [Chapter 8, Introduction, The pan galactical gargle blaster](chapter-8.md)
-- [Chapter 9, The bug](chapter-9.md)
-- [Chapter 10, Active Events preludium](chapter-10.md)
-- [Chapter 11, Active Events](chapter-11.md)
-- [Chapter 12, Eval is not (necessarily) evil](chapter-12.md)
-- [Chapter 13, Hyperlambda leads to Hyperhumble](chapter-13.md)
-- [Chapter 14, Your second real application](chapter-14.md)
-- [Chapter 15, FYI, P5 is fork friendly and free-fusable](chapter-15.md)
-- [Chapter 16, Reusable GUI components](chapter-16.md)
-- [Chapter 17, Loops](chapter-17.md)
-- [Chapter 18, Branching, if, else-if and else](chapter-18.md)
-- [Chapter 19, Creating a PGP GMail clone](chapter-19.md)
-
-## Appendix
-
-- [Appendix, Expression iterator](appendix-expressions-iterators.md)
-- [Appendix, Boolean algebra on expressions](appendix-expressions-boolean-algebra.md)
-
 ## Version
 
-The current version you are reading, was created around the same time as Phosphorus Five version 1.0 was released. The book might be updated, as changes occurs in Phosphorus Five, and new releases are being created. The book's current version itself is; 0.5. Meaning, the book is still in *"alpha release"*. However, the book will inevitably change as P5 changes.
+The current version you are reading, was created around the same time as Phosphorus Five version 2.0 was released. The book might be updated, as changes occurs in Phosphorus Five, and new releases are being created. The book's current version itself is 1.0. However, the book will inevitably change as P5 changes.
 
 ## License and copyright
 
