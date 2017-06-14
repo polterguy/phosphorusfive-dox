@@ -63,7 +63,7 @@ The reference documentation for P5, depending upon which component you are inter
 * [p5.flickr](https://github.com/polterguy/phosphorusfive/tree/master/plugins/extras/p5.flickrnet) - Searching for images on Flickr
 * [p5.html](https://github.com/polterguy/phosphorusfive/tree/master/plugins/extras/p5.html) - Parsing and creating HTML in P5
 * [p5.http](https://github.com/polterguy/phosphorusfive/tree/master/plugins/extras/p5.http) - HTTP REST support in P5
-* [p5.imaging](/plugins/extras/p5.imaging) - Managing and manipulating images from P5
+* [p5.imaging](https://github.com/polterguy/phosphorusfive/tree/master/plugins/extras/p5.imaging) - Managing and manipulating images from P5
 * [p5.authorization](https://github.com/polterguy/phosphorusfive/tree/master/plugins/extras/p5.io.authorization) - Authorization features in P5
 * [p5.io.zip](https://github.com/polterguy/phosphorusfive/tree/master/plugins/extras/p5.io.zip) - Zip'ing and unzip'ing files, also supports AES cryptography
 * [p5.mail](https://github.com/polterguy/phosphorusfive/tree/master/plugins/extras/p5.mail) - Complex and rich SMTP and POP3 support, which is far better than the internal .Net classes for accomplishing the same
