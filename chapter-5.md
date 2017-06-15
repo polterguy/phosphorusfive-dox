@@ -1,14 +1,14 @@
 # Lambda Expressions
 
-This chapter contains some fairly advanced study topics. If this is your first encounter with P5, you would probably benefit from skipping it for now, and rather move on the to [next chapter](chapter-6.md). Later when you wish to dive really deep into P5, you can come back to this chapter, to acquire an understanding of the details.
+This chapter contains some fairly advanced study topics. If this is your first encounter with P5, you would probably benefit from skipping it for now, and rather move on the to [next chapter](chapter-6.md). Later when you wish to dive deeper into P5, you can come back to this chapter, to acquire an understanding of the gory details.
 
-Lambda expressions are what truly makes Hyperlambda unique. Hyperlambda is nothing like your traditional programming language. For instance, Hyperlambda doesn't even contain the concept of *"variables"*. This is because everything is changeable, and potentially a variable - Including Hyperlambda execution instructions. This allows you to create lambda objects, that change their execution trees, during their execution. This opens up a whole new way of thinking in regards to programming, and does not, as far as I know, exist in any other programming languages out there. Arguably hence, Hyperlambda is the *"weirdest"* programming language on the planet. Technically for the record, Hyperlambda isn't even a programming language either. Hence, if you should learn only two programming languages, Hyperlambda should probably be one of theme. Simply since it allows you to *"think differently"* in regards to code and programming, which opens your mind, and creates a larger general vocabulary, and mental model for *understanding of the art of programming*.
+Lambda expressions are what truly makes Hyperlambda unique. Hyperlambda is nothing like your traditional programming language. For instance, Hyperlambda doesn't even contain the notion of a *"variable"*. This is because everything is changeable, and potentially a variable - Including Hyperlambda execution instructions. This allows you to create lambda objects, that change their execution trees, during their execution. This opens up a whole new way of thinking in regards to programming, and does not, as far as I know, exist in any other programming languages out there.
 
 ## An overview of lambda expressions
 
-A lambda expression is declared with the type declaration of `:x:`. If you wish to create a lambda expression, you will have to make sure your node containing your expression, resembles something like the following; `_foo:x:/expression` - The `:x:` parts, makes sure the Hyperlambda parser, understands that the value of the previously defined **[_foo]** node is an expression.
+A lambda expression is declared with the type declaration of `:x:`. If you wish to create a lambda expression, you will have to make sure your node containing your expression, resembles something like the following; `_foo:x:/iterator1/iterator2` - The `:x:` parts, makes sure the Hyperlambda parser, understands that the value of the previously defined **[_foo]** node is an expression.
 
-The correct scientific name for lambda expressions is; *"Hyperdimensional boolean algebraic graph object expressions"*, because they allow you to use boolean algebra, to create sub tree results, out of other trees. This results in creating a *"hyperplane"* through your graph objects, which again results in retrieving a sub-portion of your tree structures. If you imagine your graph objects as an n dimensional tree structure, then lambda expressions allows you to create n+1 dimensions through these graph objects. These expressions extracts a sub-portion of your tree, and yields its results, as a new tree. Each expression, creates a new *"dimension"* through your tree. Such dimensions are often referred to as *"hyperplanes"*.
+**Definition, advanced part**; The correct scientific name for lambda expressions is; *"Hyperdimensional boolean algebraic graph object expressions"*, because they allow you to use boolean algebra, to create sub tree results, out of other trees. This results in creating a *"hyperplane"* through your graph objects, which again results in retrieving a sub-portion of your tree structures. If you imagine your graph objects as an n dimensional tree structure, then lambda expressions allows you to create n+1 dimensions through these graph objects. These expressions extracts a sub-portion of your tree, and yields its results, as a new tree. Each expression, creates a new *"dimension"* through your tree. Such dimensions are often referred to as *"hyperplanes"*.
 
 To make this easier to visualise, think of lambda expressions as the equivalent to tree structures as SQL is to tables. A lambda expression creates a new tree structure, from another source tree structure. This resulting tree structure can have zero, one, or more nodes in it.
 
@@ -18,9 +18,9 @@ The expression itself, can contain 3 different segments, all of which are option
 * An expression type declaration
 * A type conversion
 
-All of the segments above are optional, and the shortest possible legal expression you can create, is in fact completely empty `_foo:x:`. An empty expression like this, is often referred to as the *"identity expression"*, and (almost) always returns the node where it is declared as a value. Hence, the expression in this code `_bar:x:`, will yield the **[_bar]** node itself.
+All of the above segments are optional, and the shortest possible legal expression you can create, is in fact completely empty `_foo:x:`. An empty expression like this, is often referred to as the *"identity expression"*, and (almost) always returns the node where it is declared as a value. Hence, the expression in this code `_bar:x:`, will yield the **[_bar]** node itself.
 
-The iterators of your expressions are said to be *"left associative"*, because they are evaluated in order of appearance, from left to right. Hence, you start out with the identity node, and apply zero or more iterators to it, to retrieve whatever result you are interested in retrieving, relative to the identity node. There are many different types of iterators, and in theory, they might even vary from implementation to implementation. However, the most common ones, are listed in one of our appendixes at the end of this book. Each iterator reacts upon the results of its previous iterator, starting from left to right. Whenever an iterator yields a *"null result"*, the rest of the expression is discarded, and the expression as a whole, will yield a *"null result"*. Each iterator starts out with an underscore *"/"*. The first iterator in your expression, starts out with the *"identity node"* as its initial result set.
+The iterators of your expressions are said to be *"left associative"*, because they are evaluated in order of appearance, from left to right. Hence, you start out with the identity node, and apply zero or more iterators to it, to retrieve whatever result you are interested in, _relative to the identity node_. There are many different types of iterators, and in theory, they might even vary from implementation to implementation. However, the most common ones, are listed in one of our appendixes at the end of this book. Each iterator reacts upon the results of its previous iterator, starting from left to right. Whenever an iterator yields a *"null result"*, the rest of the expression is discarded, and the expression as a whole, will yield a *"null result"*. Each iterator starts out with an underscore *"/"*. The first iterator in your expression, starts out with the *"identity node"* as its initial result set.
 
 Below is a piece of Hyperlambda, intended to be executed in the Apps/Executor of your System 42 installation.
 
@@ -42,7 +42,7 @@ Notice how the value of **[_foo]** changed.
 
 ### Your expression's type declaration
 
-All of your expressions have a type declaration. If omitted, a type of `?node` will be assumed. The type declaration, informs the expression engine, which part of your resulting node-set you are interested in. There are four different possible type declarations for your expressions.
+All of your expressions have a type declaration. If omitted, a type of `?node` will be assumed. The type declaration, informs the expression engine, which part of your resulting node-set you are interested in retrieving. There are four different possible type declarations for your expressions.
 
 * `?node` - The nodes' themselves in their entirety
 * `?value` - The nodes' values
@@ -81,10 +81,10 @@ set:x:/@_foo?value
 
 You could probably get away with understanding only a handful of iterators, and never bother your mind with the boolean algebraic parts of expressions - And still be able to create anything you wish to create using P5. The most common iterators, you probably should at least learn, are listed below.
 
-* `/xxx` - Named nodes, filtering away anything not matching the specified *"xxx"* name
-* `/n` - Numbered child node, returning the *n'th* child of the previous result set.
 * `/..` - Returns the root node of your lambda object
 * `/*` - Returns all children nodes of the previous result set
+* `/xxx` - Named nodes, filtering away anything not matching the specified *"xxx"* name
+* `/n` - Numbered child node, returning the *n'th* child of the previous result set.
 * `/=xxx` - Nodes having the specified *"xxx"* value
 * `/-` - Elder sibling iterator
 * `/+` - Younger sibling iterator
@@ -132,17 +132,17 @@ The most common types are listed below;
 
 * `.bool` - Boolean, *"true"* or *"false"*
 * `.int` - Integer numbers, e.g. *"42"*
-* `.double` - Real numbers, 64 bits floating point
-* `.string` - String
+* `.double` - Real numbers, 64 bits floating point, e.g. _"42.57"_
+* `.string` - String, which is the default type in P5
 * `.node` - Hyperlambda, with a single root node
 
 In our appendixes, you can find a complete reference, of all the built-in types in P5. The type system for Hyperlambda is extendible though, and you can easily create your own types, by adding a couple of Active Events with special names and namespaces into your application pool.
 
 ### Creating a mental mind model for expressions
 
-One way of realising what lambda expressions are, is to imagine them as the *"tree version of SQL"*. Where SQL allows you to extract two dimensional tables and data-sets, lambda expressions allows you to extract n dimensional relational sub-trees. If you have some experience with XPath, they might come more natural to you.
+One way of realising what lambda expressions are, is to imagine them as the *"tree version of SQL"*. Where SQL allows you to extract two dimensional tables and data-sets, lambda expressions allows you to extract n dimensional relational sub-trees. If you have some experience with XPath, they might come natural to you.
 
-For more about expressions, and iterators, please refer to the appendix section. However, I encourage you to read the appendix sections at last.
+For more about expressions and iterators, please refer to the appendix section.
 
 - [Appendix, Expression iterators](appendix-expression-iterators.md)
 - [Appendix, Boolean algebra on expressions](appendix-expressions-boolean-algebra.md)
