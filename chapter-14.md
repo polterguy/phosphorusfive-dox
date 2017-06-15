@@ -1,6 +1,6 @@
 # Your second real application
 
-In this chapter, we will improve our application from chapter 7. We will use the database in P5 to store our records. In addition, we will make sure it becomes a real CRUD app. It will also become a multi user app, where all users saves their data to the same database. In this chapter, we will build upon what we have learned so far. Technologies used here, will include.
+In this chapter, we will improve our application from chapter 7. We will use the database in P5 to store our records. In addition, we will make sure it becomes a real CRUD app. It will also become a multi user app, where all users saves their data to the same database. In this chapter, we will build upon what we have learned so far. Technologies used here will include.
 
 * Creating Hyperlambda files, and using them as lambda objects
 * A new syntax for declaring widgets

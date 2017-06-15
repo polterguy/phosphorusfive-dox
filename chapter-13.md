@@ -6,7 +6,7 @@ In the introduction to this book, we discussed how Hyperlambda have more *femini
 
 But first a disclaimer. The name of this chapter might sound absurd for the uninitiated. However, before you discarding the chapter entirely, let me start out with a statement. 
 
-> I agree with everything you think.
+> I agree with everything you say.
 
 I am not sure if my last statement made this chapter sound even more absurd, or if it changed your perception - But let me explain anyway.
 
