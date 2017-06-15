@@ -9,7 +9,7 @@ However, often you need to store some kind of temporary variable, which you chan
 - **[insert-before]**, inserts nodes, *before* some specified nodes
 - **[insert-after]**, inserts nodes, *after* some specified nodes
 
-These four Active Events, allows you to modify your lambda objects, during the execution of your lambda. Notice, the **[set]** event, which in addition to changing a node, also can completely remove it. Hence, with these four events, you have all *"CRUD"* operations available for your lambda objects, and its individual nodes.
+These four Active Events, allows you to modify your lambda objects, during the execution of your lambda. Notice, the **[set]** event, which in addition to changing a node, also can completely remove nodes, values and names. Hence, with these four events, you have all *"CRUD"* operations available for your lambda objects, and its individual nodes.
 
 **Definition**; *"CRUD"* is an acronym, and means *"Create, Remove, Update and Delete"*, and is a reference to all the 4 basic operations necessary to be able to dynamically *"mold"* an object, in any of the necessary axis, to be able to *"create anything you wish, starting from any other given starting point"*.
 
@@ -36,7 +36,7 @@ set:x:/@_foo?value
     :x:/@_foo?value
 ```
 
-After execution of the above Hyperlambda, you will have concatenated the **[_foo]** node's existing value, with the string *", and additional value"*. This is because of that the `{0}` parts, will be substituted with the *"zeroth"* child node's value of our **[src]** argument. Since this in turn, is an expression, this expression will be evaluated first. This expression leads to **[_foo]**'s value, being *"Old value"*, which in the end, results in that the `{0}` parts are substituted with the string *"Old value"*.
+After execution of the above Hyperlambda, you will have concatenated the **[_foo]** node's existing value, with the string *", and additional value"*. This is because of that the `{0}` parts, will be substituted with the *"zeroth"* child node's value of our **[src]** argument having an *empty name*. Since this in turn, is an expression, this expression will be evaluated first. This expression leads to **[_foo]**'s value, being *"Old value"*, which in the end, results in that the `{0}` parts are substituted with the string *"Old value"*.
 
 Let's create a form, where we use the **[set]** event, in combination with some *"formatting expressions"*, to ask the user for his name, and create a modal confirmation window.
 
@@ -85,7 +85,7 @@ The second thing you may already have noticed, is that instead of supplying a *"
 
 Hence, with one invocation to **[p5.web.widgets.property.get]**, we are able to retrieve the **[value]** of multiple widgets. Almost all Active Events in P5 can take expressions, and hence do *"multiple things in one go"*.
 
-To understand these expressions, let us make sure we show a *"debugging window*". This is easily done, by changing your **[onclick]** event handler, adding an invocation to **[sys42.windows.show-lambda]**, just before our **[set]** invocation. Modify your code, to resemble the following;
+To understand these expressions, let's show a *"debugging window*". This is easily done, by changing your **[onclick]** event handler, adding an invocation to **[sys42.windows.show-lambda]**, just before our **[set]** invocation. Modify your code, to resemble the following;
 
 ```
 create-widget
@@ -134,7 +134,7 @@ After it has created its **[src]** node's value, by concatenating our strings, i
 
 Using this type of logic, we can change parts of our lambda object, that we still haven't execute yet, resulting in that once we execute this lambda, it will have a value, that we dynamically created, before we executed it.
 
-You can of course also create execution instructions too, with a similar technique, by dynamically changing the name of some *"future node"* this way.
+You can of course also create execution instructions too, with similar constructs, by dynamically changing the name of some *"future node"* this way.
 
 ## [add]ing things to your tree
 
@@ -202,7 +202,7 @@ create-widget
         eval:x:/@.exe
 ```
 
-The above example, will actually dynamically build our lambda object, according to what you type into the textbox. If you type in *"Thomas"*, it will show a modal confirmation window. If you type in anything else, it will show a simple *"info-tip"* window.
+The above example, will actually dynamically _"mold"_ our lambda object, according to what you type into the textbox. If you type in *"Thomas"*, it will show a modal confirmation window. If you type in anything else, it will show a simple *"info-tip"* window.
 
 Try typing in *"Thomas"*, and verify your result resembles something like the following.
 
@@ -295,7 +295,7 @@ As you can see after having typed in *"Thomas"* and *"John"* again, it clearly r
 
 In Hyperlambda, you can dynamically create and *"decorate"* your lambda objects, by inserting execution instructions into your lambda object, almost the same way you'd decorate any object in a classic programming language. You can also remove instructions from existing lambda objects. A lambda object in P5, is a dynamic living thing.
 
-If you imagine Hyperlambda as HTML, and lambda as the DOM your HTML creates. Then imagining how JavaScript can change your DOM dynamically, and how this becomes the equivalent of dynamically *"molding"* your lambda objects during runtime, creates a mental model you can use to visualise this more easily.
+If you imagine Hyperlambda as HTML, and lambda as the DOM your HTML creates. Then imagining how JavaScript can change your DOM dynamically, and how this becomes the equivalent of dynamically *"molding"* your lambda objects during runtime - This might create a mental model you can use to visualise this more easily.
 
 In P5, a lambda object can mold any lambda objects, the same way JavaScript can dynamically modify the DOM.
 
@@ -334,7 +334,7 @@ add:x:/@_dest
   src:x:/@_src/*
 ```
 
-After execution of the above Hyperlambda, the **[_dest]** node, will have a copy of all children from **[_src]**.
+After evaluating the above Hyperlambda, the **[_dest]** node, will have a copy of all children from **[_src]**.
 
 Both the **[add]** and the **[insert-xxx]** Active Events, can be given multiple **[src]** arguments. Imagine something like the following for instance.
 
@@ -349,7 +349,7 @@ add:x:/@_dest
   src:x:/@_src2/*
 ```
 
-Of course, the above could also be accomplished by using a boolean algebraic expression instead. However, the simplified syntax of using multiple **[src]** nodes, often outweighs the benefits of the condensed syntax using algebra.
+The above could also be accomplished by using a boolean algebraic expression instead. However, the simplified syntax of using multiple **[src]** nodes, often outweighs the benefits of the condensed syntax using algebra. Boolean algebraic expressions are covered in one of the appendixes.
 
 Notice though that **[set]** can only handle one **[src]** argument.
 
@@ -368,7 +368,7 @@ This feature, although powerful, also implies that you must be careful, to make 
 
 ## Deleting stuff
 
-This leaves us with only one remaining concept we'll need to visit, before we can wrap up this chapter, having all four CRUD operations within our toolbelt - Which is deletion of stuff.
+This leaves us with only one remaining concept we'll need to visit, before we can wrap up this chapter, having all four CRUD operations within our toolbelt - Which is deleting stuff.
 
 Deletion is extremely easy. Simply use the **[set]** event, without a **[src]** argument. Considering the following.
 
@@ -386,17 +386,17 @@ _foo2:bar
 set:x:/@_foo2?name
 ```
 
-Notice the tiny semantic difference between *"nullifying a name and a value"*, which is there since as a part of the node object's specification, a node cannot have a *"null name"*. It can however have an *"empty name"*.
+Notice the tiny semantic differences between *"nullifying a node's name and its value"*, which is there since a part of the node's specification, is that a node cannot have a *"null name"*. It can however have an *"empty name"*. A node's value can be null though.
 
 ## Wrapping up
 
-You should now have a basic understanding of all four *"CRUD operations"* for lambda objects. You can now dynamically create and change lambda objects as you see fit. However, as we started out this chapter with, no other programming languages contains any similar constructs as to what we have done in this chapter. Hence arguably, the largest problem you're now faced with, is creating a mental model for understanding, this very unique and highly useful idea ...
+You should now have a basic understanding of all four *"CRUD operations"* for lambda objects. You can now dynamically create and change lambda objects as you see fit. However, as we started out this chapter with, no other programming languages contains any similar constructs as to what we have done in this chapter. Hence, the largest problem you're now faced with, is creating a mental model for understanding this very unique and highly useful idea.
 
 ### Don't panic!
 
-If things are unclear after having read through this chapter, just relax; Things will become clear as we proceed, and start using the constructs we've learned in this chapter. As you gain a more thorough understanding of the art of *"molding lambda objects"*, you can come back to this chapter, and repeat the basics. As you get your hands on some real live examples, it will be much more easily grasped.
+If things are unclear after having read through this chapter, don't panic. Things will become clear as we proceed, and start using the constructs we've learned in this chapter. As you gain a more thorough understanding of the art of *"molding lambda objects"*, you can come back to this chapter, and repeat the basics. As you get your hands on some real live examples, it will be much more easily grasped.
 
-Realise also that as you get your hands on more and more examples, and create more and more code utilising these ideas - Then your ability to visualise your code, will come more natural to you, and you will develop better visualisation skills as you proceed - Making the process of understanding Hyperlambda much easier for you. Hyperlambda arguably develops your mind's ability to visualise logic much better.
+Realise also that as you get your hands on more and more examples, and create more and more code utilising these ideas - Then your ability to visualise your code, will develop, and you will have better visualisation skills as you proceed - Making the process of understanding Hyperlambda much easier for you. Hyperlambda arguably develops your mind's ability to visualise logic, to a much larger extent than most other programming languages.
 
 ### Video for this chapter
 
