@@ -11,11 +11,11 @@ In addition, we will vaguely touch upon the math parts of P5, adding and subtrac
 
 ## Architecture
 
-We will cretate 4 Hyperlambda files, encapsulating all of our 4 CRUD operations; Create, read, update and delete. This is not a technical prerequiste, but makes it easier for us to apply changes to our app in the future. An example might include changing from the P5 database, to a more scalable database.
+We will cretate 4 Hyperlambda files, encapsulating all of our 4 CRUD operations; (C)reate, (R)ead, (U)pdate and (D)elete. This is not a technical prerequiste, but makes it easier for us to apply changes to our app in the future. An example might include changing from the P5 database, to a more scalable database.
 
-By *"hiding"* the internals of our app, inside our our CRUD database layer, we accommodate for future change, and our application achieves a higher degree of *"encapsulation"*.
+By hiding the internals of our app, inside our our CRUD database layer, we accommodate for future change, and our application achieves a higher degree of encapsulation.
 
-We will also create the app as a *"CMS app"*, which means that it will be declared as a folder inside of our *"/phosphorusfive/core/p5.webapp/system42/apps/"* folder. This is the preferred way to create more complex apps, consisting of multiple files, since it allows for what is often referred to as *"XCopy deployment"*. The latter implies, that you can simply copy the entire folder where our app is declared, and distribute it to others, having them paste the folder into their *"/apps/"* folder. This give you yet another very useful distribution model for your complex apps.
+We will also create the app as a *"CMS app"*, which means that it will be declared as a folder inside of our *"/phosphorusfive/core/p5.webapp/system42/apps/"* folder. This is the preferred way to create more complex apps, consisting of multiple files, since it allows for what is often referred to as *"XCopy deployment"*. The latter implies, that you can simply copy the entire folder where your app is declared, and distribute it to others, having them paste the folder into their *"/apps/"* folder. This give you yet another very useful distribution model for your apps. Especially apps of more complex nature.
 
 ## End result
 
@@ -31,13 +31,13 @@ When he tries to delete a user, he will get a modal warning, asking him to confi
 
 ![alt tag](screenshots/chapter-14-3.png)
 
-Basically, the app contains most things you'd expect from a CRUD app. The app will also be designed, such that it is easily extendible, and can be easily modified, to hold other types of data. The user will also be able to *"page"* back and forth. By default, our app will show only 5 contacts at the time, but this can be changed, by modifying a single integer value in our app.
+Basically, the app contains most things you'd expect from a CRUD app. The app will also be designed, such that it is easily extendible, and can be easily modified, to hold other types of data. The user will also be able to *"page"* back and forth. By default, our app will show only 5 contacts at the time. But this can be changed, by modifying a single integer value in our app.
 
 ## Let's begin
 
-First create a folder named *"contacts"* inside of your *"/core/p5.webapp/system42/apps"* folder. We will put our entire application into this folder.
+First create a folder named *"contacts"* inside of your *"/core/p5.webapp/system42/apps/"* folder. We will put our entire application into this folder.
 
-Create a file called *"launch.hl"* inside of your *"/contacts/"* folder. The name of this file is important, since the CMS in System42, will look for a file with that exact name, inside of your folder. If the CMS finds this file, it will create a menu item, automatically for us, inside of our *"Apps"* menu dropdown. When this menu item is clicked, it will execute our *"launch.hl"* file. Hence, this file's path, becomes our *"desktop icon"* to launch our app, in addition to its main startup logic. Our *"launch.hl"* file will contain most of our application's code.
+Create a file called *"launch.hl"* inside of your *"/contacts/"* folder. The name of this file is important, since the CMS in System42, will look for a file with that exact name inside of your folder. If the CMS finds this file, it will create a menu item, automatically for us, inside of our *"Apps"* menu dropdown. When this menu item is clicked, it will execute our *"launch.hl"* file. Hence, this file's path, becomes our *"desktop icon"* to launch our app, in addition to its main startup logic. Our *"launch.hl"* file will contain most of our application's code.
 
 **system42/apps/contacts/launch.hl**
 
@@ -408,7 +408,7 @@ Arguably, the above application, is our first complete CRUD application. It allo
 
 ### Can you improve it?
 
-First things first. As previously said, although the app is not too far away from following most *"best practices"*, some things in it, could easily be improved. Discuss whether or not there should exist more widget lambda events.
+First things first. As previously said, although the app is not too far away from following most *"best practices"*, some things in it, could easily be improved. Discuss whether or not there should exist more widget lambda events. Or the app should contain other parts, to make it more clear and generic in nature. For instance, is our CRUD layer _really_ 100% generic? And is the code as clean as it could be?
 
 
 ### CRUD database layer
@@ -473,9 +473,9 @@ For the record, this logic is really useful, but the way it is implemented in ou
 
 Interestingly though, our app doesn't contain a single loop. We can get away with this, due to the magic of **[apply]**, which allows us to more easily create a bunch of HTML "tr" widgets, than any looping mechanisms would allow us.
 
-Another interesting detail, is that our database layer, is in no ways dependent upon the structure of our items. If you want to extend the app, to hold an additional piece of information, such as an address field for instance - Then this does no in any ways require you to change your database layer.
+Another interesting detail, is that our database layer, is in no ways (almost) dependent upon the structure of our items. If you want to extend the app, to hold an additional piece of information, such as an address field for instance - Then this does no in any ways require you to change your database layer.
 
-Arguably hence, our *"database layer"* could hence be reused, for every single CRUD app you were ever to create.
+Arguably hence, our *"database layer"* could hence be reused, for every single CRUD app you were ever to create. This would require some few tiny changes though. Can you see which ...?
 
 We can come away with this, thanks to some *"lambda expression magic"* within our database CRUD files. For instance, the code below, which is taken from our *"create.hl"* file ...
 
@@ -535,15 +535,15 @@ select-data:x:/*/*/p5.page
 
 #### Practical use-cases for P5's database
 
-As previously mentioned, the P5 database stores its items in memory, making it unsuitable for *"big data"*. However, for smaller data-sets, such as a user's settings, and other types of data, which you know will not exceed some sort of threshold in size, it is perfect. This is especially true, if you require your data to be retrieved rapidly, repeatedly, and frequently.
+As previously mentioned, the P5 database stores its items in memory, making it unsuitable for *"big data"*. However, for smaller data-sets, such as a user's settings, and other types of data, which you know will not exceed some sort of threshold in size, it is perfect. This is especially true, if you require your data to be retrieved rapidly, repeatedly, and frequently. I tend to look at the P5 database, as a type of *"Windows registry"* type of storage.
 
-I tend to look at the P5 database, as a type of *"Windows registry"* type of storage.
+P5 contains a MySQL data adapter though, for larger data sets, which you can use when you have thousands of records, and the p5.data memory based database simply won't cut it.
 
 ### Known unknowns
 
 In our **[onclick]** Ajax event handler, at line 238, we have a couple of invocations to **[+]** and **[-]**. The same is true for our **[onclick]** at line 213. These are math Active Events, allowing us to add and subtract, either some constants, or the result of an expression, from another constant or expression's result.
 
-We will cover these in a later chapter, however, if you twist your brain hard, you can probably figure out what they do. Hint; Use **[sys42.windows.show-lambda]** to see the results of these invocations, if you are curious.
+We will cover these in a later chapter, however, if you twist your brain hard, you can probably figure out what they do. Hint; Use `sys42.windows.show-lambda:x:/..` to see the results of these invocations, if you are curious.
 
 In addition we haven't really dissected branching, or the **[if]** parts within our *"read.hl"* file for instance. These topics will be covered in a later chapter.
 
