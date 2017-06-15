@@ -19,7 +19,7 @@ create-widget:foo
 
 Your page should look something like this.
 
-![alt tag](screenshots/chapter-1-1.png)
+![alt screenshot of hello world](screenshots/chapter-1-1.png)
 
 If you try to click the button created by the Hyperlambda above, it will change its value to *"Hello World"*. If you wish, you can refresh your page, to reset the button's text, for then to click it again.
 
