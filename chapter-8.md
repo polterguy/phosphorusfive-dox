@@ -1,5 +1,7 @@
 # Introduction - The pan galactical gargle blaster
 
+This chapter discuss some of the philosophical and psychological implications of learning Hyperlambda. The chapter is not necessary to read, if you only want to learn Hyperlambda and P5. However, I believe in that the more broad your knowledge about anything becomes, the better suited you are to learn something very narrow. If you don't want to read about my philosophical reasons for designing Hyperlambda the way I did, feel free to skip to the [next chapter](chapter-9.md).
+
 > "Everything you know is wrong!"
 
 My *"theory of mind"* is based upon the assumption that the same way Newton's laws applies to physical things and energies, it also to some extent applies to cognitive energies. This implies that whenever you apply cognitive energies to creating software, the thing you are trying to create, applies the same amount of cognitive energy back unto your brain. If my theory is correct, this implies, that as you create software, the software you create, physically rewires your brain.
