@@ -23,7 +23,7 @@ sys42.examples.foo
 
 Probably few surprises here. Congratulations for the record, you have created your first reusable Active Event. Already at this point, you can consume this Active Event, in your own applications, as you see fit.
 
-**Warning**; Before you go berserk creating your own Active Events, please realize, that if your web server process for some reasons recycles - Your Active Event will vanish! If you want to create persistent Active Events, you'll need to declare them in e.g. a Hyperlambda file, and make sure this file somehow is executed, every time your web server process starts. This is easily done, by putting a Hyperlambda file, creating your Active Events, into the *"/system42/startup/"* folder inside of your *"/phosphorusfive/core/p5.webapp/"* folder. All files in this folder, are automatically executed, every time your web server process starts.
+**Warning**; Before you go berserk creating your own Active Events, please realize that if your web server process for some reasons is being recycled - _Your Active Event will vanish_! If you want to create persistent Active Events, you'll need to declare them in e.g. a Hyperlambda file, and make sure this file somehow is executed, every time your web server process starts. This is easily done, by putting a Hyperlambda file, creating your Active Events, into the *"/system42/startup/"* folder inside of your *"/phosphorusfive/core/p5.webapp/"* folder. All files in this folder, are automatically executed, every time your web server process starts.
 
 ## Parametrizing your Active Events
 
@@ -45,11 +45,11 @@ sys42.examples.foo
   name:Thomas Hansen
 ```
 
-Notice this time, that our confirmation window, is actually able to show the name of *"Thomas Hansen"*. Hence, it has obviously found our argument. The results of the above code, should resemble the following.
+Notice, this time our confirmation window is actually able to show the name of *"Thomas Hansen"*. Hence, it has obviously found our argument. The results of the above code, should resemble the following.
 
 ![alt tag](screenshots/chapter-11-1.png)
 
-To return arguments from your Active Events are equally easy.
+To return arguments from your Active Events is equally easy.
 
 ```
 create-event:sys42.examples.foo
@@ -65,7 +65,7 @@ sys42.examples.foo
 sys42.windows.show-lambda:x:/..
 ```
 
-As you can see below, clearly our Active Event has returned two nodes for us, after its invocation.
+As you can see below, clearly our Active Event has returned two nodes for us after its invocation.
 
 ![alt tag](screenshots/chapter-11-2.png)
 
@@ -92,7 +92,7 @@ If you pass in a value to your Active Events, you can reference this value as an
 ```
 create-event:sys42.examples.main-arg
   sys42.windows.info-tip:x:/../*/_arg?value
-sys42.examples.main-arg:Hell world!
+sys42.examples.main-arg:Hello world!
 ```
 
 The **[_arg]** argument(s), are handled in a special manner though. If you pass in an expression for instance, as your main argument - Then this expression will be evaluated *before* your event is invoked. Hence, inside of your event, you will have access to the result of your expression. Consider this code.
@@ -108,7 +108,7 @@ If you pass in an expression leading to multiple results, you will have multiple
 
 ## Hyping Hyperlambda
 
-It may be easy to believe that the name *"Hyperlambda"* is simply a marketing trick, in an attempt at trying to *"hype"* the language. However, as we will see in our next example, the word *"hyper"* is well deserved.
+It may be easy to believe that the name *"Hyperlambda"* is simply a marketing trick, in an attempt at trying to hype the language. However, as we will see in our next example, the word hyper is in fact well deserved.
 
 ```
 create-event:sys42.examples.two-times
@@ -133,9 +133,11 @@ sys42.examples.two-times
 
 What happens in our above example, is that we pass in a lambda object, intended to be executed. The **[eval]** invocations, inside of our **[sys42.examples.two-times]** event, executes the specified lambda twice.
 
-The simplicity of passing around such *"execution objects"* to other parts of your code, providing callbacks to other lambda objects, is the reason why Hyperlambda got its name. You can easily pass in such lambda objects, to web service endpoints, completely reversing the responsibility of the client and the server. For the record, you can also do this *securely*.
+The simplicity of passing around such *"execution objects"* to other parts of your code, providing callbacks to other lambda objects, is the reason why Hyperlambda got its name. You can easily pass in such lambda objects, to web service endpoints, completely reversing the responsibility of the client and the server. For the record, you can also do this *safely*.
 
-Notice, the **[eval]** Active Event, can also pass in arguments to your evaluated lambda objects, the exact same way you can pass in arguments to an Active Event. An evaluated lambda object, can also return values, the same way an Active Event can. Arguably hence, a lambda object evaluated using **[eval]**, becomes the equivalent of an *"anonymous function object"* that is capable of being (almost) perfectly interchanged with an Active Event invocation.
+> In P5 eval is not (necessarily) evil.
+
+Notice, the **[eval]** Active Event, can also pass in arguments to your evaluated lambda objects, the exact same way you can pass in arguments to an Active Event. An evaluated lambda object, can also return values, the same way an Active Event can. Arguably hence, a lambda object evaluated using **[eval]**, becomes the equivalent of an *"anonymous function object"*, which is capable of being (almost) perfectly interchanged with an Active Event invocation.
 
 ## Ignoring arguments
 
@@ -145,9 +147,9 @@ Doing such a thing, is probably not wise though - Since ignored arguments, must 
 
 However, this is also the strength of Hyperlambda, since it allows you to modify existing events, taking additional arguments, without breaking existing code.
 
-## Non-existent Active Events
+## Non-existing Active Events
 
-Another peculiarity of Hyperlambda and Active Events, is that you can easily invoke an Active Event which doesn't exist. Your invocation, will however not find any existing events with the specified name, and simply do *"nothing"*.
+Another peculiarity of Active Events, is that you can easily invoke an Active Event which doesn't exist. Your invocation, will however not find any existing events with the specified name, and simply do *nothing*.
 
 This is a really nifty pattern in Hyperlambda in fact, which allows you to anticipate the existence of some *"future event"*, without having to implement it yourself. This allows you to use non-existent *"hooks"* in your code, which you document, and which the consumers of your events later can *"hook into"*. This is implemented a lot of different places in P5 in fact, and allows you to *"inject"* your own Hyperlambda logic, into the *"core kernel parts"* of P5, completely modifying its behavior.
 
@@ -164,7 +166,7 @@ Whether or not this is a smart thing to do though, is probably *"debatable"*, to
 
 By carefully choosing a unique namespace for your Active Events, you make sure your code works, an often times even collaborates, side by side other people's code. My convention here is to encourage others to using their company name, or some other *very unique piece of string*, as the first parts of your Active Events, for then to add the application name as the second - Then at the end, provide the actual name for your Active Event, providing some meaningful clue about what your Active Event actually does.
 
-If we were to rewrite the above Active Event, with this in mind, creating a more *"intelligent"* naming convention, we could create something that resembles the following instead.
+If we were to rewrite the above Active Event, with this in mind, creating a more intelligent naming convention - We could create something that resembles the following instead.
 
 ```
 create-event:gaiasoul.the-answer.what-is-57
@@ -175,9 +177,9 @@ Notice the "." separating the different components of our *"namespace"*. This *"
 
 You could also name your Active Events **[What is the number of $ I would get, for 57€ ...?]**, but I wouldn't recommend it. First of all, if the consumer of your Active Event forgets to add as much as the space " " between the last EURO sign, and the "..." parts, his invocation would not invoke your event.
 
-You could also supply special characters in your event names, making it extremely difficult for others to invoke them. Examples includes carriage returns,"", Japanese characters, Greek letters, TAB, ASCII+7, etc. I wouldn't claim doing such a thing would never be wise - For instance, using Japanese characters as event names, or Greek letters for that matter, could probably sometimes provide good contextual meaning. I am simply saying; *be careful!*
+You could also supply special characters in your event names, making it extremely difficult for others to invoke them. Examples includes carriage returns,"", Japanese characters, Greek letters, TAB, ASCII+7, etc. I wouldn't claim doing such a thing would never be wise - For instance, using Japanese or Chinese characters as event names, or Greek letters for that matter, could probably sometimes provide good contextual meaning. I am simply saying; *be careful!*
 
-Active Events are carefully created to facilitate for *more* contextual meaning, and *improved* understanding of your systems. Not to set a new world record in *"obfuscated coding olympics"* - Although, you'd probably easily win such a contest, if you tried attending it with Hyperlambda. For instance, this is perfectly valid Hyperlambda, and creates an Active Event named **[]**, taking a **[∂]** argument - Which of course makes no sense at all.
+Active Events are carefully created to facilitate for *more* contextual meaning, and *improved* understanding of your systems. Not to set a new world record in obfuscated coding olympics - Although, you'd probably easily win such a contest, if you tried attending it with Hyperlambda. For instance, this is perfectly valid Hyperlambda, and creates an Active Event named **[]**, taking a **[∂]** argument - Which of course makes no sense at all.
 
 ```
 create-event:
@@ -200,7 +202,7 @@ There are only 3 restrictions to what you can name your Active Events.
 * You cannot start your event name with a period "."
 * You cannot create an even who's name is "" (empty string)
 
-These restrictions applies only to Hyperlambda though. The reasons are that the Active Events starting with either a ".", or a "\_", are considered *"private core Active Events"*. You can create such events, but only from C#. In addition, you cannot invoke such Active Events from Hyperlambda, since the **[eval]** Active Event ignores all nodes starting with either "." or "\_", rendering your events useless, if you could create them. The Hyperlambda **[eval]** event, will neither attempt to raise any events having an empty name. Notice, you can however create Active Events in C# starting with ".", "_", or having an empty name "". This is often useful in fact too.
+These restrictions applies only to Hyperlambda though. The reason is that Active Events starting with either a ".", or a "\_", are considered *"private core Active Events"*. You can create such events, but only from C#. In addition, you cannot invoke such Active Events from Hyperlambda, since the **[eval]** Active Event ignores all nodes starting with either "." or "\_", rendering your events useless, if you could create them. The Hyperlambda **[eval]** event, will neither attempt to raise any events having an empty name. Notice, you can however create Active Events in C# starting with ".", "_", or having an empty name "". This is often useful in fact too.
 
 The "" for Active Event for instance, is a special event name, that can also exclusively be created from C#. This event will handle *all* Active Events, and allows you to tap into the core Active Event *"kernel"*, and modify its behavior.
 
@@ -220,11 +222,11 @@ The convention I recommend, is to use something like the following.
 create-event:company-name.system-name.event-name
 ```
 
-There are some extremely unlikely exceptions to the above rules though, such as if you create a specialized widget type in C# - At which point you'll need to break the above rules.
+There are some rare exceptions to the above rules though, such as if you create a specialized widget type in C# - At which point you'll need to break the above rules. But unless you are really certain about that you need to break the rules, _don't!_
 
 ### Argument conventions
 
-I often encourage people to pass in lambda objects, intended for execution, by starting their names with a ".". First of all, this will make the intellisense parser of the Hyperlambda code editor mark your lambda object as an *"execution object"*. Secondly, it makes such *"execution objects"* more easily tracked, and increases the readability of your code. So even though this is not technically a prerequisite, I find this myself, to be a useful convention.
+I often encourage people to pass in lambda objects, intended for execution, by starting their names with a ".". First of all, this will make the intellisense parser of the Hyperlambda code editor mark your lambda object as an *"execution object"*. Secondly, it makes such execution objects more easily tracked, and increases the readability of your code. So even though this is not technically a prerequisite, I find this myself, to be a useful convention.
 
 Other types of arguments, I encourage people to simply pass in with an intelligent name, not pre-prending anything in front of the argument. In a previous version of the **[eval]** event, the expectation was to prepend arguments to lamdba objects with an underscore "_". This i **no longer the case** - And the only reason why there are still any events that even uses this convention, is for historical reasons, to be backwards compatible. I don't encourage people to use this syntax anymore, since a lambda object will not execute any of its arguments any ways, but *"offset"* the execution pointer, to the first *"non-argument part"* of your lambda object.
 
