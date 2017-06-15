@@ -43,7 +43,7 @@ First of all, we don't care about giving neither our main root **[container]** w
 
 Secondly, we create a simple *"input"* widget, followed by a *"textarea"* widget. Both of these widgets, we have given an explicit ID, since we want to be able to easily retrieve their values later. The *"input"* element is created as a **[void]** widget, while our *"textarea"* element is created as a **[literal]** widget. This is important for these particular types of widgets.
 
-The CSS class `class:col-xs-6 col-xs-push-3 text-right`, that we declared as arguments to our main **[create-widget]** node, simply makes sure our form is centered on the screen, consuming half its available width, and right aligns our button further down in its **[widgets]** collection. The *"prepend-top"* parts of the CSS classes of our textarea and our button, simply gives us some additional spacing between our widgets. The *"form-control"* CSS classes, are from [Bootstrap CSS](http://getbootstrap.com/css/). In fact, so are most of the CSS classes used in the above example.
+The CSS class `class:col-xs-6 col-xs-push-3 text-right`, that we declared as arguments to our main **[create-widget]** node, simply makes sure our form is centered on the screen, consuming half of its available width, and right aligns our button further down in its **[widgets]** collection. The *"prepend-top"* parts of the CSS classes of our textarea and our button, simply gives us some additional spacing between our widgets. The *"form-control"* CSS classes, are from [Bootstrap CSS](http://getbootstrap.com/css/). In fact, so are most of the CSS classes used in the above example.
 
 ## Retrieving form data
 
@@ -67,7 +67,7 @@ Initially we retrieve the values of our *"your_name"* input widget, and our *"yo
 
 The above `:x:` parts of our Hyperlambda, are in fact what we refer to as *"lambda expressions"*. These allows you to reference other nodes in your lambda structure. If you have some knowledge of XPath, the similarities might be obvious.
 
-The invocation to **[sys42.windows.confirm]**, simply creates a modal Ajax confirmation window for us. This Active Event expects the arguments **[header]** and **[body]**. All in all, this should result in something resembling what the image below shows us.
+The invocation to **[sys42.windows.confirm]**, simply creates a modal Ajax confirmation window for us. This Active Event is given the arguments **[header]** and **[body]**. All in all, this should result in something resembling what the image below shows us.
 
 ![alt tag](screenshots/chapter-4-1.png)
 
@@ -89,9 +89,9 @@ To *"forward evaluate"* an expression, simply means evaluating it, and exchangin
 
 #### Conceptualizing expressions
 
-An expression can point to one or more nodes, and hence serves as a *"node pointer"*. This way of referencing nodes, is largely unique to Hyperlambda, and what allows you to retrieve and change nodes in your lambda objects.
+An expression can point to one or more nodes, and hence serves as a *"node pointer"*. This way of referencing nodes, is probably unique to Hyperlambda, and what allows you to retrieve and change nodes in your lambda objects.
 
-These expressions are in fact so powerful, that Hyperlambda have no means of declaring traditional variables. However, everything can in fact vary in a lambda object. Any node can have its name, value, and children collection modified, during the execution. This allows you to use everything in your lambda objects as *"variables"*, and change it, removed it, add to it, as you see fit, during its execution.
+These expressions are in fact so powerful, that Hyperlambda have no means of declaring traditional variables. However, everything can in fact vary in a lambda object. Any node can have its name, value, and children collection modified, during its execution. This allows you to use everything in your lambda objects as *"variables"*, and change it, remove it, add to it - Exactly as you see fit, during its execution.
 
 To create a useful mental model for expressions - It might be useful to perceive Hyperlambda as a combination of XML and XSLT, and lambda expressions as the equivalent of XPath.
 
