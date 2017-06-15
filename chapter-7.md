@@ -15,13 +15,13 @@ Before we can dive into our application though, there are some few concepts we'l
 
 In P5, there are two important events for loading and saving files. These are **[load-file]** and **[save-file]**. Before we start using them though, we'll need to have a look at the folder structure of P5.
 
-Please open up the folder *"/phosphorusfive/core/p5.webapp/"*. This is the main root folder for your web application. The most important folder here, for this chapter, is called *"users"*. This folder will contain one folder for each user you have in your P5 installation. By default, P5 only has only one user, which is your *"root"* user, so typically as you start out with P5, there will only be one folder inside of your *"users"* folder. This folder will be the *"root"* folder.
+Please open up the folder *"/phosphorusfive/core/p5.webapp/"*. This is the main root folder for your web application. The most important folder for this chapter is called *"users"*. This folder will contain one folder for each user you have in your P5 installation. By default, P5 has only one user, which is your *"root"* user - So typically as you start out with P5, there will only be one folder inside of your *"users"* folder. This folder will be the *"root"* folder.
 
-Inside of your user's folder, the *"root"* folder that is, you can find a *"documents"* folder. This is the equivalent of *"Your documents"* in windows, or *"Home"* on Linux. This is important to understand for this chapter, since we will store our *"database"* within a file in this folder. Our file will be named *"adr.hl"*. The extension *".hl"* implies *"[H]yper - [L]ambda"*.
+Inside of your user's folder, the *"root"* folder that is, you can find a *"documents"* folder. This is the equivalent of *"Your documents"* in windows, or *"Home"* on Linux. This is important to understand for this chapter, since we will store our *"database"* within this folder. Our file will be named *"adr.hl"*. The extension *".hl"* implies *"[H]yper - [L]ambda"*.
 
 Your *"documents"* folder, contains two folders. One *"private"* folder, and another *"public"* folder. We will be using the *"private"* folder, to store a file, containing the data for our CRUD application. Files inside of this folder, cannot in general, be accessed by anyone, except the user whom these files belongs to. Hence, they are your user's *"private files"*.
 
-To create a file inside of this folder, can be done by prepending your path with a tilde `~`. If you start out a filename with a tilde, this will automatically save a file to your user's home folder. If you want to create a file inside of your private documents folder, you can use something resembling the following code.
+To reference files inside of your user's home folder, can be done by prepending your path with a tilde `~`. If you start out a filename with a tilde, this will automatically save a file to your user's home folder. If you want to create a file inside of your private documents folder, you can use something resembling the following code.
 
 ```
 save-file:~/documents/private/foo.txt
@@ -30,7 +30,7 @@ save-file:~/documents/private/foo.txt
 
 If you execute the above code in your Apps/Executor, it will create a simple text file for you, inside of your private documents folder. To understand why, realize that the tilde `~` will be substituted with *"/users/username"*, before the file is saved. The *"username"* parts of the path, depends upon which user is logged in, invoking the **[save-file]** event.
 
-Since the root folder for *everything* related to files in P5, is the main root web application folder, this means your file can be found within *"/phosphorusfive/core/p5.webapp/users/username/documents/private/"* - Where ever that is locally within your system.
+Since the root folder for *everything* related to files in P5, is the main root web application folder, this means your file can be found within *"/phosphorusfive/core/p5.webapp/users/root/documents/private/"* - Where ever that is locally within your system.
 
 ## The [apply] event
 
@@ -38,17 +38,17 @@ The **[apply]** Active event, is kind of like the *"superman version"* of **[add
 
 We will be using this Active Event, to dynamically create an HTML table, from the content of your data file, containing the *"database"* for your contacts.
 
-It might help to visualize the **[apply]** event as *"braiding"* together a data source, and a template, to produce a combined results. If you find this concept difficult to understand, then don't despair, since there's a video at the end of this chapter, explaining it in details.
+It might help to visualize the **[apply]** event as *"braiding"* together a data source and a template, to produce a combined results. If you find this concept difficult to understand, then don't despair, since there's a video at the end of this chapter, explaining it in details.
 
 ## Widget lambda events
 
-As vaguely touched upon in one of our first chapters, a widget can associate Active Events with itself. These are *"local"* events, that only exists, for as long as the widget itself exists. We will create one widget lambda event like this, to *"databind"* our HTML table.
+As vaguely touched upon in one of our previous chapters, a widget can associate Active Events with itself. These are *"local"* events, that only exists, for as long as the widget itself exists. We will create one widget lambda event like this, to *"databind"* our HTML table.
 
-We will create this event with the name of **[sys42.examples.databind-addresses]**. This event can be invoked just like a normal Active Event. And if we wanted to, we could also pass in arguments, and return arguments from it, just as if it was a normal event. We do not need to neither pass in, nor return any arguments from it though. We simply need to *"databind"* our HTML table element within it. Which we will do, by loading our *"database file"*, and create an HTML table widget, for each **[item]** in our file.
+We will create this event with the name of **[sys42.examples.databind-addresses]**. This event can be invoked just like a normal Active Event. If we wanted to, we could also pass in arguments, and return arguments from it, just as if it was a normal event. We do not need to neither pass in, nor return any arguments from it though. We simply need to *"databind"* our HTML table element within it. Which we will do, by loading our database file, and create an HTML table widget, for each **[item]** in our file.
 
 ## The code for our application
 
-With these concepts, at least partially covered, let's move on to the code, and show you the entire listing for an *"Address book"* web app. Create a new new *"lambda"* page, and make sure you replace the existing code, with the code listed below.
+With these concepts, at least partially covered, let's move on to the code, and show you the entire listing for an Address book web app. Create a new new *"lambda"* page in System42's CMS, and make sure you replace the existing code with the code listed below.
 
 ```
 /*
@@ -225,21 +225,23 @@ Although most of the above concepts are things we have already covered, there ar
 
 ### [apply] in details
 
-As previously mentioned, the **[apply]** Active Event, allows you to *"braid"* together a data **[src]**, with a **[template]**, and put the results into some destination. The destination is expected to be the value of the main **[apply]** node, and must be an expression leading to one or more nodes.
+As previously mentioned, the **[apply]** Active Event, allows you to braid together a data **[src]**, with a **[template]**, and put the results into some destination. The destination is expected to be the value of the main **[apply]** node, and must be an expression leading to one or more nodes.
 
-Its **[src]** argument, is expected to be an expression, leading to a node-set. The way to envision the **[src]** argument, is that **[apply]** iterates over its **[src]** result set, and uses the currently iterated node, as the *"idenity"* node, for creating a lambda object, based upon the **[template]**.
+Its **[src]** argument, is expected to be an expression, leading to a node-set. The way to envision the **[src]** argument, is that **[apply]** iterates over its **[src]** result set, and uses the currently iterated node, as the idenity node, for creating a lambda object, based upon the **[template]**.
 
-The **[template]** hence, is being created once for each result from the **[src]** expression, having every iteration, use the currently iterated **[src]** node, as its *"idendity"* node. Assuming you've copied the code above exactly, line for line, and added no additional whitespace, you can see one of the data bound expressions in your code editor at line 144, where it says `{innerValue}:x:/*/name?value`.
+The **[template]** hence, is being created once for each result from the **[src]** expression, having every iteration, use the currently iterated **[src]** node, as its identity node.
 
 #### Databound expressions in [apply]
 
-Such a databound expression, is declared by making sure its name starts with a `{`and ending with a `}`. These two parts of your node's name, are removed though, before the node is created, and appended into its destination. They are simply there to inform **[apply]** about that this is a *"databound node"*. Hence, to declare a databound node, simply wrap its name inside of curly braces.
+Assuming you've copied the code above exactly, line for line, and added no additional whitespace - You can see one of the data bound expressions in your code editor at line 144, where it says `{innerValue}:x:/*/name?value`.
+
+Such a databound expression, is declared by making sure its name starts with a `{`and ending with a `}`. These two parts of your node's name are removed though, before the node is created, and appended into its destination. They are simply there to inform **[apply]** about that this is a databound node. Hence, to declare a databound node, simply wrap its name inside of curly braces, and add up an expression being its relative path, to whatever you wish to databind the node's value towards.
 
 The expression in the value of a data bound node, is local for the currently iterated **[src]** result. This means that the *"idenity"* node for the first iteration, is in fact not the **[{innerValue}]** node itself, but rather the first item from our **[load-file]** invocation.
 
 #### Semantics of [load-file] when loading Hyperlambda files
 
-At this point it might be useful to realize that our invocation to **[load-file]**, will in fact automatically convert Hyperlambda files, into a lambda object, unless you explicitly tell it not to. So our **[load-file]**, after invocation, will in fact not yield plain text, but in fact an entire lambda hierarchy. It will resemble the following example.
+At this point, it might be useful to realize that our invocation to **[load-file]**, will in fact automatically convert Hyperlambda files into a lambda object, unless you explicitly tell it not to. So our **[load-file]**, after invocation, will in fact not yield plain text, but in fact an entire lambda hierarchy. It will resemble the following example.
 
 ```
 /* ... rest of code ... */
@@ -260,7 +262,7 @@ load-file
 
 So what our **[src]** argument to **[apply]** is actually pointing to, are the **[item]** nodes returned from **[load-file]**.
 
-It probably helps to *"lock"* this into your mind, and realize that the **[src]** expression to **[apply]** hence, is actually iterating over every single **[item]** from your *"database file"*.
+It probably helps to lock this mental picture into your mind, and realize that the **[src]** expression to **[apply]** hence, is actually iterating over every single **[item]** from your database file.
 
 This means that when we write `:x:/*/name?value` inside of a databound node, like we do in our first data bound node at line 144, this expression is for the first iteration of our **[src]** argument, relative to the first **[item]** from the results of our **[load-file]** invocation above. For the second iteration, it is relative to the second **[item]**, and so on. So what is added to our **[widget]** hierarchy, becomes something similar to the following.
 
@@ -275,11 +277,17 @@ container
       innerValue:Thomas Hansen
     literal
       element:td
+      
+      // Taken from first [item], after expression is evaluated.
       innerValue:thomas@gaiasoul.com
     literal
       element:td
+      
+      // Taken from first [item], after expression is evaluated.
       innerValue:98765432
 ```
+
+Notice, the comments will not exists after having evaluated **[apply]**, but are only there to illustrate where the items are fetched from.
 
 If you wish to see how your **[create-widget]** invocation looks like, after it has been **[apply]**'ed, but before it is executed, you can insert a `sys42.windows.show-lambda:x:/+` invocation just before your **[create-widget]** invocation at line 158. If you do, you will see something resembling the following.
 
@@ -322,13 +330,13 @@ create-widget:contacts_table
         /* ... etc, depending upon how many records you have in your file ... */
 ```
 
-Above you can see, how our **[apply]** invocation, results in braiding together, its **[src]** being the results of our **[load-file]** invocation, with its **[template]**.
+Above you can see, how our **[apply]** invocation, results in braiding together its **[src]** being the results of our **[load-file]** invocation with its **[template]**.
 
 If you find the **[apply]** event to be confusing, you can watch [this video](https://www.youtube.com/watch?v=KcaRyjj2w58), where I explain it in more details. If you are reading this book in some sort of paper format, you can find this video here; https://www.youtube.com/watch?v=KcaRyjj2w58
 
 ### [lambda2hyper], converting lambda to Hyperlambda
 
-The above **[lambda2hyper]** Active Event, which we use at line 87 in our code, simply converts a piece of lambda to a string, resembling its Hyperlambda version. There also exists a **[hyper2lambda]** event, which does the opposite. These events are useful for transforming lambda objects to strings, and vice versa - Such as when we want to save a lambda object to disc, or use it as a string for some reasons.
+The above **[lambda2hyper]** Active Event, which we use at line 87 in our code, simply converts a piece of lambda to a string, resembling its Hyperlambda version. There also exists a **[hyper2lambda]** event, which does the opposite. These events are useful for transforming lambda objects to strings, and vice versa - Such as when we want to save a lambda object to disc, or use it as a string for some reason.
 
 Both of these two events should be relatively self explaining.
 
@@ -365,11 +373,11 @@ Discuss this application, its pros and its cons. Some questions I want you to an
 
 ### Advanced homework, optionally
 
-If you wish, feel free to improve it, to create a complete CRUD app out of it, and expand upon it, by adding additional items to your *"database"*, such as for instance address and Twitter handle. Hint, use **[p5.types.guid.new]** to create a unique ID for your records, which you will need, in order to be able to reference unique nodes in your database file, while editing and deleting items.
+If you wish, feel free to improve it, to create a complete CRUD app out of it, and expand upon it, by adding additional items to your *"database"* - Such as for instance address and Twitter handle. Hint, use **[p5.types.guid.new]** to create a unique ID for your records, which you will need, in order to be able to reference unique nodes in your database file, while editing and deleting items.
 
 ## The P5 distribution model
 
-When you are done creating your applications, you can actually download them, and distribute them to your friends, by clicking *"Download"*, and send it for instance in an email to your friends - Whom for whatever reasons might be interested in your app. Your friends on the other hand, can then simply *"drag and drop"* the resulting Hyperlambda file into their CMS, and reproduce the exact same application on their server systems.
+When you are done creating your applications, you can actually download them, and distribute them to your friends, by clicking *"Download"*, and send it in for instance an email to your friends - Whom for whatever reasons might be interested in your little app. Your friends on the other hand, can then simply *"drag and drop"* the resulting Hyperlambda file into their CMS, and reproduce the exact same application on their server systems.
 
 This is a very nice distribution model in fact, implemented as an integral part of P5, which allows you to *"Download"* apps you've created, and have other users simply *"Drag and drop"* these apps into their own CMS.
 
