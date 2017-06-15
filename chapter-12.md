@@ -2,9 +2,9 @@
 
 Douglas Crockford, the inventor of JSON, once famously said *"eval is evil"*. When it comes to JavaScript, Douglas might be right. However, in Hyperlambda, eval is not necessarily evil - *Unless* you consume it mindlessly.
 
-The **[eval]** Active Event is arguably the *"definition of Hyperlambda"*. In fact, when you execute a lambda object, what you're doing, is passing in a lambda object to **[eval]**. So **[eval]** is probably the most important Active Event in Hyperlambda.
+The **[eval]** Active Event is arguably the *definition of Hyperlambda* in fact. When you execute a lambda object, what you're doing, is passing in a lambda object to **[eval]**. So **[eval]** is probably the most important Active Event in P5.
 
-In our previous chapter, we looked at Active Events. To understand **[eval]**, is to realize that an Active Event, such as the ones we created in our previous chapter - Is really nothing but a lambda object, stored in memory, easily **[eval]**'ed, through its name. This implies, that to **[eval]** a lambda object, is (almost) identical to invoking an Active Event.
+In our previous chapter, we looked at Active Events. To understand **[eval]**, is to realize that an Active Event, such as the ones we created in our previous chapter - Is really nothing but a lambda object, stored in memory, easily **[eval]**'ed through its name. This implies, that to **[eval]** a lambda object, is (almost) identical to invoking an Active Event.
 
 ## Eval defined
 
@@ -37,17 +37,17 @@ eval:x:/@load-file/*
 
 The execution of a file, like we illustrated above, might also in fact return arguments. This means that there is very effectively *no semantic difference* between a lambda object, a file, some text fetched from some database, or supplied by a web service invocation - Or for that matter a piece of string, supplied by the user, through some input element in your app.
 
-In fact, the last point largely defines the implementation of the Apps/Executor. The Executor in P5, simply converts your input to a lambda object, using **[hyper2lambda]**, and invokes this lambda object, using the **[eval]** Active Event.
+In fact, the last parts in the above paragraph, largely defines the implementation of the Apps/Executor. The Executor in System42, simply converts your input to a lambda object, using **[hyper2lambda]**, and invokes this lambda object, using the **[eval]** Active Event.
 
 ## [eval] overloads
 
-There actually exists three different versions of **[eval]**.
+There actually exists 3 different versions of **[eval]**.
 
 * [eval] - Plain old eval
 * [eval-whitelist] - "Sandboxed" version of **[eval]**
 * [eval-mutable] - Allows you to access the entire root lambda object
 
-The first one, which is probably your most important version, actually creates a *copy* of the object(s) you wish to execute, and executes these copies. This is crucial to its implementation, considering how the invocation of a lambda object, potentially changes the state of that object.
+The first one, which is probably the most important, actually creates a *copy* of the object(s) you wish to execute, and executes these copies. This is crucial to its implementation, considering how the invocation of a lambda object, potentially changes the state of that object.
 
 Unless **[eval]** had created this copy, and executed the copy of your lambda, it would imply that the execution of an Active Event, potentially entirely changed your Active Event - Which of course would make your system become extremely unpredictable.
 
@@ -84,7 +84,7 @@ eval
 
 ### Sandboxing your lambda with [eval-whitelist]
 
-The **[eval-whitelist]** version, works similarly to the plain **[eval]** - Except that it expects a *"whitelist"* supplied as an **[events]** argument, that your lambda object can legally invoke. This creates a *"sandbox"* environment for you, where you can execute a lambda object, supplied over for instance an HTTP web service, by an untrusted client, without running the risk of having the client executing malicious events. Imagine the following.
+The **[eval-whitelist]** version, works similarly to the plain **[eval]** - Except that it expects a *"whitelist"* supplied as an **[events]** node list, that is a list of events that your lambda object can legally invoke. This creates a *"sandbox"* environment for you, where you can execute a lambda object, supplied over for instance an HTTP web service, by an untrusted client, _without_ running the risk of having the client executing malicious events. Imagine the following.
 
 ```
 .exe
@@ -105,7 +105,9 @@ eval-whitelist:x:/@.exe
     return
 ```
 
-This construct, is the reasons why we say that *"In Hyperlambda, eval is not necessarily evil"*.
+This construct, is the reasons why we say the following.
+
+> In Hyperlambda, eval is not (necessarily) evil.
 
 When you have a piece of code, that you're not entirely sure if you should trust - Then you should definitely run it through some whitelist, using something similar to the above. This ensures the code does not harm your system in any ways.
 
@@ -119,7 +121,7 @@ eval-whitelist:x:/@.exe
     sys42.windows.info-tip
 ```
 
-If you wish to have the above code execute legally, you'll have to *"whitelist"* all events that your **[sys42.windows.info-tip]** event possibly invokes. An example of how to do that, with the current version of P5, is shown below.
+If you wish to have the above code execute legally, you'll have to *"whitelist"* all events that your **[sys42.windows.info-tip]** event possibly invokes. An example of how to do that, with the current version of System42, is shown below.
 
 ```
 .exe
@@ -139,18 +141,18 @@ eval-whitelist:x:/@.exe
     p5.web.widgets.create-container
 ```
 
-Notice, that if the implementation of **[sys42.windows.info-tip]** later changes, the above lambda will *stop working*! Simply changing the **[p5.web.widgets.create-container]** to one of its aliases, **[create-container-widget]**, or **[create-widget]**, inside of the event - Will make your whitelist fissle.
+Notice, that if the implementation of **[sys42.windows.info-tip]** later changes, the above lambda will *stop working*! Simply changing the **[p5.web.widgets.create-container]** to one of its aliases, **[create-container-widget]**, or **[create-widget]**, inside of the event - Will make your whitelist stop working.
 
 This ensures, that as your system grows, and changes - You do not risk having malicious, unintentional code, execute as a consequence. Which is hopefully something you will come to appreciate, after you've used the system for a while.
 
 ### [eval-mutable] for keyword developers
 
-The last overload, namely **[eval-mutable]**, is for the most parts for keyword developers, and rarely something you'd like to use. Simply because it works in a completely different way, than both of our previously mentioned versions.
+The last overload, namely **[eval-mutable]**, is for the most parts for keyword developers, and rarely something you'd use much yourself. Simply because it works in a completely different way, than both of our previously mentioned versions.
 
-First of all, passing in arguments, or returning arguments from it, is meaningless. Because it has access to the entire tree, or lambda object anyways. This point makes it also quite dangerous, in day to day use, since its execution can potentially change any parts of your lambda object, For an Active Event such as **[add]** or **[set]**, this is necessary, and wanted. However, for a lambda object, you want to execute yourselves, this might create some quite severe side-effects.
+First of all, passing in arguments, or returning arguments from it, is meaningless. Because it has access to the entire tree, or lambda object anyways. This point makes it also quite dangerous in day to day use, since its execution can potentially change any parts of your lambda object. For an Active Event such as **[add]** or **[set]**, this is necessary and wanted behavior. However, for a lambda object, you want to execute yourself, this might create some quite severe side-effects.
 
 The **[eval-mutable]** does for one, *not* execute a copy of the lambda object, but executes the object directly, which is why it is called *"mutable"*. Because it potentially *mutates* your code.
 
-Unless you are very certain about what you are doing, stay away from it. Besides from the *"keywords"* of P5, there's only one place in P5 I use it myself in fact. And even here, I take great care, to make sure it doesn't produce unwanted side effects.
+Unless you are very certain about what you are doing, stay away from it. Besides from the *"keywords"* of P5, there's only one place in System42 I use it myself. And even here, I take great care, to make sure it doesn't produce unwanted side effects.
 
 [Chapter 13, Hyperlambda leads to Hyperhumble](chapter-13.md)
