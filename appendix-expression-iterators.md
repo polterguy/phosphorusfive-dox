@@ -1,6 +1,6 @@
 # Expression iterators
 
-There exists 19 expression iterators in P5. Although you can most of the time get away with only knowing a handful of these, obviously all of them have to be documented. Below you can find the documentation for each of these iterators. liseted in no particular order.
+There exists 19 expression iterators in P5. Although you can most of the time get away with only knowing a handful of these, obviously all of them have to be documented. Below you can find the documentation for each of these iterators, listed in no particular order.
 
 ## Named elder relative iterator
 
@@ -471,6 +471,12 @@ set:x:/@create-widget/**/literal/*/element/=button/./*/class?value
 
 In most traditional programming languages, the above would require at dozens of lines of code, possibly more - In addition to possibly also recursive function or method invocations. In P5 it's **2 lines of code**!
 
-Lambda expressions, and its iterators, might seem difficult to grasp when you start out with them. But after a while, you will notice how they allow you to do a lot with very little effort.
+Lambda expressions, and its iterators, might seem difficult to grasp when you start out with them. But after a while, you will notice how they allow you to _do a lot with very little effort_. This trait is something that lambda expressions share with e.g. SQL. SQL is often said to be a "what" language, and not a "how" language. This is why you can get away with tiny SQL statements, doing a lot of things for you. The same is true for lambda expressions, and its iterators - Except, where SQL selects from tables or two dimensional matrixes, lambda expressions selects from graph objects, and 3 dimensional tree structures.
+
+In fact, the scientific theory they build upon, is the construction of _"hyperplanes"_, through another pre-existing 3 dimensional graph object. Simply because they create another dimension, cutting through your existing 3 dimensional structures, extracting parts of the original result set. Don't let these difficult mathematical theories scare you though, since it's simply the theory behind them, and is not necessary in order to understand them, or use them in your own software.
+
+Combined with the [boolean algebraic](appendix-expressions-boolean-algebra.md) properties of expressions, you can literally move mountains with lambda expressions.
+
+[Back to index](README.md)
 
 
