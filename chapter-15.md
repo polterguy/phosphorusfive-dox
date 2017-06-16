@@ -1,8 +1,8 @@
 # FYI, P5 is fork friendly, and free-fusable
 
-Linguistics are funny, especially when you start perceiving them from a poetic point of phew ;) - I like to think that the poetic ambiguity is one of the intrinsic qualities you will find very soothing in your life, as you start out really using P5.
+Linguistics are funny, especially when you start perceiving them from a poetic point of phew ;) - I like to think that the poetic ambiguity of P5 is one of the intrinsic qualities you will find very soothing in your life together with it.
 
-One interesting feature of our CRUD database layer from our previous chapter, is that it is *100% generic*. Which means that we can *extract* its core parts, and create a 100% perfectly encapsulatet and re-usable set of components. This helps us accommodate for future change, *without* breaking the rules of *"YAGNI"*.
+One interesting feature of our CRUD database layer from our previous chapter, is that it is (almost) *100% generic*. Which means that we can *extract* its core parts, and create a 100% perfectly encapsulatet and re-usable set of components. This helps us accommodate for future change, *without* breaking the rules of *"YAGNI"*.
 
 **Definition**; YAGNI means *"You Ain't Gonna Need It"*, and implies you should never implement something you'll probably never need. This important design principle, often contradicts another important design principle of OOP - Which is that you should expect change. Hence, the art of balancing YAGNI, with the design principles necessary to accommodate for future change - Often times seems like an impossible task.
 
@@ -10,9 +10,9 @@ I often refer to this oxymoron's insanity, by stating how according to the rules
 
 ## How Hyperlambda solves this
 
-With Hyperlambda, balancing this line however, becomes significantly easier. Simply because, we always have *"Yet Another Layer Of Abstraction"* at our disposal. Which is another design principle, often referred to as *"YALOA"*. The reasons for this is, because in P5, polymorphism is *implicitly given*, for any lambda object - Due to that there are no semantic differences between any two lambda objects that can possibly exist. Hence, any lambda object, is at least in theory, substitutable for any other lambda object. This results in that it becomes impossible to violate the *"Liskov substitution principle"* (Google it) in Hyperlambda. Hence, arguably, in P5 and Hyperlambda, the entire Liskov substitution principle becomes *obsolete*. The dilemma of balancing YAGNI with future potential change requirements, is non-existent in Hyperlambda.
+With Hyperlambda, balancing this line however, becomes significantly easier. Simply because, we always have *"Yet Another Layer Of Abstraction"* at our disposal. Which is another design principle, often referred to as *"YALOA"*. The reasons for this is, because in P5, polymorphism is *implicitly given*, for any lambda object - Due to that there are no semantic differences between any two lambda objects that can possibly exist. Hence, any lambda object, is at least in theory, substitutable by any other lambda object. This results in that it becomes impossible to violate the *"Liskov substitution principle"* (Google it) in Hyperlambda. In P5 and Hyperlambda, the entire Liskov substitution principle becomes *obsolete*. The dilemma of balancing YAGNI with future potential change requirements is non-existent in Hyperlambda.
 
-Resulting in that with Hyperlambda, you *can easily* accommodate for future change, without breaking YAGNI.
+Resulting in that with Hyperlambda, you can easily accommodate for future change, _without_ breaking YAGNI.
 
 With that in our mind, let's build on our foundation from the previous chapter, and create a 100% perfectly generic CRUD database layer, that permanently solves (in theory), all our future CRUD issues.
 
@@ -192,7 +192,7 @@ Imagine for instance, that you'd like to start storing *some* of your CRUD objec
 
 Another example includes the use-case of instead of storing your objects directly into the P5 database, rather transmit them as an HTTP web service request, to another server, or for that matter, storing your objects in your own file system locally. Since lambda objects are implicitly serializable, and easily converted into Hyperlambda - This would require no more than a handful of changes to your original code.
 
-As always, the gift of Hyperlambda, isn't necessarily in *"what you see"*, it's rather in *"what you cannot see"*. Our above CRUD database layer, is much more *generic* and *agile*, than whatever you could build in traditional OOP, without violating the laws of *YAGNI*, ending up with what's often referred to as *"astronaut architecture"*, or *"monster architecture"*. Simply because the above solution is built, accommodating for change, without having to pay the price of added complexity, resulting in violating the rules of YAGNI.
+As always, the gift of Hyperlambda, isn't necessarily in *"what you see"*, it's rather in *"what you cannot see"*. Our above CRUD database layer, is much more generic and agile, than whatever you could build in traditional OOP, without violating the laws of YAGNI. Simply because the above solution is built, accommodating for change, without having to pay the price of added complexity, resulting in violating the rules of YAGNI.
 
 In fact, let's illustrate this fact, with a simple change to our read Active Event. Change your **sys42.examples.data.read.hl** file to contain the following code. Don't worry if you don't understand everything in this file, it'll be thoroughly explained in later chapters.
 
@@ -243,7 +243,7 @@ create-event:sys42.examples.data.read
     :x:/../*/end?value
 ```
 
-The above modification, all of a sudden allows our read Active Event to be further parametrized, allowing *"filtering"* according to any property. Make sure you update your Active Event, by executing the following code first.
+The above modification, all of a sudden allows our read Active Event to be further parametrized, allowing filtering according to any property. Make sure you update your Active Event, by executing the following code first.
 
 ```
 sys42.utilities.execute-lambda-file:/system42/startup/sys42.examples.data.read.hl
@@ -284,19 +284,19 @@ Which will result in anything having a name, starting with *"d"*, ending with *"
 
 ## Change is the only constant
 
-We have *changed the signature of our event*. If we were to do such a thing in e.g. C# or C++, we'd be forced to recompile, and redistribute every single component, where we were using our *"old"* Active Events. This would imply having to contact all consumers of our Active Events, having them use our *"new and improved version"*, recompile their own modules, and redistribute this to everyone. If we didn't do this, we would break existing systems.
+We have *changed the signature of our event*. If we were to do such a thing in e.g. C# or C++, we'd be forced to recompile, and redistribute every single component, where we were using our old Active Events. This would imply having to contact all consumers of our Active Events, having them use our new and improved version, recompile their own modules, and redistribute this to everyone. If we didn't do this, we would break existing systems. There are ways around this in traditional OOP, but it requires literally an explosion of boiler plate code, yet again violating the laws of YAGNI.
 
-However, since *any* lambda object, is a perfect substitute for any other possible lambda object - With Hyperlambda, we have not broken as much as a single application out there in existence using our component. And as consumers of our little component feels the urge to start using our *"new and improved version"*, they can slowly migrate their existing apps, over to start using our *"new version"*, and add up filters as they see fit.
+However, since *any* lambda object, is a perfect substitute for any other possible lambda object - With Hyperlambda, we have not broken as much as a single application out there in existence using our component. And as consumers of our little component feels the urge to start using our new and improved version, they can slowly migrate their existing apps, over to start using our new version, and add up filters as they see fit.
 
-In fact, even code written for the *"new version"*, would still perfectly function with the *"old version"* of our component. Although, it would result in an erronous result, since the invoker would expect a filtered result, while the old implementation would simply ignore the filtering criteria.
+In fact, even code written for the new version, would still perfectly function with the old version of our component. Although, it would result in an erronous result, since the invoker would expect a filtered result, while the old implementation would simply ignore the filtering criteria.
 
 ## Warning
 
 At this point, the observant computer programmer, might point to the semantics of my second read Active Event, and probably claim it's utterly insane to create such an Active Event - Which of course actually was my intention. The read implementation above, would highly likely result in that your CPU and/or RAM would literally ignite, and possibly catch fire, if you started adding more than some ~5.000-10.000 complex CRUD items into your database, and start creating complex regular expression criteria read operations.
 
-However, this is a mute point, since the above solution gets you extremely rapidly up in regards to development of your components - Which means you can start focusing on your domain problems ASAP. As you later need to implement some super scalable database solution, such as MongoDB for instance - This can easily be done, by changing the entire implementation of your CRUD events, passing in the parameters given to some *"hard core, super scalable, MongoDB wrapper"*, allowing your database to go from ~5.000-10.000 records, to a *"gazillion"* records, without breaking as much as a single line of code.
+However, this is a mute point, since the above solution gets you extremely rapidly up in regards to development of your components - Which means you can start focusing on your domain problems ASAP. As you later need to implement some super scalable database solution, such as MongoDB for instance - This can easily be done, by changing the entire implementation of your CRUD events, passing in the parameters given to some hard core, super scalable, MongoDB wrapper, allowing your database to go from ~5.000-10.000 records, to a "gazillion" records, without breaking as much as a single line of code.
 
-So instead of having to spend six months up front, creating some super scalable data layer, and generic parametrization design, for having generic methods, capable of taking *"whatever"*, and turn it into *"something else"* - You get to start out with your domain problem, from day one. Leaving the scalability issues to the end of the project. Which have drastic consequences for your ability to rapidly start creating value for your customer. While also never having to implement something you *might never need*. Hint; Some apps, might be perfectly fine with having a maximum of ~5.000 objects in their database, and hence would probably never need your *"super scalable database design"*, you wasted 6 months implementing, because you *believed* you were going to need it!
+So instead of having to spend six months up front, creating some super scalable data layer, and generic parametrization design, for having generic methods, capable of taking *"whatever"*, and turn it into *"something else"* - You get to start out with your domain problem, from day one. Leaving the scalability issues to the end of the project. Which have drastic consequences for your ability to rapidly start creating value for your customer. While also never having to implement something you might never need. Some apps, might be perfectly fine with having a maximum of ~5.000 objects in their database, and hence would probably never need your super scalable database design, you wasted 6 months implementing, because you *believed* you were going to need it!
 
 Sorry; **You Ain't Gonna Need It!** Hyperlambda simply more easily allows you to realise that simple fact.
 
@@ -304,16 +304,12 @@ Sorry; **You Ain't Gonna Need It!** Hyperlambda simply more easily allows you to
 
 Another beautiful concept, hopefully intuitively understood from our above example, is the fact that inevitably, as your solutions becomes more and more popular - Other app developers will realise they can consume your components, to add value to their own apps. At which point you are no longer an *"app developer"*, but in fact a *"platform vendor"*, allowing you to have others build value on top of your solutions.
 
-Being a *"platform vendor"* is almost one of the inevitable consequences of using P5, because no app can be perceived as being isolated from any other app, running on the same system - Hence, to speak in *"management terms"*; *"You automatically have made it such that others add value to your systems, making them effectively market and sell your stuff, as they create and add value for their own systems, which is dependent upon your system."*
-
-The reasons for this, is because while in other programming languages, creating reusable software, is a tedious and difficult task - In P5, it is almost implicitly given, that whatever you create, becomes reusable. This is due to that *"all lambda objects are created as equals"*. The Liskov substitution principle, has effectively been rendered *obsolete*. In P5, almost everything you can in theory create, is in practice reusable.
+Being a platform vendor is almost one of the inevitable consequences of using P5, because no app can be perceived as being isolated from any other app, running on the same system. The reasons for this, is because while in other programming languages, creating reusable software, is a tedious and difficult task - In P5, it is almost implicitly given, that whatever you create, becomes reusable. This is due to that all lambda objects are created as equals. The Liskov Substitution Principle, has effectively been rendered *obsolete*. In P5, almost everything you can in theory create, is in practice reusable.
 
 Imagine if every single time you created a project, you could reuse all of its code, in all of your future projects. What would this do to your productivity? Would this give you a competetive edge?
 
 Imagine if everybody out there developing projects in P5, ends up consuming your components, making them dependent upon your software. How would this affect your company's revenue?
 
-With P5, you are creating *"components"*, for then to *"orchestrate"* your components together, such that they end up creating the end result you want them to create.
-
-P5 is all about eliminating *"borders"* and *"reducing complexity"*, while *"increasing reusability"* and decreasing Time2Market. Hence, arguably, *"P5 is fork friendly, and free-fusable"*.
+With P5, you are creating *"components"*, for then to *"orchestrate"* your components together. P5 is all about eliminating borders and reducing complexity, while increasing reusability and decreasing Time2Market. Hence, arguably, P5 is fork friendly, and free-fusable.
 
 [Chapter 16, Reusable GUI components](chapter-16.md)
