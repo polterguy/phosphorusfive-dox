@@ -1,6 +1,6 @@
 # Loops
 
-Looping, iteration, or enumeration, is the ability to perform the same task, multiple times, optionally with some iterative piece of information, associated with each run. An example could be to create a widget, for each name in some list. Below is an example of such a loop.
+Looping, iteration, or enumeration, is the ability to perform the same task multiple times, optionally with some piece of information, associated with each iteration. An example could be to create a widget, for each name in some list. Below is an example of such a loop.
 
 ```
 _people
@@ -16,9 +16,9 @@ If you execute the above code in for instance the CMS/Executor, you will create 
 
 ## The [for-each] loop
 
-The **[for-each]** Active Event, will execute its lambda object once for each result from its source expression, and each run, will have a **[_dp]** node, as a child of the **[for-each]** itself, pointing to whatever you're iterating in the source for your for-each. **[_dp]** implies *"data pointer"*.
+The **[for-each]** Active Event, will execute its lambda object once for each result from its source expression, and each run will have a **[_dp]** node as a child of the **[for-each]** itself. This **[_dp]** wil point to whatever you're currently iterating in the source for your for-each. **[_dp]** implies *"data pointer"*.
 
-In the above example, we are iterating the values of each child node beneath **[_people]**, which means that the value of the **[_dp]** node, will for each run, contain the value of the currently iterated **[name]** node. You can iterate the name, value or node itself, and use it as a source expression, for your for-each invocations. Notice, if you iterate the node itself, the node will be passed in as the value of your **[_dp]** node, for each iteration. This means that you'll have to use a *"reference iterator"*, to access the currently iterated node. Let's illustrate with an example.
+In the above example, we are iterating the values of each child node beneath **[_people]**, which means that the value of the **[_dp]** node, will for each run, contain the value of the currently iterated **[name]** node. You can iterate the name, value or node itself, and use it as a source expression, for your **[for-each]** invocations. Notice, if you iterate the node itself, the node will be passed in as the value of your **[_dp]** node, for each iteration. This means that you'll have to use a reference iterator, to access the currently iterated node. Let's illustrate with an example.
 
 ```
 _people
@@ -46,7 +46,7 @@ for-each:x:/@_people/*
 sys42.windows.show-lambda
 ```
 
-As you can clearly see above, the **[_dp]** node, actually has a value, which is a node in itself. This allows us to pass around *"pointers"* to nodes, as values of other nodes, allowing for us to both access the node in its entirety, including its children - In addition to changing the original node's values.
+As you can clearly see above, the **[_dp]** node, actually has a value, which is a node in itself. This allows us to pass around *"pointers"* to nodes, as values of other nodes - Allowing for us to both access the node in its entirety, including its children - In addition to changing the original node's values.
 
 Consider the following code for instance, which changes the value of all nodes to the static value of *"John Doe"*.
 
@@ -90,6 +90,6 @@ while:x:/@_no?value
       _:1
 ```
 
-You can combine any conditions, by using boolean operators, combining conditions, to create any amount of complexity in your conditions, as you see fit. Please refer to the chapter about branching to understand this process, since it is identical to creating conditions for **[if]** invocations.
+You can combine any conditions, by using boolean operators, combining conditions, to create any amount of complexity in your conditions as you see fit. Please refer to the chapter about branching to understand this process, since it is identical to creating conditions for **[if]** invocations.
 
 [Chapter 18, Branching, if, else-if and else](chapter-18.md)

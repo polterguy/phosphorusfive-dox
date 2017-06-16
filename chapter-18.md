@@ -1,6 +1,6 @@
 # Branching
 
-Branching is at the core of any Turing complete programming language. Although Hyperlambda is not per se a _"programming language"_, it still features complete branching possibilities. For those used to programming, branching means that your execution instruction pointer _"jumps"_, often in accordance to some condition. The most common form of branching is an _"if"_ statement. Below is an example of how to branch in Hyperlambda.
+Branching is at the core of any Turing complete programming language. Although Hyperlambda is not per se a programming language, it still features complete branching possibilities. For those used to programming, branching means that your execution instruction pointer _"jumps"_, often in accordance to some condition. The most common form of branching is an _"if"_ statement. Below is an example of how to branch in Hyperlambda.
 
 ```
 _data:foo
@@ -15,16 +15,16 @@ If you execute the above code in System42's executor, you will see its result. T
 
 ## Comparison operators
 
-All branching Active Events in Phosphorus Five obeys by the same logic. Basically, there are a handful of comparison Active Events which you can use, listed below.
+All branching Active Events in Phosphorus Five obeys by the same logic. Basically, there are a handful of comparison Active Events which you can use.
 
-* [=] checks for equality
-* [!=] checks for ineauality
-* [>] checks for more than
-* [<] checks for less than
-* [>=] checks for more than or equals
-* [<=] checks for less than or equals
-* [~] checks for "contains" (only useful when comparing strings)
-* [!~] checks for "not contains" (only useful when comparing strings)
+- **[=]** checks for equality
+- **[!=]** checks for ineauality
+- **[>]** checks for more than
+- **[<]** checks for less than
+- **[>=]** checks for more than or equals
+- **[<=]** checks for less than or equals
+- **[~]** checks for "contains" (only useful when comparing strings)
+- **[!~]** checks for "not contains" (only useful when comparing strings)
 
 All the above _"operators"_ are actually Active Events themselves, and these operators can easily be extended with your own comparison events.
 
@@ -41,7 +41,7 @@ if:x:/@_data1?value
     =:bar
   sys42.windows.info-tip:Foo and bar where happily drinking beer!
 else
-  sys42.windows.info-tip:Either foo or bar had a hangover today!
+  sys42.windows.info-tip:Either foo or bar or both had a hangover today!
 ```
 
 In order for the above **[if]** Active Event to evaluate its lambda object, both **[if]** and **[and]** needs to evaluate to true. Notice, when creating more complex conditions, such as the above is an example of, it is often useful to create some comments, to explain to the reader of our code, where the actual lambda object starts. Below is an example of the exact same code as above, only slightly more readable.
@@ -77,7 +77,7 @@ Below is a list of all the boolean algebraic compound Active Events in P5.
 * [and] both conditions must evaluate to true
 * [not] negates the previous _"conclusion"_
 
-These boolean algebraic operators works similarly to how they work in other programming languages. For an understanding of what boolean algebra actually is, you can read the primer in regards to [lambda expressions](appendix-expressions-boolean-algebra.md). Logically boolean algebra on branching conditions, works similarly to boolean algebra on lambda expressions. Except there is no _"XOR"_ operator while branching.
+These boolean algebraic operators works similarly to how they work in other programming languages. For an understanding of what boolean algebra actually is, you can read the appendix on [lambda expressions](appendix-expressions-boolean-algebra.md). Logically boolean algebra on branching conditions, works similarly to boolean algebra on lambda expressions. Except there is no _"XOR"_ operator while branching.
 
 The **[and]** Active Event has presedence when doing branching, just like you're used to from other programming languages for the record.
 
@@ -96,9 +96,9 @@ while:x:/@_data/0
   set:x:/@_data/0
 ```
 
-The above **[while]** simply evaluates its lambda object, for as long as there _"exists"_ a zero'th child beneath **[_data]**. Resulting in the creation of three widgets on your page.
+The above **[while]** simply evaluates its lambda object, for as long as there exists a zero'th child beneath **[_data]**. Resulting in the creation of three widgets on your page.
 
-The above shows a crucial point for the record, which is _"implicit conversion"_ due to _"existance"_ of some value, name or node. Basically, the rule-set will check to see if the result of the expression it is given _"exists"_, and if it does, it will evaluate to true, unless it is of type boolean, and has the value of _"false"_. The above **[while]** example, could have been created like the following.
+The above shows a crucial point for the record, which is implicit conversion due to existence of some value, name, or node. Basically, the rule-set will check to see if the result of the expression it is given exists, and if it does, it will evaluate to true, unless it is of type boolean, and has the value of false. The above **[while]** example, could have been created like the following.
 
 ```
 _data
@@ -128,7 +128,7 @@ while:x:/@_data/*?count
 
 All these three examples does the exact same thing. Which you choose, depends upon your style of coding, and what you find to be more readable.
 
-Notice, all of these three examples depends upon their last **[set]** invocation to not enter what is often referred to as an _"infinite loop"_. P5 however, contains _"infinite loop"_ protection though by default, which helps you to prevent evaluating a lambda object, that would enter an infinite loop. Try evaluating the above code for instance, to see this in action.
+Notice, all of these three examples depends upon their last **[set]** invocation to not enter what is often referred to as an infinite loop. P5 however, contains _infinite loop protection_ by default, which helps you to prevent evaluating a lambda object, that would enter an infinite loop using **[while]**. Try evaluating the above code for instance.
 
 ```
 _data
@@ -142,11 +142,11 @@ while:x:/@_data/0
   // set:x:/@_data/0
 ```
 
-As you can see, after 5.000 iterations, our above **[while]** loop will throw an exception, and stop executing. If you have a loop, where you actually need more than 5.000 iterations, you can add up a **[_unchecked]** argument to your **[while]** loop, and set its value to boolean true. Don't do it with the above code though, unless you want to crash your web server process!
+As you can see, after 5.000 iterations, our above **[while]** loop will throw an exception, and stop executing. If you have a loop, where you actually need more than 5.000 iterations, you can add up an **[_unchecked]** argument to your **[while]** loop, and set its value to boolean true. Don't do it with the above code though, unless you want to crash your web server process!
 
 ## The "contains" operators
 
-Both the **[~]** and the **[!~]** Active Events are special, and only intended for string handling. They will basically check some string, to see if another string _"exists"_ within your source string, and if so, yield either true or false, depending upon whether or not you are using the _"not"_ version or not.
+Both the **[~]** and the **[!~]** Active Events are special, and only intended for string handling. They will basically check some string, to see if another string exists within your source string - And if so, yield either true or false, depending upon whether or not you are using the not version or not.
 
 The following code illustrates an example.
 
@@ -163,7 +163,7 @@ Basically, as long as the above **[_data]** node's value contains the string *"H
 
 ### Regular expression matching with the "contains" operators
 
-The _"contains"_ operators can also be given regular expressions, instead of simple string. Below is an example looking for any _"sen"_ name.
+The contains operators can also be given regular expressions, instead of simple string. Below is an example looking for any _"sen"_ name.
 
 ```
 _data:Thomas Hansen was here
@@ -183,7 +183,7 @@ else
   sys42.windows.info-tip:Yo stranger!
 ```
 
-The above regular expression will match anything starting with a capital letter, followed by x lower case letters, ending with the string _"sen"_. Basically, matching any name ending with the string _"sen"_, which is a common type of name in Norway.
+The above regular expression will match anything starting with a capital letter, followed by x lower case letters, ending with the string _"sen"_. Basically, matching any name ending with the string _"sen"_, which is a common surname in Norway.
 
 How to create regular expressions will be dealt with in a later appendix, but basically, a regular expression starts and ends with a "/", followed by optionally some regex options. In addition, a regular expression has the type declaration of `:regex:`.
 
@@ -191,7 +191,7 @@ How to create regular expressions will be dealt with in a later appendix, but ba
 
 ## To branch or not to branch
 
-A lot of times, you can choose between using branching Active Events, or using more complex lambda expressions. Often this is a choice, which you will have to do in accordance to the problem at hand. Though, for instance, in the above code, we are looping through a bunch of nodes, and using an **[if]**, to extract only the nodes having some specified name.
+A lot of times, you can choose between using branching Active Events, or using more complex lambda expressions. Often this is a choice, which you will have to do in accordance to the problem at hand. For instance, in the above code, we are looping through a bunch of nodes, and using an **[if]**, to extract only the nodes having some specified name.
 
 ```
 _data
@@ -219,9 +219,9 @@ for-each:x:/@_data/*/foo
 
 Using a single additional iterator in our above **[for-each]**, we have gotten entirely rid of our original **[if]** invocation, making the code significantly more easy to read, and much more condense in nature.
 
-Often you can get rid of entire hierarchies of conditional event invocations, by adding some tiny additional amount of intelligence, into your lambda expression. Making our branching invocations become completely redundant and not necessary anymore. Above for instance, if we ignore the **[_data]** segment, we had 5 lines of code, which we were able to reduce to 3 lines of code, easily, while still making our code much more easy to read.
+Often you can get rid of entire hierarchies of conditional event invocations, by adding some tiny additional amount of intelligence, into your lambda expression. Making our branching invocations become completely redundant. Above for instance, if we ignore the **[_data]** segment, we had 5 lines of code, which we were able to reduce to 3 lines of code, while at the same time making our code much more readable.
 
-In general, although some tasks might in the beginning seem to create more complex code, and more code in general - Often, a lot of tasks in Hyperlambda, becomes significantly less code, and surprisingly dense in syntax. You can often get rid of entire hierarchies of conditional branching, simply by adding up a couple of additional iterators to your expressions.
+Often a lot of tasks in Hyperlambda becomes significantly smaller, and surprisingly dense in syntax. You can often get rid of entire hierarchies of conditional branching, simply by adding up a couple of additional iterators to your expressions.
 
 To see the full power of lambda expressions, please check out the appendix where they are more thoroughly described.
 
