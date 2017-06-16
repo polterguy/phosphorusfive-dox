@@ -26,7 +26,7 @@ Welcome to the _"book"_ about [Phosphorus Five](https://github.com/polterguy/pho
 
 ## Appendix
 
-- [Appendix, Expression iterator](appendix-expressions-iterators.md)
+- [Appendix, Expression iterator](appendix-expression-iterators.md)
 - [Appendix, Boolean algebra on expressions](appendix-expressions-boolean-algebra.md)
 
 ## The objectives of the book
