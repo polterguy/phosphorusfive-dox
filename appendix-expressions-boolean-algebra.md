@@ -36,39 +36,44 @@ add:x:/@_dest
   src:x:/@_src/*/John&/@_src/*/=Doe
 ```
 
-Notice the *"&"* parts in the middle of our **[src]** node's expression above. This will logically AND our two expressions together, and only return the results that can be found in BOTH of our expressions. Hence, the result becomes that of, our **[_dest]**, ending up having one additional node; `John:Doe`.
+Notice the `&` parts in the middle of our **[src]** node's expression above. This will logically AND our two expressions together, and only return the results that can be found in BOTH of our expressions. Hence, the result becomes that of, our **[_dest]**, ending up having one additional node; `John:Doe`.
 
-Referring back to our original figure in the beginning of this article, this means we'll end up with only the *"b"* parts as our results.
+Also notice that both our `Jane:Doe` and our `John:Farmer` nodes are ignored, because neither of them fullfilled the criteria of **both** expressions. Referring back to our original figure in the beginning of this article, this means we'll end up with only the *"b"* parts as our results.
 
 ![alt tag](screenshots/boolean-algebra-AND.png)
 
-AND is said to return only the UNION or the *"intersection"* of our two expressions.
-
-Notice, it doesn't matter which expression you start out with, and which you end with, when you AND two expressions together. Even if you flip your expressions around, the result will still be the same.
+AND is said to return only the UNION or the intersection of our two expressions. It doesn't matter which expression you start out with when you AND two expressions together. Even if you flip your expressions around, the result will still be the same.
 
 ### Logical OR
 
-OR on the other hand, will yield anything found in EITHER of our two expressions. If you exchange the *"&"* in our above Hyperlambda, the results in our **[_dest]** node will include *"John Doe"*, *"John Farmer"* and *"Jane Doe"*.
+OR on the other hand, will yield anything found in EITHER of our two expressions. If you exchange the *"&"* in our above Hyperlambda, the results in our **[_dest]** node will include *"John Doe"*, *"John Farmer"* and *"Jane Doe"*. Try to run the following code.
 
-Going back to our original figure, this means we will end up with our result being anything from either of *"a"*, *"b"* and *"c"*.
+```
+_src
+  John:Doe
+  Jane:Doe
+  John:Farmer
+  Stanley:Kubrick
+_dest
+add:x:/@_dest
+  src:x:/@_src/*/John|/@_src/*/=Doe
+```
+
+Going back to our original figure, this means we will end up with our result being anything found in **either** *"a"*, *"b"* or *"c"*.
 
 ![alt tag](screenshots/boolean-algebra-OR.png)
 
-OR is said to return the *"product"* of our two expressions.
-
-Notice, it doesn't matter which expression you start out with, and which you end with, when you OR two expressions together. Even if you flip your expressions around, the result will still be the same.
+OR is said to return the *"product"* of our two expressions. It doesn't matter which expression you start out with, when you OR two expressions together. Even if you flip your expressions around, the result will still be the same.
 
 ### Logical XOR
 
-XOR means eXclusively OR, and translates into English like *"give me anything found only in __one__ of the following expressions"*. Try to exchange the *"&"* in our original Hyperlambda with a *"^"* character, to use the XOR operator. Notice how this returns only *"John Farmer"* and *"Jane Doe"*, but **not** in fact *"John Doe"*, because he can be found in both result sets.
+XOR means _eXclusively OR_, and translates into English like *"give me anything found only in __one__ of the following expressions"*. Try to exchange the *"&"* in our original Hyperlambda with a *"^"* character, to use the XOR operator. Notice how this returns only *"John Farmer"* and *"Jane Doe"*, but **not** in fact *"John Doe"*, because he can be found in both result sets.
 
 Going back to our original figure, this means what we are extracting from our result set, is only the *"a"* and *"c"* parts, but **not** the *"b"* parts. Anything that is the result of an intersection between both of our expressions is discarded. Besides from that, it is similar to OR, which is why it is called *"eXclusive OR"*.
 
 ![alt tag](screenshots/boolean-algebra-XOR.png)
 
-XOR is said to return the *"product"* of our expressions, minus the UNION or the *"intersection"*.
-
-Notice, it doesn't matter which expression you start out with, and which you end with, when you XOR two expressions together. Even if you flip your expressions around, the result will still be the same.
+XOR is said to return the *"product"* of our expressions, minus the UNION or the *"intersection"*. It doesn't matter which expression you start out with, and which you end with, when you XOR two expressions together. Even if you flip your expressions around, the result will still be the same.
 
 ### Logical NOT
 
@@ -80,7 +85,7 @@ Going back to our original figure, this results in only the *"a"* parts.
 
 NOT is said to return the first expression, minus the UNION or *"intersection"* of our second expression.
 
-Notice that when you NOT two expressions together, the order of your expressions is important, and if you flip your two expressions around, you will achieve a different result. Hence, with NOT, order counts. In all the other boolean algebraic operators, order is not important, the same way order is not important when adding or multiplying numbers together. Logically, you can think of NOT as _"subtracting"_ the right hand expression from the left hand side.
+When you NOT two expressions together, the order of your expressions is important, and if you flip your two expressions around, you will achieve a different result. Hence, with NOT, order counts. In all the other boolean algebraic expression operators, order is _not_ important, the same way order is not important when adding or multiplying numbers together. Logically, you can think of NOT as _"subtracting"_ the right hand expression from the left hand side.
 
 
 ## Grouping sub-expressions
@@ -100,7 +105,7 @@ add:x:/@_dest
 
 To understand the above expression, realise first of all that there is in fact not one expression in the above **[src]** node. Rather in fact, there are actually **3** expressions. Two of them are grouped, inside of the parantheses. While the outer expression becomes the _"initial result set"_ the inner expressions are starting out with.
 
-Translated into plain English, what the above expression actually does, can be summed up as follows; _"Give me all nodes beneath [_dest] who's names are either 'John' or 'Jane'"_. Creating grouped sub-expressions, and using the boolean algebraic features of expressions, can give you incredible dense syntax, and *"tight"* code. Below is a more extreme case.
+Translated into plain English, what the above expression actually does, can be summed up as follows; *"Give me all nodes beneath [_src] who's names are either 'John' or 'Jane'"*. Creating grouped sub-expressions, and using the boolean algebraic features of expressions, can give you incredible dense syntax, and *"tight"* code. Below is a more useful use-case.
 
 ```
 _data
@@ -120,9 +125,9 @@ for-each:x:/@_data/**(/foo|/bar)
     innerValue:x:/@_dp/#?value
 ```
 
-If we ignore the above **[_data]** segment, which technically is not a part of our code, but rather its data - We have **3** lines of actual code in the above Hyperlambda. Trying to even create something as the above, in any other programming language, including LINQ - Would require recursive function invocations, and possibly hundreds of lines of code, depending upon which programming language you use. The above code is **3 lines of code**! And the code is relatively easy to grasp, once you've got an understanding of lambda expressions. And, more importantly, the above code happens to be an example of something that would be considered an extremely useful scenario, and something you'd probably highly likely run into, when creating your own software.
+If we ignore the above **[_data]** segment, which technically is not a part of our code, but rather its data - We have **3** lines of actual code in the above Hyperlambda. Trying to even create something as the above, in any other programming language, including C# and LINQ - Would require recursive function invocations, and possibly dozens of lines of code. The above code is **3 lines of code**! And the code is relatively easy to grasp, once you've got an understanding of lambda expressions. And, more importantly, the above code happens to be an example of something that would be considered a useful scenario, and something you'd probably highly likely run into, when creating your own software.
 
-By intelligently mastering lambda expressions, you can often describe with a single line of code, what requires hundreds, and sometimes possibly thousands of lines of code, in other programming languages.
+By intelligently mastering lambda expressions, you can often describe with a single line of code, what requires sometimes hundreds of lines of code, in other programming languages.
 
 You can create as many groups as you wish for your lambda expressions. Unless you explicitly declare a boolean operator for your first sub-expression, logical OR as assumed.
 
@@ -146,7 +151,7 @@ for-each:x:/@_data/**(!/foo!/bar)
     innerValue:x:/@_dp/#?value
 ```
 
-Lambda expressions, and their grouping and boolean algebraic features, very often allows you to create extremely _"tight"_ code! In our above code, we added two `!` operators, and removed the existing `|` operator, and as we did, we completely negated the result of our expression.
+In our above code, we added two `!` operators, and removed the existing `|` operator, and as we did, we completely negated the result of our expression.
 
 ## Ninja tricks
 
@@ -166,7 +171,7 @@ What the above example does, is to use the _"unique name iterator"_ (the `$` ite
 
 The above is a commonly used lambda expression, for applying default arguments to lambda objects and Active Events.
 
-Another really nice Ninja trick, is to defer the boolean algebraic operators, and make them become arguments. For instance, imagine we create an Active Event such as the following.
+Another really nifty Ninja trick, is to defer the boolean algebraic operators, and make them become arguments. For instance, imagine we create an Active Event such as the following.
 
 ```
 create-event:sys42.foo-bar-example
@@ -233,9 +238,9 @@ sys42.foo-bar-example-2:x:/@_data
   name:foo
 ```
 
-## Don't loose your head
+## Don't go berserk!
 
-It is easy to create extremely rich lambda expressions, with very dense syntax sometimes. However, it is also very easy to create extremely complex lambda expressions, which you could probably spend hours trying to figure out what actually does, without success. Any _"obfuscated code olympic contestant"_ without at least one lambda expression, would probably not be able to even make it to the finals.
+It is easy to create extremely rich lambda expressions, with very dense syntax sometimes. However, it is also very easy to create extremely complex lambda expressions, which you could probably spend a lot of time trying to figure out what actually do. Any _"obfuscated code olympic contestant"_ without at least one lambda expression, would probably not be able to even make it to the finals.
 
 Be careful with them. They're intended to **ease** syntax, not to prove to the world that you can visualize hundreds of recursive conditions, with dozens of nested boolean algebraic operators, and grouped sub-expressions.
 
