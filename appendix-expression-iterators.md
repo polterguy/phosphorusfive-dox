@@ -1,3 +1,438 @@
 # Expression iterators
 
-This is as far as I've come ...
+There exists 19 expression iterators in P5. Although you can most of the time get away with only knowing a handful of these, obviously all of them have to be documented. Below you can find the documentation for each of these iterators. liseted in no particular order.
+
+## Named elder relative iterator
+
+This iterator is sometimes also referred to as the _"variable scope iterator"_, since it's the closest thing you come to referencing variables in P5. It will look for an elder sibling matching the name, and if not found, traverse up to its first ancestor, checking if its name matches, for then to check its ancestors' elder sibling nodes for a match. Then continue this process, until it finds the first match, or yields a null result. This iterator will never return more than a single match for each of its previous result set nodes.
+
+```
+_foo:first-foo
+_foo:second-foo
+  _foo:third-foo
+src:x:/@_foo?value
+```
+
+Which results in the following.
+
+```
+src:second-foo
+```
+
+Notice how it ignores the **[third-foo]**  and the **[first-foo]** above. The **[third-foo]** is ignored, because it's not within the "scope" of the **[src]** identity node. The **[first-foo]** is ignored, because the iterator found another match, before it reached the first foo node.
+
+## Children iterator
+
+This iterator always looks like the following `/*`, and will yield the children of its previous result set. Below it's our second iterator, at the end of our **[src]** invocation, just before its `?name` parts.
+
+```
+_foo
+  foo1
+    foo1_1
+    foo1_2
+  foo2
+    foo2_1
+    foo2_2
+
+// Returns the children of the above [_foo] node.
+src:x:/@_foo/*?name
+```
+
+Which results in the following.
+
+```
+src
+  foo1
+  foo2
+```
+
+## Descendants iterator
+
+This iterator always looks like the following `/**`, and will yield all descendants of its previous result set.
+
+```
+_foo
+  foo1
+    foo1_1
+    foo1_2
+  foo2
+    foo2_1
+    foo2_2
+
+// Returns all descendants of the above [_foo] node.
+src:x:/@_foo/**?name
+```
+
+Which results in the following.
+
+```
+src
+  foo1
+  foo1_1
+  foo1_2
+  foo2
+  foo2_1
+  foo2_2
+```
+
+Notice the difference in the result set of the descendants iterator, and the children iterator above. The children iterator never yielded its **[foo1_1]** node, while the descendant iterator did.
+
+## Distinct name iterator
+
+This iterator always looks like the following `/$`, and will yield all distinct names it can find from its previous result set, yielding the first it finds, ignoring all consecutive matches having the same names as a previous hit. The comparison is case sensitive, using the invariant culture to compare its matches. Like all iterators do in P5.
+
+```
+_foo
+  foo1:foo1-hit
+    foo1_1:foo1_1-hit
+    foo1_2:foo1_2-hit
+  foo1:foo1-MISS
+    foo2_1:foo2_1-hit
+    foo1_2:foo1_2-MISS
+
+// Returns all values of the distinctly named nodes from the above [_foo] node.
+src:x:/../*/_foo/**/$?value
+```
+
+Which results in the following.
+
+```
+src
+  :foo1-hit
+  :foo1_1-hit
+  :foo1_2-hit
+  :foo2_1-hit
+```
+
+## Distinct value iterator
+
+Same as above, but will look for distinct values instead of names.
+
+```
+_foo
+  foo1-HIT:thomas
+    foo1_1-HIT:hansen
+    foo1_2-MISS:thomas
+  foo1-HIT:john
+    foo2_1-MISS:hansen
+    foo1_2-MISS:john
+
+// Returns all names of the distinct values from the above [_foo] node.
+src:x:/../*/_foo/**/=$?name
+```
+
+Which results in the following.
+
+```
+src
+  foo1-HIT
+  foo1_1-HIT
+  foo1-HIT
+```
+
+## Modulo iterator
+
+This iterators yields the modulo result of its previous result set.
+
+```
+_data
+  foo1
+  foo2
+  foo3
+  foo4
+src:x:/@_data/*/%2
+```
+
+Which results in the following.
+
+```
+src
+  foo2
+  foo4
+```
+
+Notice how only nodes being a modulo of 2 are yielded in the above result.
+
+## Named iterator
+
+Will yield only nodes matching the specified name. Notice, this is the default iterator, if no other match can be found. You can also escape your specified name, if it clashes with other iterators. E.g. `:x:/\0` - Which will return a node matching the **name** of _"0"_, and not necessary the zeroth child.
+
+```
+_data
+  foo1
+  foo2
+  foo3:foo3-1
+  foo4
+  foo3:foo3-2
+src:x:/@_data/*/foo3?value
+```
+
+Which results in the following.
+
+```
+src
+  :foo3-1
+  :foo3-2
+```
+
+## Named ancestor iterator
+
+Returns the first ancestor mathching the specified name. Always starts out with "..", then followed by the name you're looking for. Iterator will never return more than a single match.
+
+```
+_data
+  foo1:result
+    foo2
+    foo3
+      foo4
+        starting
+src:x:/../**/starting/..foo1?value
+```
+
+Which results in the following.
+
+```
+src:result
+```
+
+## Numbered child iterator
+
+Yields the n'th child of the previous result set.
+
+```
+_data
+  foo1
+  foo2
+  foo3
+src:x:/@_data/1
+```
+
+Which results in the following.
+
+```
+src
+  foo2
+```
+
+## Parent iterator
+
+Yields the parent of its previous result set.
+
+```
+_data
+  foo1
+    foo2
+      foo3
+src:x:/../**/foo3/.?name
+```
+
+Which results in the following.
+
+```
+src:foo2
+```
+
+## Range iterator
+
+Returns a range of its previous result set.
+
+```
+_data
+  foo1
+  foo2
+  foo3
+  foo4
+  foo5
+src:x:/@_data/*/[1,3]
+```
+
+Which results in the following.
+
+```
+src
+  foo2
+  foo3
+```
+
+## Reference iterator
+
+Yields the value of the previous result set, converted into a node, preferably by reference, allowing you to change the node accordingly if possible.
+
+```
+_data:node:"foo-inner:INITIAL-VALUE"
+set:x:/@_data/#?value
+  src:SUCCESS
+```
+
+Which results in the following.
+
+```
+_data:node:"foo-inner:SUCCESS"
+```
+
+Notice how we were able to change the value of our inner node in the above **[set]** invocation.
+
+## Reverse iterator
+
+Reverses the previous result set.
+
+```
+_data
+  foo1
+  foo2
+  foo3
+src:x:/@_data/*/<-
+```
+
+Which results in the following.
+
+```
+src
+  foo3
+  foo2
+  foo1
+```
+
+## Root iterator
+
+Yields the root iterator. Will never yield more than one match, being the root of the current node.
+
+```
+src:x:/..
+```
+
+Which results in the following.
+
+```
+src
+  exe
+    src:x:/..
+```
+
+## Left shift iterator
+
+Left shifts the previous result set.
+
+```
+_data
+  foo1
+    foo1_child
+  foo2
+  foo3
+  foo4
+src:x:/@_data/*/%2/<
+```
+
+Which results in the following.
+
+```
+src
+  foo1_child
+  foo3
+```
+
+Notice how the modulo operator's result is "left shifted". This process will not necessarily result in finding the younger sibling, but rather the "previous node", as you can see an example of above, where we retrieved the **[foo1_child]** node, instead of the **[foo1]** node.
+
+## Right shift iterator
+
+Right shifts the previous result set.
+
+```
+_data
+  foo1
+  foo2
+  foo3
+  foo4
+  foo5
+src:x:/@_data/*/%2/>
+```
+
+Which results in the following.
+
+```
+src
+  foo3
+  foo5
+```
+
+See the comments for the left shift iterator, to understand what "shifting" a node result actually means.
+
+## Younger sibling iterator
+
+Returns the n'th younger sibling from its previous result set.
+
+```
+_data
+  foo1
+  foo2
+src:x:/@_data/1/-1
+```
+
+Which results in the following.
+
+```
+src
+  foo1
+```
+
+Notice, both the younger and elder sibling iterators will actually roundtrip to the beginning, if you proved a number, which is higher than that which can be found in the result set. This means that you can use it to find for instance the "last child node", by doing something like the following `/0/-`.
+
+Also notice that the number is optional, and if not supplied, will default to a value of "1". This is true for both the younger and the elder sibling iterator.
+
+## Elder sibling iterator
+
+Returns the n'th younger sibling from its previous result set.
+
+```
+_data
+  foo1
+  foo2
+src:x:/@_data/0/+1
+```
+
+Which results in the following.
+
+```
+src
+  foo2
+```
+
+See the comments for the younger sibling iterator for a detailed explanation.
+
+## Value iterator
+
+Yields the nodes matching the specified value.
+
+```
+_data
+  foo1:bar1
+  foo2:bar2
+  foo3:bar3
+src:x:/@_data/*/=bar2
+```
+
+Which results in the following.
+
+```
+src
+  foo2:bar2
+```
+
+Notice, this iterator can also take regular expressions, such as the following illustrates - At which point the entire expression needs to be wrapped inside of a string literal, due to having added a ":" in its value.
+
+```
+_data
+  foo1:xxx
+  foo2:bar1
+  foo3:bar2
+  foo4:yyy
+src:x:@"/@_data/*/""=:regex:/bar/"""
+```
+
+Which will result in the following.
+
+```
+src
+  foo2:bar1
+  foo3:bar2
+```
