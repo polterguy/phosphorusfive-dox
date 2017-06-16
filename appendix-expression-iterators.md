@@ -436,3 +436,41 @@ src
   foo2:bar1
   foo3:bar2
 ```
+
+## The recursive nature of iterators
+
+By intelligently combining your iterators, you can often reduce what would require hundreds of lines of code in e.g. traditional C#, to a single expression in P5 - Removing all recursive method/function invocations in the process.
+
+Imagine you have a tree, where you wish to update every single value part of your tree, to a single value, depending upon some criteria. This is easily done with a single expression in Hyperlambda - While in C# it would require reursive method invocations, and lots of complicated ideas, that are especially difficult to understand for noobs. Below is an example, of a piece of lambda, that updates every single CSS class, of all of our "buttons" HTML elements, recursively, without using recursion.
+
+```
+create-widget
+  widgets
+    container
+      literal
+        element:button
+        class:OLD-CSS-CLASS
+      literal
+        element:p
+        class:NOT-CHANGED
+      container
+        class:NOT-CHANGED
+        widgets
+          literal
+            element:button
+            class:OLD-CSS-CLASS
+
+/*
+ * Retrieves all [literal] widget, having an [element] of type "button",
+ * and updates their [class] attribute.
+ * Notice; Two lines of code!
+ */
+set:x:/@create-widget/**/literal/*/element/=button/./*/class?value
+  src:NEW-CLASS
+```
+
+In most traditional programming languages, the above would require at dozens of lines of code, possibly more - In addition to possibly also recursive function or method invocations. In P5 it's **2 lines of code**!
+
+Lambda expressions, and its iterators, might seem difficult to grasp when you start out with them. But after a while, you will notice how they allow you to do a lot with very little effort.
+
+
