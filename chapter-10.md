@@ -74,7 +74,7 @@ Evaluate this piece of Hyperlambda first, in your *"Executor"*.
  * This inserts a new page into our database.
  */
 p5.data.insert
-  p5.page:sys42-examples-dox-page
+  p5.page:/sys42-examples-dox-page
     role:root
     name:A page, that becomes a control
     template:/system42/apps/CMS/page-templates/no-navbar-menu.hl
@@ -88,7 +88,7 @@ p5.data.insert
 
 /*
  * This creates a "user control" Active Event,
- * which can take a [page] argument, that transforms
+ * that can take a [page] argument, that transforms
  * an existing [p5.page] object, into a "user control".
  */
 create-event:sys42.examples.dox.create-control-from-page
@@ -97,7 +97,7 @@ create-event:sys42.examples.dox.create-control-from-page
    * Selects the given [page] argument from database, 
    * assuming it is a [p5.page] object type.
    */
-  select-data:x:/*/*/p5.page/={0}
+  select-data:x:@"/*/*/p5.page/""={0}"""
     :x:/../*/page?value
   if:x:/@select-data/*
     not
@@ -167,7 +167,7 @@ create-widget
       element:h1
       innerValue:A page that consumes a page!
     sys42.examples.dox.create-control-from-page
-      page:sys42-examples-dox-page
+      page:/sys42-examples-dox-page
 ```
 
 At this point, you have created a new lambda page, which contains a *"user control"*, which you have declared as an Active Event. This *"user control"* takes a **[page]** argument, being the URL of your page, which it will dynamically load from your database, and transform into either a **[void]**, **[literal]** or **[container]** widget - Depending upon what type of root widget your page is actually creating.
