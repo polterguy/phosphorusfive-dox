@@ -1,6 +1,7 @@
 # Phosphorus Five, the guide
 
 Welcome to the _"book"_ about [Phosphorus Five](https://github.com/polterguy/phosphorusfive). Phosphorus Five, also referred to as P5 in this guide, is a lot of different things. It is a simple design pattern, it is an Ajax library, it is a programming language, and it is a framework. Some would also argue that it is a web operating system. What you choose to refer to it as, is really quite irrelevant. The point is that it solves your problems, particularly the ones you’re having, as you try to create rich and interactive web apps. This book aims at being your _“one stop guide”_, as you start out with P5. A beginner’s introduction. Starting out at the _“for dummies level”_, and hopefully moving you onwards to the expert level.
+To see a 4 minutes long introduction of how to get started with Phosphorus Five, using System42 - Please watch the [following YouTube video](https://www.youtube.com/watch?v=KP69OnVz4vs).
 
 ## Chapters
 
