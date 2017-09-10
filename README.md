@@ -1,7 +1,7 @@
 # Phosphorus Five, the guide
 
 Welcome to the _"book"_ about [Phosphorus Five](https://github.com/polterguy/phosphorusfive). Phosphorus Five, also referred to as P5 in this guide, is a lot of different things. It is a simple design pattern, it is an Ajax library, it is a programming language, and it is a framework. Some would also argue that it is a web operating system. What you choose to refer to it as, is really quite irrelevant. The point is that it solves your problems, particularly the ones you’re having, as you try to create rich and interactive web apps. This book aims at being your _“one stop guide”_, as you start out with P5. A beginner’s introduction. Starting out at the _“for dummies level”_, and hopefully moving you onwards to the expert level.
-To see a 4 minutes long introduction of how to get started with Phosphorus Five, using System42 - Please watch the [following YouTube video](https://www.youtube.com/watch?v=KP69OnVz4vs).
+To see an introduction video of Phosphorus Five - Please watch the [following YouTube video](https://www.youtube.com/watch?v=IUCnMb9huFc).
 
 ## Chapters
 
@@ -32,7 +32,7 @@ To see a 4 minutes long introduction of how to get started with Phosphorus Five,
 
 ## The objectives of the book
 
-During this book, you will learn everything you need to know, to in its entirety _"clone GMail"_, creating a complete web mail system, from scratch. My aim is to bring you up to this knowledge in P5, in roughly 2 days. That way, the book becomes very practical, and hands on, progressing rapidly, and you can feel that you have done something constructive fast. We will start out with creating smaller systems, such as simple CRUD apps, and finish up with creating a complete GMail alternative, with PGP cryptography, and a much slicker UX.
+During this book, you will learn everything you need to know to create your first Phosphorus Five application - From the first line of code, to deployment in a production environment. My aim is to bring you up to this knowledge in P5, in roughly 2 days. That way, the book becomes very practical, and hands on, progressing rapidly, and you can feel that you have done something constructive fast. We will start out with creating smaller systems, such as simple CRUD apps, and finish up with creating a complete application.
 
 Every construct we go through, will have a practical application for you. The book is a hands on guide, intended to ignite your own creative processes. As we create these practical solutions, we will also discuss the software architecture theory behind our choices. After reading this book, you can consider yourself a senior software architect, easily capable of discussing software architecture, with some of the best architects on the planet.
 
@@ -108,7 +108,7 @@ This might sound weird, but the book's introduction can actually be found in [ch
 
 ### Downloading the book
 
-Periodically, I will create a download of the book, which you can read locally. This will be in the formats offered by GitHub, such as .zip and .tar.gz. These downloads are the *"raw source"* of the book, which is in Markdown format. It could probably be beneficial for you to use a Markdown viewer, to read the book. I personally use *"MacDown"* for writing the book. Another great viewer for Windows is [Markdown Monster](https://markdownmonster.west-wind.com/).
+Periodically, I might create a download of the book, which you can read locally. This will be in the formats offered by GitHub, such as .zip and .tar.gz. These downloads are the *"raw source"* of the book, which is in Markdown format. It could probably be beneficial for you to use a Markdown viewer, to read the book. I personally use *"MacDown"* for writing the book.
 
 This way of distributing the book, allows you to create inline comments as you read it, providing answers for exercises, and comments etc. It also allows you to easily create patches and additions to the book. In addition, it makes it easy for you to document your own systems as *additions* to this book, having a great foundation for the documentation of your own systems. Which means that as you start out creating value on top of P5, you can start documenting your own system, from the point where the book ends. Hence, there might, and should, exist a *"gazillion"* versions of this book out there, where every version of the book, is equally unique as the system it is describing.
 
@@ -116,16 +116,10 @@ My email address is thomas@gaiasoul.com, and you can find the book's main source
 
 ## Version
 
-The current version you are reading, was created around the same time as Phosphorus Five version 2.0 was released. The book might be updated, as changes occurs in Phosphorus Five, and new releases are being created. The book's current version itself is 1.0. However, the book will inevitably change as P5 changes.
+The current version you are reading, was created around the same time as Phosphorus Five version 5.0 was released. The book might be updated, as changes occurs in Phosphorus Five, and new releases are being created. The book's current version itself is 5.0. However, the book will inevitably change as P5 changes.
 
 ## License and copyright
 
 The book is licensed under the terms of the GPL, version 3, and copyright Thomas Hansen, thomas@gaiasoul.com, 2017.
 
-I could have chosen another license, such as Creative Commons, which probably would be a more *"logical"* choice. However, partially as a funny detail, and partially out of respect for P5 and the GPL - I have chosen to license it as GPL, to make sure the book stays open.
-
-This choice of license also easily allows you to create patches to the book, and supply to me, at the main GitHub project site for the book - Which can be found [here](https://github.com/polterguy/phosphorusfive-dox).
-
-*"Sharing is caring"*
-
-And remember; *"Mostly harmless, and don't panic!"* ... ;)
+> Sharing is caring

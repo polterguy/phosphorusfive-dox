@@ -13,7 +13,7 @@ create-widget:foo
   class:btn btn-default
   innerValue:Click me
   onclick
-    p5.web.widgets.property.set:foo
+    set-widget-property:foo
       innerValue:Hello World
 ```
 
@@ -22,6 +22,8 @@ Your page should look something like this.
 ![alt screenshot of hello world](screenshots/chapter-1-1.png)
 
 If you try to click the button created by the Hyperlambda above, it will change its value to *"Hello World"*. If you wish, you can refresh your page, to reset the button's text, for then to click it again.
+
+**Notice**; We will be using [System42](https://github.com/polterguy/system42) in this book, in combination with (of course) [Phosphorus Five](https://github.com/polterguy/phosphorusfive) for most of our examples in this book. This is not recommended for creating a production application, but is a nice starting ground for learning Hyperlambda. To install System42, make sure you first [download Phosphorus Five](https://github.com/polterguy/phosphorusfive/releases)'s zip file, for then to download [System42](https://github.com/polterguy/system42/releases). Then extract both of these, and put your System42 unzipped folder into your P5 folder, inside of _"/core/p5.webapp/modules/"_. When you have done so, make sure you rename System42's folder to remove any versioning numbers, such that it is only named _"system42"_. Then open the P5.sln file in e.g. Visual Studio or MonoDevelop.
 
 ## The Hyperlambda structure
 
@@ -47,7 +49,7 @@ The **[parent]** argument, declares which parent HTML widget you wish to append 
 
 You can use any **[parent]** you wish for your widget, which allows you to inject your widget, into any pre-existing widget's collection. The *"content"* **[parent]** we are using above, happens to be a generic **[container]** widget, from the main default template of System42's CMS.
 
-The *"btn btn-default"* value of our **[class]** argument, refers to CSS classes from [Bootstrap CSS](http://getbootstrap.com/css/), which is a commonly used Open Source CSS framework. Bootstrap CSS is the default CSS framework in System42, but can easily be replaced if you wish.
+The *"btn btn-default"* value of our **[class]** argument, refers to CSS classes from [Bootstrap CSS](http://getbootstrap.com/css/), which is a commonly used Open Source CSS framework. Bootstrap CSS is the default CSS framework in System42, but can easily be replaced if you wish. In a production site, I recommend you to rather use [Micro](https://github.com/polterguy/micro) instead of Bootstrap, since it's literally orders of magnitudes smaller in size.
 
 To understand the above code, it might be useful to see its resulting HTML. Below is the HTML our Hyperlambda creates.
 
@@ -65,7 +67,7 @@ In our example above, we have an **[onclick]** Ajax event for our button. This w
 
 Lambda objects, such as the one we have declared inside our **[onclick]** event handler, is often referred to as simply *"lambda"*. Lambda objects are stored function objects, which are executed, whenever some condition is being met - Or we wish to for some reasons execute our lambda. The simplicity in declaring such *"lambda objects"*, is the reason why Hyperlambda got its name.
 
-The *"lambda"* above, simply invokes the **[p5.web.widgets.property.set]** Active Event, with the ID of *"foo"*, and an **[innerValue]** argument of *"Hello World"*. This changes the **[innerValue]** property of our *"foo"* widget, to whatever HTML we pass in as the value of our **[innerValue]** argument. The **[p5.web.widgets.property.set]** is an alias to **[set-widget-property]**, which you will see other places in our P5 examples. Many Active Events have aliases, which are alternative names, for invoking the same Active Event. Which one you prefer to use, is often a matter of personal taste.
+The *"lambda"* above, simply invokes the **[set-widget-property]** Active Event, with the ID of *"foo"*, and an **[innerValue]** argument of *"Hello World"*. This changes the **[innerValue]** property of our *"foo"* widget, to whatever HTML we pass in as the value of our **[innerValue]** argument. The **[set-widget-property]** is an alias to **[p5.web.widgets.property.set]**, which you will see other places in our P5 examples. Many Active Events have aliases, which are alternative names, for invoking the same Active Event. Which one you prefer to use, is often a matter of personal taste.
 
 ## Additional studying, video tutorial
 
