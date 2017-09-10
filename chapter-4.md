@@ -85,7 +85,7 @@ The `/*` iterator that follows, will reference all children nodes of the previou
 
 The `/body` iterator that follows, will filter away all nodes not matching the name of *"body"*. Resulting in that we've now created a reference to only the **[body]** node, as an argument to our **[eval-x]** invocation. So our above expression, hence *"points*" to our **[body]** node. This means that our `eval-x` invocation, will forward evaluate the expression found in our **[body]** node.
 
-To *"forward evaluate"* an expression, simply means evaluating it, and exchanging the expression, with a constant being the value of whatever the expression points to. Hence, after our **[eval-x]** invocation is done executing, our **[body]** node, will no longer contain an expression, but the constant result of the expression. This is a trick often applied in Phosphorus Five when passing in arguments to Active Events.
+To *"forward evaluate"* an expression, simply means evaluating it, and exchanging the expression, with a constant being the value of whatever the expression points to. Hence, after our **[eval-x]** invocation is done executing, our **[body]** node, will no longer contain an expression, but the constant result of the expression. This is a trick often applied in Phosphorus Five when passing in arguments to Active Events. **[eval-x]** is an Active Event you will be using a lot in your own code.
 
 #### Conceptualizing expressions
 
@@ -95,13 +95,11 @@ These expressions are in fact so powerful, that Hyperlambda have no means of dec
 
 To create a useful mental model for expressions - It might be useful to perceive Hyperlambda as a combination of XML and XSLT, and lambda expressions as the equivalent of XPath.
 
-Although Hyperlambda, per se, doesn't contain any explicit variables - By convention, you will often find that nodes purely intended to contain data of some sort, are prefixed with either an underscore "_", or a period ".". The reasons for this, is because the Hyperlambda execution engine, will ignore nodes starting with an underscore, or a period, and not attempt to raise these as Active Events.
+Although Hyperlambda, per se, doesn't contain any explicit variables - By convention, you will often find that nodes purely intended to contain data of some sort, are prefixed with either an underscore "_", or a period ".". The reasons for this, is because the Hyperlambda execution engine, will ignore nodes starting with an underscore, or a period, and not attempt to raise these as Active Events. Or to be more explicit; The **[eval]** event, and its associated overloads, will not attempt to raise anything starting out with a *"."* as an Active Event, but simply ignore it.
 
-If you still think these expressions appears like black magic, you can check out the [following video](https://www.youtube.com/watch?v=VjG2hGeMnbU), which explains them, from a more *"hands on"* approach.
+If you still think these expressions appears like black magic, you can check out the [following video](https://www.youtube.com/watch?v=VjG2hGeMnbU), which explains them, from a more *"hands on"* approach. If you're reading this book in some sort of paper format, you can find the above video here; https://www.youtube.com/watch?v=VjG2hGeMnbU
 
-If you're reading this book in some sort of paper format, you can find the above video here; https://www.youtube.com/watch?v=VjG2hGeMnbU
-
-#### Ninja tricks, for easing your understanding of expressions
+#### Lambda expression Ninja tricks
 
 Often you will declare *"variable nodes"* before you use them. This allows you to use the *"variable scope iterator"*, which starts out with `/@_x`, where *"_x"* is the name of some node, declared before the code that is referencing it.
 

@@ -35,7 +35,7 @@ eval:x:/@load-file/*
   some-argument:Foo bar
 ```
 
-The execution of a file, like we illustrated above, might also in fact return arguments. This means that there is very effectively *no semantic difference* between a lambda object, a file, some text fetched from some database, or supplied by a web service invocation - Or for that matter a piece of string, supplied by the user, through some input element in your app.
+The execution of a file, like we illustrated above, might also in fact return arguments. This means that there is very effectively *no semantic difference* between a lambda object, a file, some text fetched from some database, or supplied by a web service invocation - Or for that matter, a piece of string, supplied by the user, through some input element in your app.
 
 In fact, the last parts in the above paragraph, largely defines the implementation of the Apps/Executor. The Executor in System42, simply converts your input to a lambda object, using **[hyper2lambda]**, and invokes this lambda object, using the **[eval]** Active Event.
 
@@ -43,9 +43,9 @@ In fact, the last parts in the above paragraph, largely defines the implementati
 
 There actually exists 3 different versions of **[eval]**.
 
-* [eval] - Plain old eval
-* [eval-whitelist] - "Sandboxed" version of **[eval]**
-* [eval-mutable] - Allows you to access the entire root lambda object
+* __[eval]__ - Plain old eval
+* __[eval-whitelist]__ - "Sandboxed" version of **[eval]**
+* __[eval-mutable]__ - Allows you to access the entire root lambda object
 
 The first one, which is probably the most important, actually creates a *copy* of the object(s) you wish to execute, and executes these copies. This is crucial to its implementation, considering how the invocation of a lambda object, potentially changes the state of that object.
 
@@ -80,6 +80,12 @@ If you wish, you can instead of providing an expression to a lambda object, also
 ```
 eval
   sys42.windows.info-tip:Hello world!
+```
+
+Or for that matter ...
+
+```
+eval:"sys42.windows.info-tip:Hello world!"
 ```
 
 ### Sandboxing your lambda with [eval-whitelist]
@@ -151,7 +157,7 @@ The last overload, namely **[eval-mutable]**, is for the most parts for keyword 
 
 First of all, passing in arguments, or returning arguments from it, is meaningless. Because it has access to the entire tree, or lambda object anyways. This point makes it also quite dangerous in day to day use, since its execution can potentially change any parts of your lambda object. For an Active Event such as **[add]** or **[set]**, this is necessary and wanted behavior. However, for a lambda object, you want to execute yourself, this might create some quite severe side-effects.
 
-The **[eval-mutable]** does for one, *not* execute a copy of the lambda object, but executes the object directly, which is why it is called *"mutable"*. Because it potentially *mutates* your code.
+The **[eval-mutable]** does for one, *not* execute a copy of the lambda object, but executes the object directly, which is why it is called *"mutable"*. Because it potentially *"mutates"* your code.
 
 Unless you are very certain about what you are doing, stay away from it. Besides from the *"keywords"* of P5, there's only one place in System42 I use it myself. And even here, I take great care, to make sure it doesn't produce unwanted side effects.
 

@@ -2,7 +2,7 @@
 
 Active Events, as previously discussed, is a replacement to *"functions"* or *"methods*".
 
-So what is an Active Event? Short answer; Everything! The 42 of P5! In fact, the only thing you have done so far, is invoking Active Events. The **[sys42.windows.confirm]** parts from one of our previous chapters, is an Active Event. The **[set]** parts we've used several times during the course of this book, also happens to be an Active Event. Active Events is the axiom, at which P5, and Hyperlambda, evolves around.
+So what is an Active Event? Short answer; Everything! The 42 of P5! In fact, the only thing you have done so far, is invoking Active Events. The **[sys42.windows.confirm]** parts from one of our previous chapters, is an Active Event. The **[set]** parts we've used several times during the course of this book, also happens to be an Active Event. Active Events is the axiom, at which P5 and Hyperlambda evolves around.
 
 ## Your first Active Event
 
@@ -135,7 +135,7 @@ What happens in our above example, is that we pass in a lambda object, intended 
 
 The simplicity of passing around such *"execution objects"* to other parts of your code, providing callbacks to other lambda objects, is the reason why Hyperlambda got its name. You can easily pass in such lambda objects, to web service endpoints, completely reversing the responsibility of the client and the server. For the record, you can also do this *safely*.
 
-> In P5 eval is not (necessarily) evil.
+> In P5 eval is not (necessarily) evil
 
 Notice, the **[eval]** Active Event, can also pass in arguments to your evaluated lambda objects, the exact same way you can pass in arguments to an Active Event. An evaluated lambda object, can also return values, the same way an Active Event can. Arguably hence, a lambda object evaluated using **[eval]**, becomes the equivalent of an *"anonymous function object"*, which is capable of being (almost) perfectly interchanged with an Active Event invocation.
 
@@ -146,6 +146,10 @@ Notice, the **[eval]** Active Event, can also pass in arguments to your evaluate
 Doing such a thing, is probably not wise though - Since ignored arguments, must still be passed into your Active Events, rendering your system's state, such that it contains *dead code*. In addition, of course, this makes your system more difficult to understand, since others will have difficulties in understanding your code, by looking at it, believing arguments that are *"dead"*, carries semantic meaning. In comparison to a strongly typed programming language, such as C#, which gives you compiler errors if you did the same - This might sometimes be a challenge for you, as you modify existing Active Events, removing old arguments, not in use anymore.
 
 However, this is also the strength of Hyperlambda, since it allows you to modify existing events, taking additional arguments, without breaking existing code.
+
+> In Hyperlambda, versioning your Active Events, and having different versions, of different systems, invoking events from each other - Rarely creates any problems for you
+
+Compare the above to the _"interface nightmare"_ from e.g. DirectX or other statically typed programming languages and/or frameworks, which needs a new version, of every single interface, every time they apply a change.
 
 ## Non-existing Active Events
 
@@ -202,7 +206,7 @@ There are only 3 restrictions to what you can name your Active Events.
 * You cannot start your event name with a period "."
 * You cannot create an even who's name is "" (empty string)
 
-These restrictions applies only to Hyperlambda though. The reason is that Active Events starting with either a ".", or a "\_", are considered *"private core Active Events"*. You can create such events, but only from C#. In addition, you cannot invoke such Active Events from Hyperlambda, since the **[eval]** Active Event ignores all nodes starting with either "." or "\_", rendering your events useless, if you could create them. The Hyperlambda **[eval]** event, will neither attempt to raise any events having an empty name. Notice, you can however create Active Events in C# starting with ".", "_", or having an empty name "". This is often useful in fact too.
+These restrictions applies only to Hyperlambda though. The reason is that Active Events starting with either a ".", or a "\_", are considered *"private core Active Events"*. You can create such events, but only from C#. In addition, you cannot invoke such Active Events from Hyperlambda, since the **[eval]** Active Event ignores all nodes starting with either "." or "\_", rendering your events useless, if you could create them. The Hyperlambda **[eval]** event, will neither attempt to raise any events having an empty name. Notice, you can however create Active Events in C# starting with ".", "_", or having an empty name "". This is often useful too in fact.
 
 The "" for Active Event for instance, is a special event name, that can also exclusively be created from C#. This event will handle *all* Active Events, and allows you to tap into the core Active Event *"kernel"*, and modify its behavior.
 
@@ -228,6 +232,6 @@ There are some rare exceptions to the above rules though, such as if you create 
 
 I often encourage people to pass in lambda objects, intended for execution, by starting their names with a ".". First of all, this will make the intellisense parser of the Hyperlambda code editor mark your lambda object as an *"execution object"*. Secondly, it makes such execution objects more easily tracked, and increases the readability of your code. So even though this is not technically a prerequisite, I find this myself, to be a useful convention.
 
-Other types of arguments, I encourage people to simply pass in with an intelligent name, not pre-prending anything in front of the argument. In a previous version of the **[eval]** event, the expectation was to prepend arguments to lamdba objects with an underscore "_". This i **no longer the case** - And the only reason why there are still any events that even uses this convention, is for historical reasons, to be backwards compatible. I don't encourage people to use this syntax anymore, since a lambda object will not execute any of its arguments any ways, but *"offset"* the execution pointer, to the first *"non-argument part"* of your lambda object.
+Other types of arguments, I encourage people to simply pass in with an intelligent name, not pre-prending anything in front of the argument. In a previous version of the **[eval]** event, the expectation was to prepend arguments to lamdba objects with an underscore "_". This is **no longer the case** - And the only reason why there are still any events that even uses this convention, is for historical reasons, to be backwards compatible. I don't encourage people to use this syntax anymore, since a lambda object will not execute any of its arguments any ways, but *"offset"* the execution pointer, to the first *"non-argument part"* of your lambda object.
 
 [Chapter 12, Eval is not (necessarily) evil](chapter-12.md)

@@ -6,7 +6,7 @@ In the introduction to this book, we discussed how Hyperlambda have more *femini
 
 But first a disclaimer. The name of this chapter might sound absurd for the uninitiated. However, before you discarding the chapter entirely, let me start out with a statement. 
 
-> I agree with everything you say.
+> I agree with everything you say
 
 I am not sure if my last statement made this chapter sound even more absurd, or if it changed your perception - But let me explain anyway.
 
@@ -30,7 +30,7 @@ This process can only occur, if you focus more on what you *agree* with the pers
 
 From a Neuro Linguistic Programming point of view, it first of all changes the way you think, making you become less certain. Secondly, as it does, it trains your mind, to be able to reproduce this process in others.
 
-Its greater amount of cohesion, also tends to reflect unto your communication skills, and make you more *precise* in regards to your communication - While still, retaining your *softness*, making you appear to be everybody's friend - Which paradoxically inevitably is one its side-effects.
+Its greater amount of cohesion, also tends to reflect unto your communication skills, and make you more *precise* in regards to your communication - While still retaining your *softness*, making you appear to be everybody's friend - Which paradoxically inevitably is one its side-effects.
 
 ## The toughest man on Earth
 
@@ -38,10 +38,10 @@ Arguably, the toughest man that ever lived, was Bruce Lee. Few would object to t
 
 I'd therefor like to do something which is probably highly unusual to do in a book about programming, supposedly intended to be a purely *logical thing* - Which is to finish this chapter with a poem. Which was given by Bruce Lee, in the forms of an interview.
 
-> Empty your mind. Be formless, shapeless, like water. Now you put water into a cup, it becomes the cup. You put water into a bottle, it becomes the bottle. You put water into a teapot, it becomes the teapot. Water can flow, or it can crash. Be water my friend.
+> Empty your mind. Be formless, shapeless, like water. Now you put water into a cup, it becomes the cup. You put water into a bottle, it *becomes* the bottle. You put water into a teapot, it *becomes* the teapot. Water can flow, or it can crash. Be water my friend
 
-Hyperlambda is water!
+Hyperlambda is water
 
-If you wish to see the video, where he is giving this interview, you can see it [here](https://www.youtube.com/watch?v=cJMwBwFj5nQ). It's really quite fascinating to see him give his speach about water in fact!
+If you wish to see the video, where he is giving this interview, you can see it [here](https://www.youtube.com/watch?v=cJMwBwFj5nQ). It's really quite fascinating to watch him.
 
 [Chapter 14, Your second real application](chapter-14.md)

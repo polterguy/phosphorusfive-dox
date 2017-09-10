@@ -10,7 +10,7 @@ A lambda expression is declared with the type declaration of `:x:`. If you wish 
 
 **Definition, advanced part**; The correct scientific name for lambda expressions is; *"Hyperdimensional boolean algebraic graph object expressions"*, because they allow you to use boolean algebra, to create sub tree results, out of other trees. This results in creating a *"hyperplane"* through your graph objects, which again results in retrieving a sub-portion of your tree structures. If you imagine your graph objects as an n dimensional tree structure, then lambda expressions allows you to create n+1 dimensions through these graph objects. These expressions extracts a sub-portion of your tree, and yields its results, as a new tree. Each expression, creates a new *"dimension"* through your tree. Such dimensions are often referred to as *"hyperplanes"*.
 
-To make this easier to visualise, think of lambda expressions as the equivalent to tree structures as SQL is to tables. A lambda expression creates a new tree structure, from another source tree structure. This resulting tree structure can have zero, one, or more nodes in it.
+To make this easier to visualise, think of lambda expressions as _"SQL for tree structures"_. A lambda expression creates a new tree structure, from another source tree structure. This resulting tree structure can have zero, one, or more nodes in it.
 
 The expression itself, can contain 3 different segments, all of which are optional to declare.
 
@@ -57,7 +57,7 @@ set:x:/@_foo?name
   src:Jo dude
 ```
 
-Using **[set]**, you can also change the entire node, by using `?node` as your expression's type declaration. The node is the default type declaration, if you do not supply one. Below is an example;
+Using **[set]**, you can also change the entire node, by using `?node` as your expression's type declaration. The node itself is the default type declaration, if you do not supply one - Hence you don't need to supply the `?node` type declaration. Below is an example;
 
 ```
 _foo
@@ -104,7 +104,7 @@ _foo
 
 Notice, after evaluation of the above Hyperlambda, only the first **[_foo]** node will have its value changed. This is because the second **[_foo]**, inside of our **[_bar]** node, is not an elder sibling, or direct elder relative in any ways, of the identity node of **[set]**. Hence, it is not found *"within the scope"* of our identity node, where our expression starts looking for a match.
 
-If you tried something like the following though, only the last **[_foo]** node would have its value changed. This is because the *"named elder relative"* iterator, will stop iterating, once it finds its first match. This iterator always returns exactly one node.
+If you tried something like the following though, only the last **[_foo]** node would have its value changed. This is because the *"named elder relative"* iterator, will stop iterating, once it finds its first match. This iterator always returns exactly one node, or a null result if it cannot find a match.
 
 ```
 _foo

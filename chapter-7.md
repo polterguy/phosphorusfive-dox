@@ -4,7 +4,7 @@ In this chapter, we will create a contacts application, allowing us to keep trac
 
 ![alt tag](screenshots/chapter-7-1.png)
 
-Before we can dive into our application though, there are some few concepts we'll need to cover first.
+Before we can dive into our application though, there are some concepts we'll need to cover first.
 
 * Loading and saving of files
 * Parts of the folder structure of Phosphorus Five
@@ -15,13 +15,13 @@ Before we can dive into our application though, there are some few concepts we'l
 
 In P5, there are two important events for loading and saving files. These are **[load-file]** and **[save-file]**. Before we start using them though, we'll need to have a look at the folder structure of P5.
 
-Please open up the folder *"/phosphorusfive/core/p5.webapp/"*. This is the main root folder for your web application. The most important folder for this chapter is called *"users"*. This folder will contain one folder for each user you have in your P5 installation. By default, P5 has only one user, which is your *"root"* user - So typically as you start out with P5, there will only be one folder inside of your *"users"* folder. This folder will be the *"root"* folder.
+Open up the folder *"/phosphorusfive/core/p5.webapp/"*. This is the main root folder for your web application. The most important folder for this chapter is called *"users"*. This folder will contain one folder for each user you have in your P5 installation. By default, P5 has only one user, which is your *"root"* user - So typically as you start out with P5, there will only be one folder inside of your *"users"* folder. This folder will be the *"root"* folder.
 
-Inside of your user's folder, the *"root"* folder that is, you can find a *"documents"* folder. This is the equivalent of *"Your documents"* in windows, or *"Home"* on Linux. This is important to understand for this chapter, since we will store our *"database"* within this folder. Our file will be named *"adr.hl"*. The extension *".hl"* implies *"[H]yper - [L]ambda"*.
+Inside of your user's folder, the *"root"* folder that is, you can find a *"documents"* folder. This is the equivalent of *"Your documents"* in windows, or *"Home"* in Linux. This is important to understand for this chapter, since we will store our *"database"* within this folder. Our file will be named *"adr.hl"*. The extension *".hl"* implies *"[H]yper - [L]ambda"*.
 
 Your *"documents"* folder, contains two folders. One *"private"* folder, and another *"public"* folder. We will be using the *"private"* folder, to store a file, containing the data for our CRUD application. Files inside of this folder, cannot in general, be accessed by anyone, except the user whom these files belongs to. Hence, they are your user's *"private files"*.
 
-To reference files inside of your user's home folder, can be done by prepending your path with a tilde `~`. If you start out a filename with a tilde, this will automatically save a file to your user's home folder. If you want to create a file inside of your private documents folder, you can use something resembling the following code.
+To reference files inside of your user's home folder, you can prepend your path with a tilde `~/`. If you start out a filename with a tilde, this will automatically save a file to your user's home folder. If you want to create a file inside of your private documents folder, you can use something resembling the following code.
 
 ```
 save-file:~/documents/private/foo.txt
@@ -30,11 +30,11 @@ save-file:~/documents/private/foo.txt
 
 If you execute the above code in your Apps/Executor, it will create a simple text file for you, inside of your private documents folder. To understand why, realize that the tilde `~` will be substituted with *"/users/username"*, before the file is saved. The *"username"* parts of the path, depends upon which user is logged in, invoking the **[save-file]** event.
 
-Since the root folder for *everything* related to files in P5, is the main root web application folder, this means your file can be found within *"/phosphorusfive/core/p5.webapp/users/root/documents/private/"* - Where ever that is locally within your system.
+Since the root folder for *everything* related to files in P5, is the main root web application folder, this means your file can be found within *"/phosphorusfive/core/p5.webapp/users/root/documents/private/"* - Where ever that is locally within your system. Notice, this assumes you're using the source code version of Phosphorus Five. If you have deployed your system into a Linux production environment, typically the file will end up somewhere inside of _"/var/www/html/users/root/documents/private/"_ somewhere.
 
 ## The [apply] event
 
-The **[apply]** Active event, is kind of like the *"superman version"* of **[add]** from our previous chapter. It allows you to take a data source, and combine it with a template, to create an entire hierarchy of nodes, and append into some destination.
+The **[apply]** Active event, is kind of like the *"Superman version"* of **[add]**. It allows you to take a data source, and combine it with a template, to create an entire hierarchy of nodes, and append into some destination, applying your template for each **[src]** result node set.
 
 We will be using this Active Event, to dynamically create an HTML table, from the content of your data file, containing the *"database"* for your contacts.
 
@@ -225,9 +225,9 @@ Although most of the above concepts are things we have already covered, there ar
 
 ### [apply] in details
 
-As previously mentioned, the **[apply]** Active Event, allows you to braid together a data **[src]**, with a **[template]**, and put the results into some destination. The destination is expected to be the value of the main **[apply]** node, and must be an expression leading to one or more nodes.
+As previously mentioned, the **[apply]** Active Event, allows you to braid together a data **[src]**, with a **[template]**, and put the results into some destination. The destination is expected to be the value of the main **[apply]** node, and must be an expression leading to one or more nodes. The destination must return a node somehow, usually implying it should be type declared as a `?node` type of expression. Which you may remember from a previous chapter, was the default type declaration of an expression.
 
-Its **[src]** argument, is expected to be an expression, leading to a node-set. The way to envision the **[src]** argument, is that **[apply]** iterates over its **[src]** result set, and uses the currently iterated node, as the idenity node, for creating a lambda object, based upon the **[template]**.
+Its **[src]** argument, is expected to be an expression, also leading to a node-set somehow. The way to envision the **[src]** argument, is that **[apply]** iterates over its **[src]** result set, and uses the currently iterated node, as the idenity node, for creating a lambda object, based upon the **[template]**.
 
 The **[template]** hence, is being created once for each result from the **[src]** expression, having every iteration, use the currently iterated **[src]** node, as its identity node.
 
@@ -260,9 +260,7 @@ load-file
 /* ... rest of code ... */
 ```
 
-So what our **[src]** argument to **[apply]** is actually pointing to, are the **[item]** nodes returned from **[load-file]**.
-
-It probably helps to lock this mental picture into your mind, and realize that the **[src]** expression to **[apply]** hence, is actually iterating over every single **[item]** from your database file.
+So what our **[src]** argument to **[apply]** is actually pointing to, are the **[item]** nodes returned from **[load-file]**. It probably helps to lock this mental picture into your mind, and realize that the **[src]** expression to **[apply]** hence, is actually iterating over every single **[item]** from your _"database file"_.
 
 This means that when we write `:x:/*/name?value` inside of a databound node, like we do in our first data bound node at line 144, this expression is for the first iteration of our **[src]** argument, relative to the first **[item]** from the results of our **[load-file]** invocation above. For the second iteration, it is relative to the second **[item]**, and so on. So what is added to our **[widget]** hierarchy, becomes something similar to the following.
 
@@ -336,9 +334,7 @@ If you find the **[apply]** event to be confusing, you can watch [this video](ht
 
 ### [lambda2hyper], converting lambda to Hyperlambda
 
-The above **[lambda2hyper]** Active Event, which we use at line 87 in our code, simply converts a piece of lambda to a string, resembling its Hyperlambda version. There also exists a **[hyper2lambda]** event, which does the opposite. These events are useful for transforming lambda objects to strings, and vice versa - Such as when we want to save a lambda object to disc, or use it as a string for some reason.
-
-Both of these two events should be relatively self explaining.
+The above **[lambda2hyper]** Active Event, which we use at line 87 in our code, simply converts a piece of lambda to a string, resembling its Hyperlambda version. There also exists a **[hyper2lambda]** event, which does the opposite. These events are useful for transforming lambda objects to strings, and vice versa - Such as when we want to save a lambda object to disc, or use it as a string for some reason. Both of these two events should be relatively self explaining.
 
 ### Our "wizard" window
 
