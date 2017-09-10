@@ -79,7 +79,7 @@ Notice the difference in the result set of the descendants iterator, and the chi
 
 ## Distinct name iterator
 
-This iterator always looks like the following `/$`, and will yield all distinct names it can find from its previous result set, yielding the first it finds, ignoring all consecutive matches having the same names as a previous hit. The comparison is case sensitive, using the invariant culture to compare its matches. Like all iterators do in P5.
+This iterator always looks like the following `/$`, and will yield all distinct names it can find from its previous result set, yielding the first it finds, ignoring all consecutive matches having the same names as a previous hit. The comparison is case sensitive, using the invariant culture to compare its matches - Like all iterators do in P5.
 
 ```
 _foo
@@ -113,9 +113,9 @@ _foo
   foo1-HIT:thomas
     foo1_1-HIT:hansen
     foo1_2-MISS:thomas
-  foo1-HIT:john
+  foo2-HIT:john
     foo2_1-MISS:hansen
-    foo1_2-MISS:john
+    foo2_2-MISS:john
 
 // Returns all names of the distinct values from the above [_foo] node.
 src:x:/../*/_foo/**/=$?name
@@ -127,7 +127,7 @@ Which results in the following.
 src
   foo1-HIT
   foo1_1-HIT
-  foo1-HIT
+  foo2-HIT
 ```
 
 ## Modulo iterator
@@ -256,7 +256,7 @@ src
 
 ## Reference iterator
 
-Yields the value of the previous result set, converted into a node, preferably by reference, allowing you to change the node accordingly if possible.
+Yields the value of the previous result set, converted into a node, preferably by reference, allowing you to change the node accordingly if you wish.
 
 ```
 _data:node:"foo-inner:INITIAL-VALUE"
@@ -355,7 +355,7 @@ src
   foo5
 ```
 
-See the comments for the left shift iterator, to understand what "shifting" a node result actually means.
+See the comments for the left shift iterator, to understand what _"shifting"_ a node result actually means.
 
 ## Younger sibling iterator
 
@@ -375,9 +375,9 @@ src
   foo1
 ```
 
-Notice, both the younger and elder sibling iterators will actually roundtrip to the beginning, if you proved a number, which is higher than that which can be found in the result set. This means that you can use it to find for instance the "last child node", by doing something like the following `/0/-`.
+Notice, both the younger and elder sibling iterators will actually roundtrip to the beginning, if you proved a number, which is higher than that which can be found in the result set. This means that you can use it to find for instance the _"last child node"_, by doing something like the following `/0/-`.
 
-Also notice that the number is optional, and if not supplied, will default to a value of "1". This is true for both the younger and the elder sibling iterator.
+Also notice that the number is optional, and if not supplied, will default to a value of 1. This is true for both the younger and the elder sibling iterator.
 
 ## Elder sibling iterator
 
@@ -441,7 +441,7 @@ src
 
 By intelligently combining your iterators, you can often reduce what would require hundreds of lines of code in e.g. traditional C#, to a single expression in P5 - Removing all recursive method/function invocations in the process.
 
-Imagine you have a tree, where you wish to update every single value part of your tree, to a single value, depending upon some criteria. This is easily done with a single expression in Hyperlambda - While in C# it would require reursive method invocations, and lots of complicated ideas, that are especially difficult to understand for noobs. Below is an example, of a piece of lambda, that updates every single CSS class, of all of our "buttons" HTML elements, recursively, without using recursion.
+Imagine you have a tree, where you wish to update every single value part of your tree, to a single value, depending upon some criteria. This is easily done with a single expression in Hyperlambda - While in C# it would require reursive method invocations, and lots of complicated ideas, that are especially difficult to understand for noobs. Below is an example that updates every single CSS class, of all of our "buttons" HTML elements, recursively, without actually using recursion.
 
 ```
 create-widget
@@ -469,9 +469,9 @@ set:x:/@create-widget/**/literal/*/element/=button/./*/class?value
   src:NEW-CLASS
 ```
 
-In most traditional programming languages, the above would require at dozens of lines of code, possibly more - In addition to possibly also recursive function or method invocations. In P5 it's **2 lines of code**!
+In most traditional programming languages, the above would require dozens of lines of code, possibly more - In addition to possibly also recursive function or method invocations. In P5 it's 2 lines of code!
 
-Lambda expressions, and its iterators, might seem difficult to grasp when you start out with them. But after a while, you will notice how they allow you to _do a lot with very little effort_. This trait is something that lambda expressions share with e.g. SQL. SQL is often said to be a "what" language, and not a "how" language. This is why you can get away with tiny SQL statements, doing a lot of things for you. The same is true for lambda expressions, and its iterators - Except, where SQL selects from tables or two dimensional matrixes, lambda expressions selects from graph objects, and 3 dimensional tree structures.
+Lambda expressions, and its iterators, might seem difficult to grasp when you start out with them. But after a while, you will notice how they allow you to _do a lot with very little effort_. This trait is something that lambda expressions share with e.g. SQL. SQL is often said to be a _"what"_ language, and not a _"how"_ language. This is why you can get away with tiny SQL statements, doing a lot of things for you. The same is true for lambda expressions, and its iterators - Except, where SQL selects from tables or two dimensional matrixes, lambda expressions selects from graph objects, and 3 dimensional tree structures.
 
 In fact, the scientific theory they build upon, is the construction of _"hyperplanes"_, through another pre-existing 3 dimensional graph object. Simply because they create another dimension, cutting through your existing 3 dimensional structures, extracting parts of the original result set. Don't let these difficult mathematical theories scare you though, since it's simply the theory behind them, and is not necessary in order to understand them, or use them in your own software.
 

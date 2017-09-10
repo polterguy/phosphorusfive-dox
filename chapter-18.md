@@ -18,13 +18,13 @@ If you execute the above code in System42's executor, you will see its result. T
 All branching Active Events in Phosphorus Five obeys by the same logic. Basically, there are a handful of comparison Active Events which you can use.
 
 - **[=]** checks for equality
-- **[!=]** checks for ineauality
+- **[!=]** checks for inequality
 - **[>]** checks for more than
 - **[<]** checks for less than
 - **[>=]** checks for more than or equals
 - **[<=]** checks for less than or equals
-- **[~]** checks for "contains" (only useful when comparing strings)
-- **[!~]** checks for "not contains" (only useful when comparing strings)
+- **[~]** checks for _"contains"_ (only useful when comparing strings)
+- **[!~]** checks for _"not contains"_ (only useful when comparing strings)
 
 All the above _"operators"_ are actually Active Events themselves, and these operators can easily be extended with your own comparison events.
 
@@ -41,7 +41,7 @@ if:x:/@_data1?value
     =:bar
   sys42.windows.info-tip:Foo and bar where happily drinking beer!
 else
-  sys42.windows.info-tip:Either foo or bar or both had a hangover today!
+  sys42.windows.info-tip:Either foo, bar or both had a hangover today!
 ```
 
 In order for the above **[if]** Active Event to evaluate its lambda object, both **[if]** and **[and]** needs to evaluate to true. Notice, when creating more complex conditions, such as the above is an example of, it is often useful to create some comments, to explain to the reader of our code, where the actual lambda object starts. Below is an example of the exact same code as above, only slightly more readable.
@@ -69,13 +69,13 @@ else
 
 The above syntax might seem weird to developers who are used to C# or JavaScript, but remember that a lambda object, is a tree structure, or a graph object - And that this creates some syntactic differences, which has some advantages, and some disadvantages.
 
-The disadvantage, is that creating compound conditions for your branching invocations, becomes slightly more _"verbose"_. The advantage, is that it becomes much more easy to figure out, also in automated processes, what your branching invocations are actually doing - And in fact, also modify them, using the meta cognition capabilities of a lambda object.
+The disadvantage, is that creating compound conditions for your branching invocations, becomes slightly more _"verbose"_. The advantage, is that it becomes much more easy to figure out, also in automated processes, what your branching invocations are actually doing - And in fact, also modify them, using the meta cognitive capabilities of a lambda object.
 
 Below is a list of all the boolean algebraic compound Active Events in P5.
 
-* [or] one of the conditions must evaluate to true
-* [and] both conditions must evaluate to true
-* [not] negates the previous _"conclusion"_
+* __[or]__ one of the conditions must evaluate to true
+* __[and]__ both conditions must evaluate to true
+* __[not]__ negates the previous _"conclusion"_
 
 These boolean algebraic operators works similarly to how they work in other programming languages. For an understanding of what boolean algebra actually is, you can read the appendix on [lambda expressions](appendix-expressions-boolean-algebra.md). Logically boolean algebra on branching conditions, works similarly to boolean algebra on lambda expressions. Except there is no _"XOR"_ operator while branching.
 
@@ -96,7 +96,7 @@ while:x:/@_data/0
   set:x:/@_data/0
 ```
 
-The above **[while]** simply evaluates its lambda object, for as long as there exists a zero'th child beneath **[_data]**. Resulting in the creation of three widgets on your page.
+The above **[while]** simply evaluates its lambda object, for as long as there exists a zero'th child beneath **[_data]**. Then at the end of each iteration, it will remove the zero'th child of **[_data]** - Resulting in the creation of three widgets on your page.
 
 The above shows a crucial point for the record, which is implicit conversion due to existence of some value, name, or node. Basically, the rule-set will check to see if the result of the expression it is given exists, and if it does, it will evaluate to true, unless it is of type boolean, and has the value of false. The above **[while]** example, could have been created like the following.
 
@@ -142,7 +142,7 @@ while:x:/@_data/0
   // set:x:/@_data/0
 ```
 
-As you can see, after 5.000 iterations, our above **[while]** loop will throw an exception, and stop executing. If you have a loop, where you actually need more than 5.000 iterations, you can add up an **[_unchecked]** argument to your **[while]** loop, and set its value to boolean true. Don't do it with the above code though, unless you want to crash your web server process!
+As you can see, after 5.000 iterations, our above **[while]** loop will throw an exception, and stop executing. If you have a loop, where you actually need more than 5.000 iterations, you can add up an **[_unchecked]** argument to your **[while]** loop, and set its value to boolean true. Don't do it with the above code though, unless you want to crash your web server process.
 
 ## The "contains" operators
 

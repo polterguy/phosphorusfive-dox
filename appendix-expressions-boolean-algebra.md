@@ -73,7 +73,7 @@ Going back to our original figure, this means what we are extracting from our re
 
 ![alt tag](screenshots/boolean-algebra-XOR.png)
 
-XOR is said to return the *"product"* of our expressions, minus the UNION or the *"intersection"*. It doesn't matter which expression you start out with, and which you end with, when you XOR two expressions together. Even if you flip your expressions around, the result will still be the same.
+XOR is said to return the *"product"* of our expressions, minus the UNION or the *"intersection"*. It doesn't matter which expression you start out with, and which you end with when you XOR two expressions together. Even if you flip your expressions around, the result will still be the same.
 
 ### Logical NOT
 
@@ -169,9 +169,7 @@ eval:x:/@.exe
 
 What the above example does, is to use the _"unique name iterator"_ (the `$` iterator), to make sure it only selects the first node from its result set, having the name of _"foo"_. This means that if you supply an argument named **[foo]** to your above **[eval]**, then your **[.exe]** lambda object will use this argument. If you do not supply any **[foo]** argument, the lambda will use the value inside of its **[.defaults]** segment. Try removing the **[foo]** node at the bottom of your code, and see the difference in the result.
 
-The above is a commonly used lambda expression, for applying default arguments to lambda objects and Active Events.
-
-Another really nifty Ninja trick, is to defer the boolean algebraic operators, and make them become arguments. For instance, imagine we create an Active Event such as the following.
+The above is a commonly used lambda expression, for applying default arguments to lambda objects and Active Events. Another really nifty Ninja trick, is to defer the boolean algebraic operators, and make them become arguments. For instance, imagine we create an Active Event such as the following.
 
 ```
 create-event:sys42.foo-bar-example
