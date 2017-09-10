@@ -1,8 +1,8 @@
 # FYI, P5 is fork friendly, and free-fusable
 
-Linguistics are funny, especially when you start perceiving them from a poetic point of phew ;) - I like to think that the poetic ambiguity of P5 is one of the intrinsic qualities you will find very soothing in your life together with it.
+Linguistics are funny, especially when you start perceiving them from a poetic point of phew. I like to think that the poetic ambiguity of P5 is one of the intrinsic qualities, you will find very soothing, as you start understanding P5 really well.
 
-One interesting feature of our CRUD database layer from our previous chapter, is that it is (almost) *100% generic*. Which means that we can *extract* its core parts, and create a 100% perfectly encapsulatet and re-usable set of components. This helps us accommodate for future change, *without* breaking the rules of *"YAGNI"*.
+One interesting feature of our CRUD database layer from our previous chapter, is that it is (almost) *100% generic*. Which means that we can *extract* its core parts, and create a 100% perfectly encapsulated and re-usable set of components. This helps us accommodate for future change, *without* breaking the rules of *"YAGNI"*.
 
 **Definition**; YAGNI means *"You Ain't Gonna Need It"*, and implies you should never implement something you'll probably never need. This important design principle, often contradicts another important design principle of OOP - Which is that you should expect change. Hence, the art of balancing YAGNI, with the design principles necessary to accommodate for future change - Often times seems like an impossible task.
 
@@ -22,10 +22,10 @@ In our previous chapter, we used the P5 database, and discussed how it doesn't s
 
 We will be creating 4 Active Events. These events will have the following names.
 
-* sys42.examples.data.create
-* sys42.examples.data.read
-* sys42.examples.data.update
-* sys42.examples.data.delete
+* __[sys42.examples.data.create]__
+* __[sys42.examples.data.read]__
+* __[sys42.examples.data.update]__
+* __[sys42.examples.data.delete]__
 
 By never using the P5 database directly, but always going through the above Active Events - We can entirely change the underlaying database implementation, *without* breking any of our apps.
 
@@ -304,7 +304,7 @@ Sorry; **You Ain't Gonna Need It!** Hyperlambda simply more easily allows you to
 
 Another beautiful concept, hopefully intuitively understood from our above example, is the fact that inevitably, as your solutions becomes more and more popular - Other app developers will realise they can consume your components, to add value to their own apps. At which point you are no longer an *"app developer"*, but in fact a *"platform vendor"*, allowing you to have others build value on top of your solutions.
 
-Being a platform vendor is almost one of the inevitable consequences of using P5, because no app can be perceived as being isolated from any other app, running on the same system. The reasons for this, is because while in other programming languages, creating reusable software, is a tedious and difficult task - In P5, it is almost implicitly given, that whatever you create, becomes reusable. This is due to that all lambda objects are created as equals. The Liskov Substitution Principle, has effectively been rendered *obsolete*. In P5, almost everything you can in theory create, is in practice reusable.
+Being a platform vendor is almost one of the inevitable consequences of using P5, because no app can be perceived as being isolated from any other app, running on the same system. The reasons for this, is because while in other programming languages, creating reusable software, is a tedious and difficult task - In P5, it is almost implicitly given, that whatever you create becomes reusable. This is due to that all lambda objects are created as equals. The Liskov Substitution Principle, has effectively been rendered *obsolete*. In P5, almost everything you can in theory create, is in practice reusable.
 
 Imagine if every single time you created a project, you could reuse all of its code, in all of your future projects. What would this do to your productivity? Would this give you a competetive edge?
 

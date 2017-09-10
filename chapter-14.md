@@ -13,7 +13,7 @@ In addition, we will vaguely touch upon the math parts of P5, adding and subtrac
 
 We will cretate 4 Hyperlambda files, encapsulating all of our 4 CRUD operations; (C)reate, (R)ead, (U)pdate and (D)elete. This is not a technical prerequiste, but makes it easier for us to apply changes to our app in the future. An example might include changing from the P5 database, to a more scalable database.
 
-By hiding the internals of our app, inside our our CRUD database layer, we accommodate for future change, and our application achieves a higher degree of encapsulation.
+By hiding the internals of our app, inside our CRUD database layer, we accommodate for future change, and our application achieves a higher degree of encapsulation.
 
 We will also create the app as a *"CMS app"*, which means that it will be declared as a folder inside of our *"/phosphorusfive/core/p5.webapp/system42/apps/"* folder. This is the preferred way to create more complex apps, consisting of multiple files, since it allows for what is often referred to as *"XCopy deployment"*. The latter implies, that you can simply copy the entire folder where your app is declared, and distribute it to others, having them paste the folder into their *"/apps/"* folder. This give you yet another very useful distribution model for your apps. Especially apps of more complex nature.
 
@@ -23,11 +23,11 @@ Our end result will resemble the following screenshots.
 
 ![alt tag](screenshots/chapter-14-1.png)
 
-Above you can see that we have two pager buttons, which allows the user to move back and forward in his list of contacts. In addition, we have a *"Create"* button, that allows him to create a new contact. When he creates, or edits an existing contact, his form will look like the following.
+Above you can see that we have two pager buttons, which allows the user to move back and forward in the list of contacts. In addition, we have a *"Create"* button, that allows the user to create a new contact. When the user creates, or edits an existing contact, the form will look like the following.
 
 ![alt tag](screenshots/chapter-14-2.png)
 
-When he tries to delete a user, he will get a modal warning, asking him to confirm deletion.
+When the user tries to delete an entry, a modal warning will be shown, asking the user to confirm deletion.
 
 ![alt tag](screenshots/chapter-14-3.png)
 
@@ -35,9 +35,9 @@ Basically, the app contains most things you'd expect from a CRUD app. The app wi
 
 ## Let's begin
 
-First create a folder named *"contacts"* inside of your *"/core/p5.webapp/system42/apps/"* folder. We will put our entire application into this folder.
+First create a folder named *"contacts"* inside of your *"/core/p5.webapp/modules/system42/apps/"* folder. We will put our entire application into this folder.
 
-Create a file called *"launch.hl"* inside of your *"/contacts/"* folder. The name of this file is important, since the CMS in System42, will look for a file with that exact name inside of your folder. If the CMS finds this file, it will create a menu item, automatically for us, inside of our *"Apps"* menu dropdown. When this menu item is clicked, it will execute our *"launch.hl"* file. Hence, this file's path, becomes our *"desktop icon"* to launch our app, in addition to its main startup logic. Our *"launch.hl"* file will contain most of our application's code.
+Create a file called *"launch.hl"* inside of your *"/contacts/"* folder. The name of this file is important, since the CMS in System42, will look for a file with that exact name inside of your folder. If the CMS finds this file, it will create a menu item, automatically for us, inside of our *"Apps"* menu dropdown. When this menu item is clicked, it will execute our *"launch.hl"* file. Hence, this file's path, becomes our *"menu item"* to launch our app, in addition to its main startup logic. Our *"launch.hl"* file will contain most of our application's code.
 
 **system42/apps/contacts/launch.hl**
 
@@ -512,16 +512,16 @@ select-data
 
 As previously mentioned, the P5 database stores its items in memory. This makes it perform extremely fast, but also scale relatively badly. It consists of 4 basic Active Events.
 
-* [select-data] - Selects items from your database
-* [insert-data] - Inserts items
-* [delete-data] - Deletes items
-* [update-data] - Updates items
+* __[select-data]__ - Selects items from your database
+* __[insert-data]__ - Inserts items
+* __[delete-data]__ - Deletes items
+* __[update-data]__ - Updates items
 
 It also contains an additional Active Event called **[append-data]**, that works similarly to **[insert-data]** - Except it forces the item(s) to be inserted at the *end* of our database.
 
-Although the database is memory based, it still persists its items to disc. This means that if you reboot your server, or your web server process is recycled, your items are still there.
+Although the database is memory based, it still persists its items to disc. This means that if you reboot your server, or your web server process is recycled, your items are still there. The database layer is also thread safe.
 
-The database internally actually stores its items as simple Hyperlambda files. And you can see this for yourselves, by looking at the *"/phosphorusfive/core/p5.webapp/db/db0/"* folder. By default, it will create one Hyperlambda file, for every 32 items you insert into it. It will also create 256 such files, for every folder within its main root folder. This makes changes to the database execute faster, since it doesn't have to persist the entire database upon every change, but only a sub-section of its files. It also ensures that your file system stays responsive, by not putting too many files into one folder - Which among other things tends to make the Windows file systems respond more slowly.
+The database internally actually stores its items as Hyperlambda files. And you can see this for yourselves, by looking at the *"/phosphorusfive/core/p5.webapp/db/db0/"* folder. By default, it will create one Hyperlambda file, for every 32 items you insert into it. It will also create 256 such files, for every folder within its main root folder. This makes changes to the database execute faster, since it doesn't have to persist the entire database upon every change, but only a sub-section of its files. It also ensures that your file system stays responsive, by not putting too many files into one folder - Which among other things tends to make the Windows file systems respond more slowly.
 
 As you insert a lot of items into the database, more and more files will be created. And is you insert more than 32x256 items, a new folder called *"db1"* will be created. The database could in fact, in theory, have been implemented in Hyperlambda - However, it is implemented in C#, within the *"p5.data"* project of P5.
 
@@ -535,7 +535,7 @@ select-data:x:/*/*/p5.page
 
 #### Practical use-cases for P5's database
 
-As previously mentioned, the P5 database stores its items in memory, making it unsuitable for *"big data"*. However, for smaller data-sets, such as a user's settings, and other types of data, which you know will not exceed some sort of threshold in size, it is perfect. This is especially true, if you require your data to be retrieved rapidly, repeatedly, and frequently. I tend to look at the P5 database, as a type of *"Windows registry"* type of storage.
+As previously mentioned, the P5 database stores its items in memory, making it unsuitable for *"big data"*. However, for smaller data-sets, such as a user's settings, and other types of data, which you know will not exceed some sort of threshold in size, it is perfect. This is especially true, if you require your data to be retrieved rapidly, repeatedly, and frequently. I tend to look at the P5 database, as a type of *"Windows registry"* type of storage, mostly for settings and such.
 
 P5 contains a MySQL data adapter though, for larger data sets, which you can use when you have thousands of records, and the p5.data memory based database simply won't cut it.
 
@@ -543,7 +543,7 @@ P5 contains a MySQL data adapter though, for larger data sets, which you can use
 
 In our **[onclick]** Ajax event handler, at line 238, we have a couple of invocations to **[+]** and **[-]**. The same is true for our **[onclick]** at line 213. These are math Active Events, allowing us to add and subtract, either some constants, or the result of an expression, from another constant or expression's result.
 
-We will cover these in a later chapter, however, if you twist your brain hard, you can probably figure out what they do. Hint; Use `sys42.windows.show-lambda:x:/..` to see the results of these invocations, if you are curious.
+We will cover these in one of our appendixes. However, if you twist your brain hard, you can probably figure out what they do. Hint; Use `sys42.windows.show-lambda:x:/..` to see the results of these invocations, if you are curious.
 
 In addition we haven't really dissected branching, or the **[if]** parts within our *"read.hl"* file for instance. These topics will be covered in a later chapter.
 

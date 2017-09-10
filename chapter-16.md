@@ -521,11 +521,9 @@ Separating the model and the view are often considered to be good software desig
 
 **Definition**; *"Model"* means the database access, simplified. And refers to how you access your data.
 
-Realise though, that there already exists a very decent datagrid in System42, before you spend weeks improving the above datagrid. We created the above datagrid, more to serve as an example, than to be an actual component you'd want to use in your own apps.
+Realise though, that there already exists a very decent datagrid in System42, before you spend weeks improving the above datagrid. We created the above datagrid, more to serve as an example, than to be an actual component you'd want to use in your own apps. If you would like to improve the above datagrid's architecture though, here is a list of things you'd probably want to consider improving.
 
-If you would like to improve the above datagrid's architecture though, here is a list of things you'd probably want to consider improving.
-
-* Remove the dependencies on the [sys42.examples.data.xxx] events
+* Remove the dependencies on the __[sys42.examples.data.xxx]__ events
 * Create support for multiple instances on the same page
 * Make sure the user cannot page past the end
 * Simplify the databind lambda event, by splitting it up into multiple events
