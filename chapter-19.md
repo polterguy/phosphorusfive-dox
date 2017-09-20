@@ -52,4 +52,12 @@ You must also carefully read up the documentation on [Hyperbuild](https://github
 
 But please, as you do, be aware of that you'll need a [proprietary license](https://gaiasoul.com/license) for P5 before you can distribute your apps as _"closed source"_, circumventing the GPL clause of P5. And that basically concludes our book, and you are now a professional software developer, with your own _"AppStore"_, and suite of applications - If you wish ...
 
+## Additional reading
+
+I occassionally write blogs about Phosphorus Five, Hyperlambda, and its associated technologies over at [my blog](https://gaiasoul.com) - If you're serious about learning more about Hyperlambda, you might want to follow up on that ...
+
+![alt thomas hansen](https://phosphorusfive.files.wordpress.com/2016/06/thomas.jpg)
+
+> Have a good day, a good afternoon and a good evening. And in case I don't see you before tomorrow, have a very merry night too!
+
 [Back to index](README.md)
