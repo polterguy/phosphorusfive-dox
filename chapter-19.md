@@ -34,4 +34,22 @@ As you browse your items, the above will look like the following. Notice, I have
 
 ## Installation
 
-The easiest way to install Camphora Five, is actually to [install Phosphorus Five](https://github.com/polterguy/phosphorusfive/releases) in for instance a Linux server, for then to visit the _"Bazar"_, and purchase Camphora Five. You can of course download the source code yourself, and simply put your unzipped _"camphora-five"_ folder inside of your _"/modules/"_ folder - But since you anyways need a [proprietary license](https://gaiasoul.com/license) to create proprietary apps in Phosphorus Five - You might as well purchase one now, since you'll need it if you wish to use Camphora to create and distribute proprietary apps anyways.
+The easiest way to install Camphora Five, is actually to [install Phosphorus Five](https://github.com/polterguy/phosphorusfive/releases) in for instance a Linux server, for then to visit the _"Bazar"_, and purchase Camphora Five. You can of course download the source code yourself, and simply put your unzipped _"camphora-five"_ folder inside of your _"/modules/"_ folder - But since you anyways need a [proprietary license](https://gaiasoul.com/license) to create proprietary apps in Phosphorus Five - You might as well purchase a license now, since you'll need it if you wish to use Camphora to create and distribute proprietary apps anyways.
+
+## Distributing your app (optionally for a fee)
+
+Since Phosphorus Five comes with its _"Bazar"_ integration out of the box, you can easily distribute your Camphora apps, with automated PayPal integration, by setting up your own _"Bazar"_, and using [Hyperbuild](https://github.com/polterguy/hyperbuild) to create your packages.
+
+First create a Camphora CRUD app, then make sure you've got Hyperbuild on your system, for then to simply create a package containing your app as a PGP signed package, making sure the _"web.config"_ in P5 points to your PayPal account. There are three basic settings you'll need to change in your _"web.config"_ to make this work.
+
+* paypal.sandbox
+* paypal.production
+* paypal.type
+
+The sandbox and production settins above, is the keys you get as you create a developer's account in [PayPal](https://developer.paypal.com/). The _"type"_ PayPal setting, should normally always be set to _"production"_, but if you wish to test your PayPal integration, before going live, and actually start selling your apps - You can set it temporary to _"sandbox"_, to test it out with a PayPal _"sandbox"_ account. This allows you to test your integration, to make sure your integrated PayPal experience and Bazar actually works - Before going live, and actually starting to charge for your apps.
+
+You must also carefully read up the documentation on [Hyperbuild](https://github.com/polterguy/hyperbuild), to make sure you've setup your Bazar's declaration file, and your Bazar's content files correctly, as you create your main Phosphorus Five zip distribution package. If you do however, you can very rapidly setup your own completel _"AppStore"_, charging your users for your apps, that you create using Camphora Five (for instance).
+
+But please, as you do, be aware of that you'll need a [proprietary license](https://gaiasoul.com/license) for P5 before you can distribute your apps as _"closed source"_, circumventing the GPL clause of P5. And that basically concludes our book, and you are now a professional software developer, with your own _"AppStore"_, and suite of applications - If you wish ...
+
+[Back to index](README.md)
