@@ -48,7 +48,7 @@ We will create this event with the name of **[sys42.examples.databind-addresses]
 
 ## The code for our application
 
-With these concepts, at least partially covered, let's move on to the code, and show you the entire listing for an Address book web app. Create a new new *"lambda"* page in System42's CMS, and make sure you replace the existing code with the code listed below.
+With these concepts, at least partially covered, let's move on to the code, and show you the entire listing for an Address book web app. Create a new *"lambda"* page in System42's CMS, and make sure you replace the existing code with the code listed below.
 
 ```
 /*
